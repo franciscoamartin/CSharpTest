@@ -1,0 +1,13 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "master",
+            "dialect": "MSSQL",
+            "name": "BludataTest",
+            "password": "root",
+            "port": 1433,
+            "server": "localhost",
+            "username": "root"
+        }
+    ]
+}
