@@ -44,7 +44,7 @@ namespace BludataTest.Controllers
             try
             {
                 _companyService.Create(company);
-                return CreatedAtRoute("GetEmpresa", new {id=company.CompanyId}, company);
+                return Accepted();
 
             }
             catch (System.Exception ex)

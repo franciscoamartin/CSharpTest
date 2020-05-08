@@ -24,12 +24,12 @@ namespace BludataTest.Repositorio
 
         public Company Read(Guid id)
         {
-            return _contexto.Companies.FirstOrDefault(e => e.CompanyId == id);
+            return _contexto.Companies.FirstOrDefault(e => e.Id == id);
         }
 
         public void Delete(Guid id)
         {
-            var entity =_contexto.Companies.First(e => e.CompanyId == id);
+            var entity =_contexto.Companies.First(e => e.Id == id);
             _contexto.Companies.Remove(entity);
             _contexto.SaveChanges();
         }
