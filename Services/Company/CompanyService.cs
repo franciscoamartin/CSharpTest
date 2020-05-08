@@ -45,7 +45,7 @@ namespace BludataTest.Services
         }
         public void Update(Guid id, Company company)
         {
-           if(company==null || company.CompanyID != id) 
+           if(company==null || company.CompanyId != id) 
             {
               throw new Exception();
             }
