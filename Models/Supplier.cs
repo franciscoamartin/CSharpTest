@@ -8,5 +8,7 @@ namespace BludataTest.Models
         public string Nome { get; set; }
         public Company Company { get; set; }
         public string CNPJ { get; set; }
+        public DateTime Cadastro {get; set; }
+        public string Telefone { get; set; }
     }
 }

@@ -33,6 +33,8 @@ namespace BludataTest
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<ICompanyRepository, CompanyRepository>();
             services.AddTransient<ICompanyService, CompanyService>();
+            services.AddTransient<ISupplierRepository, SupplierRepository>();
+            services.AddTransient<ISupplierService, SupplierService>();
             services.AddMvc();
         }
 
