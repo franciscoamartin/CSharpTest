@@ -29,7 +29,7 @@ namespace BludataTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CompanyDbContext>(options =>
+            services.AddDbContext<BludataTestDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<ICompanyRepository, CompanyRepository>();
             services.AddTransient<ICompanyService, CompanyService>();

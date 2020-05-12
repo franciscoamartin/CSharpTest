@@ -7,8 +7,8 @@ namespace BludataTest.Repositorio
 {
     public class SupplierRepository : ISupplierRepository
     {
-        private readonly SupplierDbContext _contexto;
-        public SupplierRepository(SupplierDbContext ctx)
+        private readonly BludataTestDbContext _contexto;
+        public SupplierRepository(BludataTestDbContext ctx)
         {
             _contexto = ctx;
         }

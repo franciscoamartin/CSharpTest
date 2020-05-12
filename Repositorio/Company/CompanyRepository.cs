@@ -7,8 +7,8 @@ namespace BludataTest.Repositorio
 {
     public class CompanyRepository : ICompanyRepository
     {
-        private readonly CompanyDbContext _contexto;
-        public CompanyRepository(CompanyDbContext ctx)
+        private readonly BludataTestDbContext _contexto;
+        public CompanyRepository(BludataTestDbContext ctx)
         {
             _contexto = ctx;
         }

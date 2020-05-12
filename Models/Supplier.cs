@@ -1,14 +1,16 @@
 using System;
+using BludataTest.ValueObject;
+
 
 namespace BludataTest.Models
 {
     public class Supplier
     {
-        public Guid Id { get; set; }
-        public string Nome { get; set; }
-        public Company Company { get; set; }
-        public string CNPJ { get; set; }
-        public DateTime Cadastro {get; set; }
-        public string Telefone { get; set; }
+        public Guid Id { get; protected set; }
+        public string Name { get; set; }
+        public Company Company { get; protected set; }
+        public Document Document { get; protected set; }
+        public DateTime RegisterTime {get; protected set; }
+        public string Telephone { get; set; }
     }
 }

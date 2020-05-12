@@ -56,7 +56,7 @@ namespace BludataTest.Services
             }
 
             _company.UF = company.UF;
-            _company.NomeFantasia = company.NomeFantasia;
+            _company.TradingName = company.TradingName;
 
             _companyRepository.Update(_company);
               
