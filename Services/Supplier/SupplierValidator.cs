@@ -7,9 +7,8 @@ namespace BludataTest.Services
     {
         public bool isValid(Supplier supplier)
         {
-            TimeSpan idade = DateTime.Now - supplier.BirthDate;               
-            if(supplier.Company.UF.ToString() == "PR" && supplier.Company.Document.ToString().Length == 11 && (idade.Days / 365) + 4 >= 18 )
-              return false;
+            //if(supplier.Company.UF == "PR" && supplier.Company.Document.ToString().Length == 11 && !IsLegalAGe(supplier.BirthDate.ToString()))
+              //return false;
             if(supplier.Company == null)
               return false;
             if(supplier.Name == null || supplier.Name.Length < 2)
@@ -60,6 +59,17 @@ namespace BludataTest.Services
                 resto = 11 - resto;
                 digito = digito + resto.ToString();
             return cpf.EndsWith(digito);
+        }
+
+        private bool IsLegalAGe(Supplier supplier)
+        {
+          var days = 365;
+          var leapYear = 4;
+          var LegalAge = 18;
+
+          TimeSpan idade = DateTime.Now - supplier.BirthDate;       
+          return idade.Days / days + leapYear >= LegalAge;    
+
         }
 
         private bool isValidCNPJ(string cnpj)
