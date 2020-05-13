@@ -11,6 +11,7 @@ namespace BludataTest.Models
         public Company Company { get; protected set; }
         public Document Document { get; protected set; }
         public DateTime RegisterTime {get; protected set; }
+        public DateTime BirthDate { get; protected set; }
         public string Telephone { get; set; }
     }
 }
