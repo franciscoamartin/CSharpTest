@@ -1,5 +1,5 @@
 {
-  "FilePath": "c:\\Users\\laris\\Desktop\\BludataTest\\BludataTest.csproj",
+  "FilePath": "c:\\Users\\laris\\Desktop\\BludataTest\\Application\\Application.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "3.0",
@@ -20518,7 +20518,7 @@
     ],
     "CSharpLanguageVersion": 800
   },
-  "RootNamespace": "BludataTest",
+  "RootNamespace": "Application",
   "Documents": [],
   "SerializationFormat": "0.2"
 }

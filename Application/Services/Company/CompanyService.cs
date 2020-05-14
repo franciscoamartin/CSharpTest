@@ -9,14 +9,15 @@ namespace BludataTest.Services
     public class CompanyService : ICompanyService
     {
         private readonly ICompanyRepository _companyRepository;
-
+        private CompanyValidator _companyValidator;
         public CompanyService(ICompanyRepository companyRepo)
         {
             _companyRepository = companyRepo;
+            _companyValidator = new CompanyValidator();
         }
         public void Create(Company company)
         {
-            if(company==null) {
+            if(company==null || !_companyValidator.isValid(company)) {
               throw new Exception();
             }            
             _companyRepository.Create(company);
