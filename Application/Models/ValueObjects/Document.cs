@@ -10,8 +10,8 @@ namespace BludataTest.ValueObject
             Type = type;
         }
 
-        public string Number { get; private set; }
-        public EDocumentType Type { get; private set; }
+        public string Number { get; set; }
+        public EDocumentType Type { get; set; }
 
         public override string ToString()
         {

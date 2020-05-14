@@ -8,7 +8,7 @@ namespace BludataTest.Services
         {
             if(company.TradingName == null || company.TradingName.Length < 2)
               return false;
-            if(company.UF == null || company.UF.Length > 2)
+            if(company.UF == null || company.UF.Length != 2)
               return false;
             if(!isCNPJValid(company.Document.ToString()))
               return false ;

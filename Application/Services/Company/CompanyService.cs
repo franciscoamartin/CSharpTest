@@ -30,7 +30,7 @@ namespace BludataTest.Services
         {
             var company = _companyRepository.Read(id);
             if(company==null) {
-                throw new Exception();
+               throw new Exception();
             }
             return company;
         }

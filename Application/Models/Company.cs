@@ -12,10 +12,10 @@ namespace BludataTest.Models
             Document = document;
         }
 
-        public Guid Id { get; protected set; }
+        public Guid Id { get; set; }
         public string UF { get; set; }
         public string TradingName { get; set; }
-        public Document Document { get; protected set; }
+        public Document Document { get; set; }
 
 
 

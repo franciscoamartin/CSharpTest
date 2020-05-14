@@ -19,10 +19,16 @@ namespace UnitTests.ServicesTests
             _companyService = new CompanyService(_companyRepository);
         }   
 
+        private Company GetCompanyExample()
+        {
+            var company = new Company(uf: "SC", tradingName: "Mercado Chicão", document: new Document("68.356.468/0001-57", EDocumentType.CNPJ));
+            return company;       
+        }
+
         [Fact]
         public void Should_create_company()
         {
-            var company = new Company(uf: "SC", tradingName: "Mercado Chicão", document: new Document("68.356.468/0001-57", EDocumentType.CNPJ));
+            var company = GetCompanyExample();
             _companyService.Create(company);
             _companyRepository.Received(1).Create(Arg.Is<Company>(c => c.UF=="SC" 
                                                                   && c.TradingName=="Mercado Chicão" 
@@ -32,8 +38,27 @@ namespace UnitTests.ServicesTests
         [Fact]
         public void Should_not_create_company()
         {
-            var company = new Company(uf: "SC", tradingName: "Mercado Kennedy", document: new Document("68.356.468/002-57", EDocumentType.CNPJ));
+            var company = GetCompanyExample();
+            company.UF = "L";
             Assert.Throws<Exception>(() => _companyService.Create(company));
-        }        
+        }  
+
+        [Fact]
+        public void Should_get_company_by_id()
+        {
+            var company = GetCompanyExample();
+            var companyExampleId = new Guid();
+            company.Id = companyExampleId;
+            _companyRepository.Read(companyExampleId).Returns(company);
+            var companyReceived = _companyService.Read(companyExampleId);
+            Assert.Equal(company.TradingName, companyReceived.TradingName);        
+        }
+
+        //[Fact]
+        //public void Should_not_get_company_by_id()
+        //{
+          //  var company = GetCompanyExample();
+            //Assert.Throws<Exception>(() => _companyService.Create(company));
+        //}       
     }
 }
