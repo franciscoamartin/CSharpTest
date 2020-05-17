@@ -1,3 +1,4 @@
+using BludataTest.Enums;
 using BludataTest.Models;
 
 namespace BludataTest.Services
@@ -12,7 +13,7 @@ namespace BludataTest.Services
               return false;
             if(company.UF == null || company.UF.Length != 2)
               return false;
-            if(!isCNPJValid(company.Document.ToString()))
+            if(company.Document.Type != EDocumentType.CNPJ || !isCNPJValid(company.Document.ToString()))
               return false ;
             return true;
         }
