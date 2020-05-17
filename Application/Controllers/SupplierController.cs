@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using BludataTest.Models;
-using BludataTest.Repositorio;
 using BludataTest.Services;
 using Microsoft.AspNetCore.Mvc;
 
