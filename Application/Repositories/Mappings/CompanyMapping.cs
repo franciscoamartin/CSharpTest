@@ -4,12 +4,12 @@ using BludataTest.ValueObject;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BludataTest.Repositorio
+namespace BludataTest.Repositories
 {
-    public class SupplierMapping 
-        : IEntityTypeConfiguration<Supplier>
+    public class CompanyMapping 
+        : IEntityTypeConfiguration<Company>
     {
-        public void Configure(EntityTypeBuilder<Supplier> builder)
+        public void Configure(EntityTypeBuilder<Company> builder)
         {
             builder.Property(x => x.Document).HasConversion(y => y.ToString(), v => new Document(v, GetDocumentType(v)));
         }

@@ -1,4 +1,4 @@
-using BludataTest.Repositorio;
+using BludataTest.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace BludataTest.Models
