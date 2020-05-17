@@ -2,7 +2,7 @@ using System;
 using Xunit;
 using NSubstitute;
 using BludataTest.Services;
-using BludataTest.Repositorio;
+using BludataTest.Repositories;
 using BludataTest.Models;
 using BludataTest.ValueObject;
 using BludataTest.Enums;
@@ -25,7 +25,7 @@ namespace UnitTests.ServicesTests
             return company;       
         }
 
-        [Fact]
+        [Fact] 
         public void Should_create_company()
         {
             var company = GetCompanyExample();
@@ -36,10 +36,34 @@ namespace UnitTests.ServicesTests
         }
 
         [Fact]
-        public void Should_not_create_company()
+        public void Should_not_create_company_when_uf_is_wrong()
         {
             var company = GetCompanyExample();
             company.UF = "L";
+            Assert.Throws<Exception>(() => _companyService.Create(company));
+        } 
+
+        [Fact]
+        public void Should_not_create_company_when_tradingName_is_wrong()
+        {
+            var company = GetCompanyExample();
+            company.TradingName = "GL";
+            Assert.Throws<Exception>(() => _companyService.Create(company));
+        }  
+
+        [Fact]
+        public void Should_not_create_company_when_CNPJ_is_wrong()
+        {
+            var company = GetCompanyExample();
+            company.Document = new Document("086.263.710-03", EDocumentType.CNPJ);
+            Assert.Throws<Exception>(() => _companyService.Create(company));
+        }  
+
+        [Fact]
+        public void Should_not_create_company_when_document_is_CPF()
+        {
+            var company = GetCompanyExample();
+            company.Document = new Document("086.263.710-03", EDocumentType.CPF);
             Assert.Throws<Exception>(() => _companyService.Create(company));
         }  
 
@@ -54,11 +78,11 @@ namespace UnitTests.ServicesTests
             Assert.Equal(company.TradingName, companyReceived.TradingName);        
         }
 
-        //[Fact]
-        //public void Should_not_get_company_by_id()
-        //{
-          //  var company = GetCompanyExample();
-            //Assert.Throws<Exception>(() => _companyService.Create(company));
-        //}       
+        [Fact]
+        public void Should_not_get_company_by_id()
+        {
+            var company = GetCompanyExample();
+            Assert.Throws<Exception>(() => _companyService.Read(Guid.Empty));
+        }       
     }
 }
