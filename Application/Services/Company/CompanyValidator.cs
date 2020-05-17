@@ -6,6 +6,8 @@ namespace BludataTest.Services
     {
         public bool isValid(Company company)
         {
+			if(company == null)
+			  return false;			   
             if(company.TradingName == null || company.TradingName.Length < 2)
               return false;
             if(company.UF == null || company.UF.Length != 2)

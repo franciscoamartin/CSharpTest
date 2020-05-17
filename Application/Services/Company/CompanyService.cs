@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using BludataTest.Repositorio;
+using BludataTest.Repositories;
 using BludataTest.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +17,7 @@ namespace BludataTest.Services
         }
         public void Create(Company company)
         {
-            if(company==null || !_companyValidator.isValid(company)) {
+            if(!_companyValidator.isValid(company)) {
               throw new Exception();
             }            
             _companyRepository.Create(company);
@@ -28,25 +28,25 @@ namespace BludataTest.Services
         }
         public Company Read(Guid id)
         {
+            if(id == Guid.Empty)
+                throw new Exception();
             var company = _companyRepository.Read(id);
-            if(company==null) {
+            if(company==null) 
                throw new Exception();
-            }
             return company;
         }
         public void Delete(Guid id)
         {
-            var company = _companyRepository.Read(id);
-
-            if(company==null)
-            {
+            if(id == Guid.Empty)
                 throw new Exception();
-            }
+            var company = _companyRepository.Read(id);
+            if(!_companyValidator.isValid(company))
+                throw new Exception();
             _companyRepository.Delete(id);
         }
         public void Update(Guid id, Company company)
         {
-           if(company==null || company.Id != id) 
+           if(!_companyValidator.isValid(company) || company.Id != id || id == Guid.Empty) 
             {
               throw new Exception();
             }
@@ -60,7 +60,6 @@ namespace BludataTest.Services
             _company.TradingName = company.TradingName;
 
             _companyRepository.Update(_company);
-              
         }
     }
 }
