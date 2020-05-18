@@ -13,7 +13,6 @@ namespace BludataTest.Models
             Document = document;
         }
 
-       
         public string UF { get; set; }
         public string TradingName { get; set; }
         public Document Document { get; set; }
