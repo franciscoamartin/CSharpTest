@@ -1,10 +1,11 @@
 using System;
 using System.Text.RegularExpressions;
 using BludataTest.Models;
+using Validacao;
 
 namespace BludataTest.Services
 {
-    public class SupplierValidator
+    public class SupplierValidator : CNPJValidator
     {
         public bool isValid(Supplier supplier)
         {
