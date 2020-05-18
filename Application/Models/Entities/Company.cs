@@ -6,9 +6,9 @@ namespace BludataTest.Models
 {
     public class Company : BaseEntity
     {
-        public Company(string uf, string tradingName, Document document)
+        public Company(string uF, string tradingName, Document document)
         {
-            UF = uf;
+            UF = uF;
             TradingName = tradingName;
             Document = document;
         }

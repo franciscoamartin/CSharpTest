@@ -20,14 +20,14 @@ namespace UnitTests.ServicesTests
         }   
         private Company GetCompanyExample()
         {
-            var company = new Company(uf: "SC", tradingName: "Mercado Chicão", document: new Document("68.356.468/0001-57", EDocumentType.CNPJ));
+            var company = new Company(uF: "SC", tradingName: "Mercado Chicão", document: new Document("68.356.468/0001-57", EDocumentType.CNPJ));
             return company;       
         }
 
         private Supplier GetSupplierExample()
         {
             var company = GetCompanyExample();
-            var supplier =  new Supplier(name: "Ronaldo", company: company,  document: new Document("086.263.709-03",  EDocumentType.CPF), registerTime: DateTime.Now, birthDate: new DateTime(2001,12,7), telephone: "4733784158");
+            var supplier =  new Supplier(name: "Ronaldo", company: company,  document: new Document("086.263.709-03",  EDocumentType.CPF), registerTime: DateTime.Now, birthDate: new DateTime(2001,12,7), telephones: new string[] {"4733784158"});
             return supplier;       
         }
 
@@ -43,12 +43,28 @@ namespace UnitTests.ServicesTests
                                                                   && s.BirthDate== new DateTime(2001,12,7)));
         }
 
-         public void Should_not_create_supplier()
+        [Fact]
+        public void Should_not_create_supplier()
         {
             var supplier = GetSupplierExample();
             supplier.Name = "L";
             Assert.Throws<Exception>(() => _supplierService.Create(supplier));
         }  
 
+        [Fact]
+        public void Should_not_create_supplier_when_birthDate_is_wrong()
+        {
+            var supplier = GetSupplierExample();
+            supplier.BirthDate = DateTime.Now.AddDays(1);
+            Assert.Throws<Exception>(() => _supplierService.Create(supplier));
+        }
+
+        [Fact]
+        public void Should_not_create_supplier_when_birthDate_is_before_1900()
+        {
+            var supplier = GetSupplierExample();
+            supplier.BirthDate = new DateTime(1899,12,31);
+            Assert.Throws<Exception>(() => _supplierService.Create(supplier));
+        }
     }
 }

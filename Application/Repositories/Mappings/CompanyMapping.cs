@@ -11,17 +11,8 @@ namespace BludataTest.Repositories
     {
         public void Configure(EntityTypeBuilder<Company> builder)
         {
-            builder.Property(x => x.Document).HasConversion(y => y.ToString(), v => new Document(v, GetDocumentType(v)));
-        }
-
-        private EDocumentType GetDocumentType(string v)
-        {
-            if (v.Length == 11)
-            {
-                return EDocumentType.CPF;
-            }
-            return EDocumentType.CNPJ;
+            builder.Property(x => x.Document).HasConversion(y => y.ToString(), v => new Document(v, EDocumentType.CNPJ));
+            builder.Property(x => x.UF).IsRequired().HasMaxLength(2);
         }
     }
-    
 }

@@ -12,14 +12,16 @@ namespace BludataTest.Repositories
         public void Configure(EntityTypeBuilder<Supplier> builder)
         {
             builder.Property(x => x.Document).HasConversion(y => y.ToString(), v => new Document(v, GetDocumentType(v)));
+            builder.Property(x => x.BirthDate).IsRequired();
+            builder.Property(x => x.RegisterTime).IsRequired();
+            builder.Property(x => x.Name).IsRequired().HasMaxLength(255);
+            //builder.HasMany(x => x.Telephone);
         }
 
         private EDocumentType GetDocumentType(string v)
         {
             if (v.Length == 11)
-            {
                 return EDocumentType.CPF;
-            }
             return EDocumentType.CNPJ;
         }
     }

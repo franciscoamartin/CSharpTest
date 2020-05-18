@@ -56,7 +56,7 @@ namespace BludataTest.Services
                 throw new Exception();
             }
 
-            _supplier.Telephone = supplier.Telephone;
+            _supplier.Telephones = supplier.Telephones;
             _supplier.Name = supplier.Name;
 
             _supplierRepository.Update(_supplier);

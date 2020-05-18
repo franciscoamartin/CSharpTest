@@ -9,18 +9,18 @@ namespace BludataTest.Services
         {
 			if(company == null)
 			  return false;			   
-            if(company.TradingName == null || company.TradingName.Length < 2)
+            if(string.IsNullOrWhiteSpace(company.TradingName) || company.TradingName.Length < 3)
               return false;
-            if(company.UF == null || company.UF.Length != 2)
+            if(string.IsNullOrWhiteSpace(company.UF) || company.UF.Length != 2)
               return false;
             if(company.Document.Type != EDocumentType.CNPJ || !isCNPJValid(company.Document.ToString()))
-              return false ;
+              return false;
             return true;
         }
 
         private bool isCNPJValid(string cnpj)
         {
-            //ValidadorCNPJ - Macoratti
+		    //ValidadorCNPJ - Macoratti
 			int[] multiplicador1 = new int[12] {5,4,3,2,9,8,7,6,5,4,3,2};
 			int[] multiplicador2 = new int[13] {6,5,4,3,2,9,8,7,6,5,4,3,2};
 			int soma;

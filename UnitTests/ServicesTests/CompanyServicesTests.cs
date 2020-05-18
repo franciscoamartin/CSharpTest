@@ -21,7 +21,7 @@ namespace UnitTests.ServicesTests
 
         private Company GetCompanyExample()
         {
-            var company = new Company(uf: "SC", tradingName: "Mercado Chicão", document: new Document("68.356.468/0001-57", EDocumentType.CNPJ));
+            var company = new Company(uF: "SC", tradingName: "Mercado Chicão", document: new Document("68.356.468/0001-57", EDocumentType.CNPJ));
             return company;       
         }
 
@@ -47,7 +47,7 @@ namespace UnitTests.ServicesTests
         public void Should_not_create_company_when_tradingName_is_wrong()
         {
             var company = GetCompanyExample();
-            company.TradingName = "GL";
+            company.TradingName = "BL";
             Assert.Throws<Exception>(() => _companyService.Create(company));
         }  
 
