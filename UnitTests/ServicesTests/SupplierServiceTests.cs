@@ -27,7 +27,7 @@ namespace UnitTests.ServicesTests
         private Supplier GetSupplierExample()
         {
             var company = GetCompanyExample();
-            var supplier =  new Supplier(name: "Ronaldo", company: company,  document: new Document("086.263.709-03",  EDocumentType.CPF), registerTime: DateTime.Now, birthDate: new DateTime(2001,12,7), telephones: new string[] {"4733784158"});
+            var supplier =  new Supplier(name: "Ronaldo", company: company, companyId: company.Id, document: new Document("086.263.709-03",  EDocumentType.CPF), registerTime: DateTime.Now, birthDate: new DateTime(2001,12,7), telephones: new string[] {"4733784158"});
             return supplier;       
         }
 
