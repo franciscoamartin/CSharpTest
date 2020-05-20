@@ -1,6 +1,6 @@
 using System;
 
-namespace BludataTest.Repositories
+namespace BludataTest.Models
 {
     public class BaseEntity
     {

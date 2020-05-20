@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BludataTest.Models;
 
 namespace BludataTest.Repositories
 {
