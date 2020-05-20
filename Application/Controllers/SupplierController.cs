@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using BludataTest.Enums;
 using BludataTest.Models;
 using BludataTest.Services;
+using BludataTest.ValueObject;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BludataTest.Controllers
@@ -30,6 +32,62 @@ namespace BludataTest.Controllers
                 var supplier = _supplierService.Read(id);
                 return new ObjectResult(supplier); 
 
+            }
+            catch (System.Exception)
+            {
+                return NotFound();
+            }
+        }
+        
+        [HttpGet("{name}", Name="FindNameSupplier")]
+        public IActionResult FindByName(string name)
+        {
+            try
+            {
+                var supplier = _supplierService.FindByName(name);
+                return new ObjectResult(supplier); 
+            }
+            catch (System.Exception)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet("{CPF}", Name="FindCPFSupplier")]
+        public IActionResult FindByCPF(string cpf)
+        {
+            try
+            {
+                var supplier = _supplierService.FindByDocument(new Document(cpf, EDocumentType.CPF));
+                return new ObjectResult(supplier); 
+            }
+            catch (System.Exception)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet("{CNPJ}", Name="FindCNPJSupplier")]
+        public IActionResult FindByCNPJ(string cnpj)
+        {
+            try
+            {
+                var supplier = _supplierService.FindByDocument(new Document(cnpj, EDocumentType.CNPJ));
+                return new ObjectResult(supplier); 
+            }
+            catch (System.Exception)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet("{registerTime}", Name="FindRegisterTimeSupplier")]
+        public IActionResult FindByRegsiterTime(DateTime registerTime)
+        {
+            try
+            {
+                var supplier = _supplierService.FindByRegisterTime(registerTime);
+                return new ObjectResult(supplier); 
             }
             catch (System.Exception)
             {
