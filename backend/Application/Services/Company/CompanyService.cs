@@ -19,9 +19,7 @@ namespace BludataTest.Services
         public void Create(Company company)
         {
             if (!_companyValidator.isValid(company))
-            {
-                throw new Exception();
-            }
+                throw new Exception("A empresa precisa conter dados válidos");
             _companyRepository.Create(company);
         }
         public IEnumerable<CompanyResponseModel> GetAll()
