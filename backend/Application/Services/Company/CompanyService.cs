@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using BludataTest.Repositories;
 using BludataTest.Models;
+using System.Linq;
+using BludataTest.ResponseModels;
 
 namespace BludataTest.Services
 {
@@ -16,39 +18,47 @@ namespace BludataTest.Services
         }
         public void Create(Company company)
         {
-            if(!_companyValidator.isValid(company)) {
-              throw new Exception();
-            }            
+            if (!_companyValidator.isValid(company))
+            {
+                throw new Exception();
+            }
             _companyRepository.Create(company);
         }
-         public IEnumerable<Company> GetAll()
+        public IEnumerable<CompanyResponseModel> GetAll()
         {
-           return _companyRepository.GetAll();
+            var companies = _companyRepository.GetAll();
+            return companies.Select(company => new CompanyResponseModel(
+                uF: company.UF,
+                tradingName: company.TradingName,
+                cnpj: company.Document.ToString()));
         }
-        public Company Read(Guid id)
+        public CompanyResponseModel Read(Guid id)
         {
-            if(id == Guid.Empty)
-               throw new Exception();
+            if (id == Guid.Empty)
+                throw new Exception();
             var company = _companyRepository.Read(id);
-            if(company==null) 
-               throw new Exception("Empresa não encontrada.");
-            return company;
+            if (company == null)
+                throw new Exception("Empresa não encontrada.");
+            return new CompanyResponseModel(
+                uF: company.UF,
+                tradingName: company.TradingName,
+                cnpj: company.Document.ToString());
         }
         public void Delete(Guid id)
         {
-            if(id == Guid.Empty)
+            if (id == Guid.Empty)
                 throw new Exception();
             var company = _companyRepository.Read(id);
-            if(company == null)
+            if (company == null)
                 throw new Exception("Empresa não encontrada.");
             _companyRepository.Delete(id);
         }
         public void Update(Guid id, Company company)
         {
-           if(id == Guid.Empty || company.Id != id || !_companyValidator.isValid(company)) 
-              throw new Exception();
+            if (id == Guid.Empty || company.Id != id || !_companyValidator.isValid(company))
+                throw new Exception();
             var _company = _companyRepository.Read(id);
-            if(_company==null) 
+            if (_company == null)
                 throw new Exception("Empresa não encontrada.");
 
             _company.UF = company.UF;

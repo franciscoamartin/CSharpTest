@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BludataTest.Models;
+using BludataTest.ResponseModels;
 using BludataTest.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,22 +14,22 @@ namespace BludataTest.Controllers
 
         public CompanyController(ICompanyService companyService)
         {
-            _companyService= companyService;
+            _companyService = companyService;
         }
 
         [HttpGet]
-        public IEnumerable<Company> GetAll()
+        public IEnumerable<CompanyResponseModel> GetAll()
         {
             return _companyService.GetAll();
         }
 
-        [HttpGet("{id}", Name="GetCompany")]
+        [HttpGet("{id}", Name = "GetCompany")]
         public IActionResult GetById(Guid id)
         {
             try
             {
                 var company = _companyService.Read(id);
-                return new ObjectResult(company); 
+                return new ObjectResult(company);
 
             }
             catch (System.Exception)
@@ -58,7 +59,7 @@ namespace BludataTest.Controllers
             try
             {
                 _companyService.Update(id, company);
-                return new NoContentResult(); 
+                return new NoContentResult();
             }
             catch (System.Exception)
             {
@@ -72,12 +73,12 @@ namespace BludataTest.Controllers
             try
             {
                 _companyService.Delete(id);
-                return new NoContentResult(); 
+                return new NoContentResult();
             }
             catch (System.Exception)
             {
                 return BadRequest();
-            }            
+            }
         }
     }
 }
