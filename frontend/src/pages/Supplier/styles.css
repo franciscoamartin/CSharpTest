@@ -1,0 +1,42 @@
+.supplier-container {
+  width: 100%;
+  max-width: 1120px;
+  height: 100vh;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.supplier-container .content {
+  width: 100%;
+  padding: 110px;
+  background: #f0f5f1;
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+  border-radius: 7px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.supplier-container .content section {
+  width: 100%;
+  max-width: 380px;
+}
+.supplier-container .content section h1 {
+  margin: -20px 0 10px;
+  font-size: 32px;
+}
+.supplier-container .content form {
+  width: 100%;
+  max-width: 450px;
+}
+.supplier-container .content form input {
+  margin-top: 8px;
+}
+.supplier-container .content form .input-group {
+  display: flex;
+}
+.supplier-container .content form .input-group input + input {
+  margin-left: 8px;
+}
