@@ -99,12 +99,6 @@ export default function Company() {
               Cadastrar
             </button>
           </form>
-          <section>
-            <CompaniesTable
-              companies={companies}
-              dataBaseMethods={dataBaseMethods}
-            ></CompaniesTable>
-          </section>
         </section>
       </div>
     </div>
