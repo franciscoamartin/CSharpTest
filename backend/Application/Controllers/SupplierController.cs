@@ -24,13 +24,13 @@ namespace BludataTest.Controllers
             return _supplierService.GetAll();
         }
 
-        [HttpGet("{id}", Name="GetSupplier")]
+        [HttpGet("{id}", Name = "GetSupplier")]
         public IActionResult GetById(Guid id)
         {
             try
             {
                 var supplier = _supplierService.Read(id);
-                return new ObjectResult(supplier); 
+                return new ObjectResult(supplier);
 
             }
             catch (System.Exception)
@@ -38,14 +38,15 @@ namespace BludataTest.Controllers
                 return NotFound();
             }
         }
-        
-        [HttpGet("{name}", Name="FindNameSupplier")]
+
+        [HttpGet]
+        [Route("name/{name}")]
         public IActionResult FindByName(string name)
         {
             try
             {
                 var supplier = _supplierService.FindByName(name);
-                return new ObjectResult(supplier); 
+                return new ObjectResult(supplier);
             }
             catch (System.Exception)
             {
@@ -53,13 +54,14 @@ namespace BludataTest.Controllers
             }
         }
 
-        [HttpGet("{CPF}", Name="FindCPFSupplier")]
+        [HttpGet]
+        [Route("cpf/{CPF}")]
         public IActionResult FindByCPF(string cpf)
         {
             try
             {
                 var supplier = _supplierService.FindByDocument(new Document(cpf, EDocumentType.CPF));
-                return new ObjectResult(supplier); 
+                return new ObjectResult(supplier);
             }
             catch (System.Exception)
             {
@@ -67,13 +69,14 @@ namespace BludataTest.Controllers
             }
         }
 
-        [HttpGet("{CNPJ}", Name="FindCNPJSupplier")]
+        [HttpGet]
+        [Route("cnpj/{CNPJ}")]
         public IActionResult FindByCNPJ(string cnpj)
         {
             try
             {
                 var supplier = _supplierService.FindByDocument(new Document(cnpj, EDocumentType.CNPJ));
-                return new ObjectResult(supplier); 
+                return new ObjectResult(supplier);
             }
             catch (System.Exception)
             {
@@ -81,27 +84,29 @@ namespace BludataTest.Controllers
             }
         }
 
-        [HttpGet("{registerTime}", Name="FindRegisterTimeSupplier")]
+        [HttpGet]
+        [Route("registerTime/{registerTime}")]
         public IActionResult FindByRegisterTime(DateTime registerTime)
         {
             try
             {
                 var supplier = _supplierService.FindByRegisterTime(registerTime);
-                return new ObjectResult(supplier); 
+                return new ObjectResult(supplier);
             }
             catch (System.Exception)
             {
                 return NotFound();
             }
-        } 
-        
-        [HttpGet("{companyID}", Name="FindCompany")]
+        }
+
+        [HttpGet]
+        [Route("company/{companyID}")]
         public IActionResult FindSuppliersByCompany(Guid id)
         {
             try
             {
                 var suppliers = _supplierService.FindSuppliersByCompany(id);
-                return new ObjectResult(suppliers); 
+                return new ObjectResult(suppliers);
             }
             catch (System.Exception)
             {
@@ -130,7 +135,7 @@ namespace BludataTest.Controllers
             try
             {
                 _supplierService.Update(id, supplier);
-                return new NoContentResult(); 
+                return new NoContentResult();
             }
             catch (System.Exception)
             {
@@ -144,12 +149,12 @@ namespace BludataTest.Controllers
             try
             {
                 _supplierService.Delete(id);
-                return new NoContentResult(); 
+                return new NoContentResult();
             }
             catch (System.Exception)
             {
                 return BadRequest();
-            }            
+            }
         }
     }
 }
