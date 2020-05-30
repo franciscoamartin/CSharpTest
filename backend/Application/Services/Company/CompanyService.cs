@@ -26,6 +26,7 @@ namespace BludataTest.Services
         {
             var companies = _companyRepository.GetAll();
             return companies.Select(company => new CompanyResponseModel(
+                companyId: company.Id,
                 uF: company.UF,
                 tradingName: company.TradingName,
                 cnpj: company.Document.ToString()));
@@ -38,6 +39,7 @@ namespace BludataTest.Services
             if (company == null)
                 throw new Exception("Empresa não encontrada.");
             return new CompanyResponseModel(
+                companyId: company.Id,
                 uF: company.UF,
                 tradingName: company.TradingName,
                 cnpj: company.Document.ToString());
