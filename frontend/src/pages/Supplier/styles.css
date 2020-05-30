@@ -38,7 +38,7 @@
   width: 50%;
   height: 60px;
   background: #e02041;
-  border: 4px solid;
+  border: solid;
   border-radius: 10px;
   color: #fff;
   font-weight: 700;
@@ -68,6 +68,7 @@
 }
 .person-group {
   display: flex;
+  align-items: vertical;
   font-size: 18px;
 }
 .supplier-container .content form .input-group input + input {
