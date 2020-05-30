@@ -22,6 +22,7 @@ namespace BludataTest.Services
         public void Create(Supplier supplier)
         {
             _supplierValidator.Validate(supplier);
+            supplier.RegisterTime = DateTime.Now;
             _supplierRepository.Create(supplier);
         }
         public IEnumerable<Supplier> GetAll()
