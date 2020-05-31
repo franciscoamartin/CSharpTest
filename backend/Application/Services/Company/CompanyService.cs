@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using BludataTest.Repositories;
 using BludataTest.Models;
-using System.Linq;
-using BludataTest.ResponseModels;
 
 namespace BludataTest.Services
 {
@@ -22,27 +20,19 @@ namespace BludataTest.Services
                 throw new Exception("A empresa precisa conter dados válidos");
             _companyRepository.Create(company);
         }
-        public IEnumerable<CompanyResponseModel> GetAll()
+        public IEnumerable<Company> GetAll()
         {
-            var companies = _companyRepository.GetAll();
-            return companies.Select(company => new CompanyResponseModel(
-                companyId: company.Id,
-                uF: company.UF,
-                tradingName: company.TradingName,
-                cnpj: company.Document.ToString()));
+            return _companyRepository.GetAll();
+
         }
-        public CompanyResponseModel Read(Guid id)
+        public Company Read(Guid id)
         {
             if (id == Guid.Empty)
                 throw new Exception();
             var company = _companyRepository.Read(id);
             if (company == null)
                 throw new Exception("Empresa não encontrada.");
-            return new CompanyResponseModel(
-                companyId: company.Id,
-                uF: company.UF,
-                tradingName: company.TradingName,
-                cnpj: company.Document.ToString());
+            return company;
         }
         public void Delete(Guid id)
         {

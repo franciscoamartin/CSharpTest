@@ -1,19 +1,20 @@
 using System;
-using BludataTest.ValueObject;
 
 namespace BludataTest.Models
 {
     public class Company : BaseEntity
     {
-        public Company(string uF, string tradingName, Document document)
+        public Company(string uF, string tradingName, string cNPJ)
         {
             UF = uF;
             TradingName = tradingName;
-            Document = document;
+            CNPJ = cNPJ;
         }
 
+        public Company()
+        { }
         public string UF { get; set; }
         public string TradingName { get; set; }
-        public Document Document { get; set; }
+        public string CNPJ { get; set; }
     }
 }

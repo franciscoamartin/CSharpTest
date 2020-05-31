@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using BludataTest.Models;
-using BludataTest.ResponseModels;
 using BludataTest.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +17,7 @@ namespace BludataTest.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<CompanyResponseModel> GetAll()
+        public IEnumerable<Company> GetAll()
         {
             return _companyService.GetAll();
         }
