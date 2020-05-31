@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
-import Swal from 'sweetalert';
+import swal from 'sweetalert';
 import './styles.css';
+import * as companyService from '../../services/companyServices';
 
 export default function CompaniesTable(props) {
   const [columns, setColumns] = React.useState([
@@ -16,9 +17,23 @@ export default function CompaniesTable(props) {
     { title: 'CNPJ', field: 'cnpj' },
   ]);
 
-  function handleOnRowAdd() {}
   function handleOnRowUpdate() {}
-  function handleOnRowDelete() {}
+  async function handleDelete(event, rowData) {
+    const accepted = await swal(
+      'Tem que certeza deseja deletar essa empresa?',
+      '',
+      'info'
+    );
+    if (accepted) {
+      try {
+        await companyService.deleteCompany(rowData.id);
+        const filteredCompanies = props.companies.filter(
+          (c) => c.id != rowData.id
+        );
+        props.setCompanies(filteredCompanies);
+      } catch (error) {}
+    }
+  }
 
   return (
     <section>
@@ -26,16 +41,31 @@ export default function CompaniesTable(props) {
         title="Selecione uma empresa para ver seus fornecedores"
         columns={columns}
         data={props.companies}
-        actions={[
-          {
-            icon: 'check_circle_outline',
-            tooltip: 'Selecionar empresa para ver seus fornecedores',
-            onClick: (event, rowData) => {
-              props.setCompanySelected(rowData);
-              Swal.close();
-            },
-          },
-        ]}
+        actions={
+          props.setCompanySelected
+            ? [
+                {
+                  icon: 'check_circle_outline',
+                  tooltip: 'Selecionar empresa para ver seus fornecedores',
+                  onClick: (event, rowData) => {
+                    props.setCompanySelected(rowData);
+                    swal.close();
+                  },
+                },
+              ]
+            : [
+                {
+                  icon: 'edit',
+                  tooltip: 'Editar',
+                  onClick: handleOnRowUpdate,
+                },
+                {
+                  icon: 'delete',
+                  tooltip: 'Deletar',
+                  onClick: handleDelete,
+                },
+              ]
+        }
       />
     </section>
   );
