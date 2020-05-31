@@ -16,7 +16,7 @@
   border-radius: 7px;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 }
 .company-container .content section {
@@ -24,16 +24,19 @@
   max-width: 500px;
 }
 .company-container .content section h1 {
-  margin: -20px 0 10px;
+  text-align: center;
   font-size: 32px;
 }
 .company-container .content form {
   width: 100%;
-  max-width: 450px;
   margin-bottom: 10px;
+}
+.input-uf {
+  width: 25%;
 }
 .company-container .content form input {
   margin-top: 8px;
+  text-align: center;
 }
 .company-container .content form .input-group {
   display: flex;
