@@ -1,5 +1,4 @@
 export default function Validate(data) {
-  debugger;
   if (data.document.type == 1) validateCNPJ(data.document.number);
   else {
     validateBirthDate(data.birthDate);
@@ -7,8 +6,7 @@ export default function Validate(data) {
   }
 
   validateName(data.name);
-  validateTelephones(data.telephones);
-  debugger;
+  validateTelephones(data.telephone);
 }
 
 function validateCNPJ(cnpj) {
@@ -18,8 +16,7 @@ function validateCNPJ(cnpj) {
 }
 
 function validateCPF(cpf) {
-  cpf = cpf.replace('.', '').replace('-', '');
-
+  cpf = cpf.replace('.', '').replace('.', '').replace('-', '');
   if (cpf.length != 11) throw new Error('CPF é inválido.');
 }
 
@@ -28,11 +25,11 @@ function validateName(name) {
 }
 
 function validateBirthDate(birthDate) {
-  birthDate = birthDate.split('/');
-  birthDate.forEach((e) => {
-    const parsedNumber = Number(e);
-    if (parsedNumber == NaN) throw new Error('Data inválida');
-  });
+  //birthDate = birthDate.split('/');
+  //birthDate.forEach((e) => {
+    //const parsedNumber = Number(e);
+    //if (parsedNumber == NaN) throw new Error('Data inválida');
+  //});
 }
 
 function validateTelephones(telephones) {
