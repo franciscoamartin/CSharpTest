@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using BludataTest.Repositories;
 using BludataTest.Models;
 using BludataTest.ValueObject;
+using System.Linq;
+using BludataTest.ResponseModels;
 
 namespace BludataTest.Services
 {
@@ -27,7 +29,10 @@ namespace BludataTest.Services
         }
         public IEnumerable<Supplier> GetAll()
         {
-            return _supplierRepository.GetAll();
+
+            var suppliersFound = _supplierRepository.GetAll();
+            var suppliersToReturn = suppliersFound.Select((s) => new SupplierResponseModel(name: s.Name, company: s.Company, companyId: s.CompanyId, document: s.Document, rg: s.RG, registerTime: s.RegisterTime, birthDate: s.BirthDate, telephone: s.Telephone));
+            return suppliersToReturn;
         }
         public Supplier Read(Guid id)
         {
@@ -79,14 +84,14 @@ namespace BludataTest.Services
             if (supplier.Id != id || id == Guid.Empty)
                 throw new Exception();
             _supplierValidator.Validate(supplier);
-            var _supplier = _supplierRepository.Read(id);
-            if (_supplier == null)
+            var supplierFound = _supplierRepository.Read(id);
+            if (supplierFound == null)
                 throw new Exception("Fornecedor não encontrado.");
 
-            _supplier.Telephone = supplier.Telephone;
-            _supplier.Name = supplier.Name;
+            supplierFound.Telephone = supplier.Telephone;
+            supplierFound.Name = supplier.Name;
 
-            _supplierRepository.Update(_supplier);
+            _supplierRepository.Update(supplierFound);
 
         }
 

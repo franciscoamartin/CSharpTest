@@ -6,8 +6,8 @@ using BludataTest.ValueObject;
 namespace BludataTest.Models
 {
     public class Supplier : BaseEntity
-        {
-        public Supplier(string name, Company company, Guid companyId, Document document, string rg, DateTime registerTime, DateTime birthDate, List<Telephones> telephone)
+    {
+        public Supplier(string name, Company company, Guid companyId, Document document, string rg, DateTime registerTime, DateTime? birthDate, List<Telephones> telephone)
         {
             Name = name;
             Company = company;
@@ -26,9 +26,9 @@ namespace BludataTest.Models
         public string Name { get; set; }
         public Company Company { get; set; }
         public Guid CompanyId { get; set; }
-        public Document Document { get; set; }
+        public virtual Document Document { get; set; }
         public string RG { get; set; }
-        public DateTime RegisterTime {get; set; }
+        public DateTime RegisterTime { get; set; }
         public DateTime? BirthDate { get; set; }
         public List<Telephones> Telephone { get; set; }
     }
