@@ -20,6 +20,10 @@ export default function Company() {
     getAll();
   }, []);
 
+  useEffect(() => {
+    getAll();
+  }, []);
+
   async function handleRegister(e) {
     setIsLoading(true);
     e.preventDefault();
@@ -104,10 +108,10 @@ export default function Company() {
                 width="20px"
               />
             ) : (
-              <button className="button" type="submit">
-                Cadastrar
-              </button>
-            )}
+                <button className="button" type="submit">
+                  Cadastrar
+                </button>
+              )}
           </form>
         </section>
         <section>

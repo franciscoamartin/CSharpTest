@@ -37,7 +37,6 @@ export default function Supplier() {
 
   async function handleRegister(e) {
     setIsLoading(true);
-    debugger;
     e.preventDefault();
 
     const dataToSend = {
@@ -71,7 +70,7 @@ export default function Supplier() {
   const dataBaseMethods = {
     getAll: getAll,
     getById: getById,
-    
+
   };
 
   async function getAll() {
@@ -87,7 +86,7 @@ export default function Supplier() {
     }
   }
 
-  
+
   function showModal() {
     let wrapper = document.createElement('div');
     ReactDOM.render(
@@ -221,10 +220,10 @@ export default function Supplier() {
                 width="20px"
               />
             ) : (
-              <button className="button" type="submit">
-                Cadastrar
-              </button>
-            )}
+                <button className="button" type="submit">
+                  Cadastrar
+                </button>
+              )}
           </form>
         </section>
         <section>
