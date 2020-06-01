@@ -8,10 +8,12 @@ import CompaniesTable from '../../components/CompaniesTable';
 import EntityType from '../../components/EntityType/index';
 import SearchSupplier from '../../components/SearchSupplier/index';
 import validateSupplier from '../../services/validators/supplierValidator';
+import ReactLoading from 'react-loading';
 
 import './styles.css';
 
 export default function Supplier() {
+  const [isLoading, setIsLoading] = useState(false);
   const [companySelected, setCompanySelected] = useState('');
   const [companies, setCompanies] = useState([]);
   const [name, setName] = useState('');
@@ -34,35 +36,58 @@ export default function Supplier() {
   }
 
   async function handleRegister(e) {
+    setIsLoading(true);
+    debugger;
     e.preventDefault();
 
-    const data = {
-      companyId: companySelected.companyId,
+    const dataToSend = {
+      companyId: companySelected.id,
       name,
       document: { number: documentNumber, type: documentType },
       rg,
-      birthDate,
-      telephones,
+      birthDate: birthDate && new Date(birthDate),
+      telephone: telephones,
     };
 
     try {
-      validateSupplier(data);
+      validateSupplier(dataToSend);
     } catch (error) {
+      setIsLoading(false);
       return swal(error.message);
     }
 
     try {
-      debugger;
-      const response = await supplierService.createSupplier(data);
-      debugger;
-      console.log(response);
-
-      swal(`Fornecedor cadastrado com sucesso!`);
+      const response = await supplierService.createSupplier(dataToSend);
+      swal(`Fornecedor cadastrado com sucesso!`, '', 'success');
+      setIsLoading(false);
+      getAll();
+      clearInputData();
     } catch (error) {
-      swal(`Erro ao cadastrar, tente novamente.`);
+      setIsLoading(false);
+      swal(`Erro ao cadastrar, tente novamente.`, '', 'error');
     }
   }
 
+  const dataBaseMethods = {
+    getAll: getAll,
+    getById: getById,
+    
+  };
+
+  async function getAll() {
+    const suppliersFound = await supplierService.getAllSuppliers();
+    setCompanies(suppliersFound);
+  }
+
+  async function getById(id) {
+    try {
+      const suppliers = await supplierService.getSupplier(id);
+    } catch (error) {
+      swal(`trocar mensagem aqui!:)`);
+    }
+  }
+
+  
   function showModal() {
     let wrapper = document.createElement('div');
     ReactDOM.render(
@@ -87,6 +112,16 @@ export default function Supplier() {
       setTelephones(Object.assign([], telephones));
       setTelephone('');
     }
+  }
+
+  function clearInputData() {
+    setName('');
+    setDocumentNumber('');
+    setRG('');
+    setBirthDate('');
+    setTelephone('');
+    setTelephones([]);
+    setCompanySelected({});
   }
 
   return (
@@ -133,19 +168,22 @@ export default function Supplier() {
                 <option value={2}>CPF</option>
               </select>
 
-              <EntityType
-                className="person-group"
-                documentType={documentType}
-                documentNumber={documentNumber}
-                setDocumentNumber={setDocumentNumber}
-                rg={rg}
-                setRG={setRG}
-                birthDate={birthDate}
-                setBirthDate={setBirthDate}
-              ></EntityType>
+              <form>
+                <EntityType
+                  className="person-group"
+                  documentType={documentType}
+                  documentNumber={documentNumber}
+                  setDocumentNumber={setDocumentNumber}
+                  rg={rg}
+                  setRG={setRG}
+                  birthDate={birthDate}
+                  setBirthDate={setBirthDate}
+                ></EntityType>
+              </form>
             </div>
             <div className="input-group">
               <input
+                type="number"
                 placeholder="Telefone"
                 value={telephone}
                 onChange={(e) => setTelephone(e.target.value)}
@@ -175,9 +213,18 @@ export default function Supplier() {
                 </div>
               ))}
             </div>
-            <button className="button" type="submit">
-              Cadastrar
-            </button>
+            {isLoading ? (
+              <ReactLoading
+                type="spinningBubbles"
+                color="var(--color-red)"
+                height="20px"
+                width="20px"
+              />
+            ) : (
+              <button className="button" type="submit">
+                Cadastrar
+              </button>
+            )}
           </form>
         </section>
         <section>

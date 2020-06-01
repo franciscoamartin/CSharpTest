@@ -1,22 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as companyService from '../../services/companyServices';
 import CompaniesTable from '../../components/CompaniesTable';
 import ReactDOM from 'react-dom';
-
+import InputMask from 'react-input-mask';
+import ReactLoading from 'react-loading';
 import swal from 'sweetalert';
 
-import api from '../../services/api';
 import './styles.css';
 
 export default function Company() {
+  const [isLoading, setIsLoading] = useState(false);
   const [companies, setCompanies] = useState([]);
   const [tradingName, setTradingName] = useState('');
   const [uf, setUF] = useState('');
   const [cnpj, setCNPJ] = useState('');
-  const history = useHistory();
+
+  useEffect(() => {
+    getAll();
+  }, []);
 
   async function handleRegister(e) {
+    setIsLoading(true);
     e.preventDefault();
 
     const data = {
@@ -26,11 +31,14 @@ export default function Company() {
     };
 
     try {
-      const response = await api.post('companies', data);
-
-      swal(`Empresa cadastrada com sucesso!`);
+      const response = await companyService.createCompany(data);
+      swal(`Empresa cadastrada com sucesso!`, '', 'success');
+      setIsLoading(false);
+      getAll();
+      clearInputData();
     } catch (error) {
-      swal(`Erro ao cadastrar, tente novamente.`);
+      setIsLoading(false);
+      swal(`Erro ao cadastrar, tente novamente.`, '', 'error');
     }
   }
 
@@ -40,13 +48,10 @@ export default function Company() {
   };
 
   async function getAll() {
-    debugger;
     const companiesFound = await companyService.getAllCompanies();
-    debugger;
     setCompanies(companiesFound);
-
-    debugger;
   }
+
   async function getById() {
     try {
       const companies = await companyService.getCompany();
@@ -55,25 +60,17 @@ export default function Company() {
     }
   }
 
-  function showModal() {
-    let wrapper = document.createElement('div');
-    ReactDOM.render(
-      <CompaniesTable companies={companies}></CompaniesTable>,
-      wrapper
-    );
-    let el = wrapper.firstChild;
-
-    swal({
-      title: 'Selecione uma empresa para ver seus fornecedores',
-      content: el,
-    });
+  function clearInputData() {
+    setTradingName('');
+    setCNPJ('');
+    setUF('');
   }
 
   return (
     <div className="company-container">
       <div className="content">
         <section>
-          <h1 onClick={showModal}>Cadastro de empresas</h1>
+          <h1>Cadastro de empresas</h1>
 
           <form onSubmit={handleRegister}>
             <input
@@ -84,21 +81,40 @@ export default function Company() {
 
             <div className="input-group">
               <input
+                className="input-uf"
+                type="text"
+                maxlength="2"
                 placeholder="UF"
                 value={uf}
                 onChange={(e) => setUF(e.target.value)}
               />
-              <input
-                placeholder="CNPJ"
+              <InputMask
+                mask="99.999.999/9999-99"
                 value={cnpj}
                 onChange={(e) => setCNPJ(e.target.value)}
-              />
+                placeholder="CNPJ"
+              ></InputMask>
             </div>
 
-            <button className="button" type="submit">
-              Cadastrar
-            </button>
+            {isLoading ? (
+              <ReactLoading
+                type="spinningBubbles"
+                color="var(--color-red)"
+                height="20px"
+                width="20px"
+              />
+            ) : (
+              <button className="button" type="submit">
+                Cadastrar
+              </button>
+            )}
           </form>
+        </section>
+        <section>
+          <CompaniesTable
+            companies={companies}
+            setCompanies={setCompanies}
+          ></CompaniesTable>
         </section>
       </div>
     </div>
