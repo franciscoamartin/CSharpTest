@@ -11,8 +11,7 @@ export default function SearchSupplier(props) {
       await supplierService.getSupplierByName(searchString);
     }
   }
-
-  //Filipe Deschamps - https://www.youtube.com/watch?v=Lf3ZV0UsnEo
+  
   const searchBy = {
     Nome: () => supplierService.getSupplierByName(searchString),
     CPF: () => supplierService.getSupplierByDocument(searchString),

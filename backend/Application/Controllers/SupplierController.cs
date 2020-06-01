@@ -121,7 +121,6 @@ namespace BludataTest.Controllers
             {
                 _supplierService.Create(supplier);
                 return Accepted();
-
             }
             catch (System.Exception ex)
             {
