@@ -1,0 +1,4 @@
+.suppliers-table-container,
+suppliers-table-container > * {
+  width: 100%;
+}

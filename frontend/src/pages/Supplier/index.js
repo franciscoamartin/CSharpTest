@@ -4,7 +4,8 @@ import swal from 'sweetalert';
 import * as companyService from '../../services/companyServices';
 import * as supplierService from '../../services/supplierServices';
 import ReactDOM from 'react-dom';
-import CompaniesTable from '../../components/CompaniesTable';
+import CompaniesTable from '../../components/Tables/CompaniesTable/index';
+import SuppliersTable from '../../components/Tables/SuppliersTable/index';
 import EntityType from '../../components/EntityType/index';
 import SearchSupplier from '../../components/SearchSupplier/index';
 import validateSupplier from '../../services/validators/supplierValidator';
@@ -13,6 +14,7 @@ import ReactLoading from 'react-loading';
 import './styles.css';
 
 export default function Supplier() {
+  const [suppliers, setSuppliers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [companySelected, setCompanySelected] = useState('');
   const [companies, setCompanies] = useState([]);
@@ -70,7 +72,6 @@ export default function Supplier() {
   const dataBaseMethods = {
     getAll: getAll,
     getById: getById,
-
   };
 
   async function getAll() {
@@ -85,7 +86,6 @@ export default function Supplier() {
       swal(`trocar mensagem aqui!:)`);
     }
   }
-
 
   function showModal() {
     let wrapper = document.createElement('div');
@@ -127,110 +127,118 @@ export default function Supplier() {
     <div className="supplier-container">
       <div className="content">
         <section>
-          <h1>Cadastro de fornecedores</h1>
+          <div>
+            <h1>Cadastro de fornecedores</h1>
 
-          <form onSubmit={handleRegister}>
-            <button
-              className="company-button"
-              onClick={showModal}
-              type="button"
-            >
-              Selecionar empresa
-            </button>
-            <button
-              className="company-button"
-              type="button"
-              onClick={() => history.push('/company')}
-            >
-              Cadastrar empresa
-            </button>
-            <div>
-              <p>{companySelected.tradingName}</p>
-              <p>{companySelected.cnpj}</p>
-              <p>{companySelected.uf}</p>
-            </div>
-            <input
-              placeholder="Nome"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-
-            <div className="person-group">
-              <select
-                onChange={(e) => {
-                  setDocumentType(e.target.value);
-                }}
+            <form onSubmit={handleRegister}>
+              <button
+                className="company-button"
+                onClick={showModal}
+                type="button"
               >
-                <option className="person-group" value={1}>
-                  CNPJ
-                </option>
-                <option value={2}>CPF</option>
-              </select>
-
-              <form>
-                <EntityType
-                  className="person-group"
-                  documentType={documentType}
-                  documentNumber={documentNumber}
-                  setDocumentNumber={setDocumentNumber}
-                  rg={rg}
-                  setRG={setRG}
-                  birthDate={birthDate}
-                  setBirthDate={setBirthDate}
-                ></EntityType>
-              </form>
-            </div>
-            <div className="input-group">
+                Selecionar empresa
+              </button>
+              <button
+                className="company-button"
+                type="button"
+                onClick={() => history.push('/company')}
+              >
+                Cadastrar empresa
+              </button>
+              <div>
+                <p>{companySelected.tradingName}</p>
+                <p>{companySelected.cnpj}</p>
+                <p>{companySelected.uf}</p>
+              </div>
               <input
-                type="number"
-                placeholder="Telefone"
-                value={telephone}
-                onChange={(e) => setTelephone(e.target.value)}
+                placeholder="Nome"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
-              <img
-                className="telephone-button"
-                src="plus.svg"
-                alt="Adicionar telefone"
-                onClick={addTelephone}
-              />
-            </div>
-            <div className="input-group">
-              {telephones.map((tel) => (
-                <div key={tel.number}>
-                  <p className="telephone-number">{tel.number}</p>
-                  <img
-                    className="telephone-delete"
-                    src="delete.svg"
-                    alt="Deletar telefone"
-                    onClick={() => {
-                      const filteredTelephones = telephones.filter(
-                        (t) => t.number != tel.number
-                      );
-                      setTelephones(filteredTelephones);
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-            {isLoading ? (
-              <ReactLoading
-                type="spinningBubbles"
-                color="var(--color-red)"
-                height="20px"
-                width="20px"
-              />
-            ) : (
+
+              <div className="person-group">
+                <select
+                  onChange={(e) => {
+                    setDocumentType(e.target.value);
+                  }}
+                >
+                  <option className="person-group" value={1}>
+                    CNPJ
+                  </option>
+                  <option value={2}>CPF</option>
+                </select>
+
+                <form>
+                  <EntityType
+                    className="person-group"
+                    documentType={documentType}
+                    documentNumber={documentNumber}
+                    setDocumentNumber={setDocumentNumber}
+                    rg={rg}
+                    setRG={setRG}
+                    birthDate={birthDate}
+                    setBirthDate={setBirthDate}
+                  ></EntityType>
+                </form>
+              </div>
+              <div className="input-group">
+                <input
+                  type="number"
+                  placeholder="Telefone"
+                  value={telephone}
+                  onChange={(e) => setTelephone(e.target.value)}
+                />
+                <img
+                  className="telephone-button"
+                  src="plus.svg"
+                  alt="Adicionar telefone"
+                  onClick={addTelephone}
+                />
+              </div>
+              <div className="input-group">
+                {telephones.map((tel) => (
+                  <div key={tel.number}>
+                    <p className="telephone-number">{tel.number}</p>
+                    <img
+                      className="telephone-delete"
+                      src="delete.svg"
+                      alt="Deletar telefone"
+                      onClick={() => {
+                        const filteredTelephones = telephones.filter(
+                          (t) => t.number != tel.number
+                        );
+                        setTelephones(filteredTelephones);
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+              {isLoading ? (
+                <ReactLoading
+                  type="spinningBubbles"
+                  color="var(--color-red)"
+                  height="40px"
+                  width="40px"
+                />
+              ) : (
                 <button className="button" type="submit">
                   Cadastrar
                 </button>
               )}
-          </form>
+            </form>
+          </div>
+          <div>
+            <h1>Busca de fornecedores</h1>
+            <div className="input-group">
+              <SearchSupplier></SearchSupplier>
+            </div>
+          </div>
         </section>
         <section>
-          <h1>Busca de fornecedores</h1>
-          <div className="input-group">
-            <SearchSupplier></SearchSupplier>
-          </div>
+          <SuppliersTable
+            suppliers={suppliers}
+            setSuppliers={setSuppliers}
+          ></SuppliersTable>
         </section>
       </div>
     </div>
