@@ -19,25 +19,25 @@ namespace BludataTest.Services
             if (supplier == null)
                 throw new Exception("Fornecedor não informado!");
             if (supplier.Company == null)
-                return false;
+                throw new Exception("Empresa não informada!");
             if (supplier.Document.Type == EDocumentType.CNPJ && !string.IsNullOrWhiteSpace(supplier.RG))
-                return false;
+                throw new Exception("");
             if (supplier.Company.UF == "PR"
                        && supplier.Document.Type == EDocumentType.CPF
                        && !isLegalAGe(supplier.BirthDate))
-                return false;
+                throw new Exception("O fornecedor precisa ser maior de idade.");
             if (string.IsNullOrWhiteSpace(supplier.Name) || supplier.Name.Length < 3)
-                return false;
+                throw new Exception("Informe o nome corretamente.");
             if (!(supplier.Document.Type == EDocumentType.CPF) && (supplier.BirthDate == null || supplier.RG == null))
-                return false;
+                throw new Exception("Data de nascimento e RG precisam ser informados.");
             if (supplier.BirthDate > DateTime.Now || supplier.BirthDate < new DateTime(1910, 1, 1))
-                return false;
+                throw new Exception("Informe uma data de nascimento válida.");
             if (supplier.RegisterTime > DateTime.Now || supplier.RegisterTime < new DateTime(1910, 1, 1))
-                return false;
+                throw new Exception("");
             if (!isValidTelephones(supplier.Telephone))
-                return false;
+                throw new Exception("Informe um número de telefone válido");
             if (_documentValidator.isValid(supplier.Document))
-                return false;
+                throw new Exception("Informe o documento corretamente.");
             return true;
         }
 

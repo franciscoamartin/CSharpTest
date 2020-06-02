@@ -1,4 +1,4 @@
-using BludataTest.Enums;
+using System;
 using BludataTest.Models;
 
 namespace BludataTest.Services
@@ -13,13 +13,13 @@ namespace BludataTest.Services
         public bool isValid(Company company)
         {
             if (company == null)
-                return false;
+                throw new Exception("Empresa não informada!"); ;
             if (string.IsNullOrWhiteSpace(company.TradingName) || company.TradingName.Length < 3)
-                return false;
+                throw new Exception("Informe o nome fantasia corretamente"); ;
             if (string.IsNullOrWhiteSpace(company.UF) || company.UF.Length != 2)
-                return false;
+                throw new Exception("O estado não é válido."); ;
             if (!_documentValidator.isCNPJValid(company.CNPJ))
-                return false;
+                throw new Exception("Informe um CNPJ válido"); ;
             return true;
         }
 
