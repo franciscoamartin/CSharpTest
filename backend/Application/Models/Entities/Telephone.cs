@@ -4,9 +4,11 @@ namespace BludataTest.Models
     {
         public Telephones(string number)
         {
-            Number = number;            
+            Number = number;
         }
-        public string Number{ get; set; }
+        public Telephones()
+        { }
+        public string Number { get; set; }
     }
 
 }
