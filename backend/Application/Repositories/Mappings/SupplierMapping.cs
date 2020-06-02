@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BludataTest.Repositories
 {
-    public class SupplierMapping 
+    public class SupplierMapping
         : IEntityTypeConfiguration<Supplier>
     {
         public void Configure(EntityTypeBuilder<Supplier> builder)
@@ -15,6 +15,7 @@ namespace BludataTest.Repositories
             builder.HasMany(x => x.Telephone);
             builder.Property(x => x.Document).HasConversion(y => y.ToString(), v => new Document(v, GetDocumentType(v)));
             builder.Property(x => x.BirthDate).IsRequired(false);
+            builder.Property(x => x.RG).IsRequired(false);
             builder.Property(x => x.RegisterTime).IsRequired();
             builder.Property(x => x.Name).IsRequired().HasMaxLength(255);
         }
@@ -26,5 +27,5 @@ namespace BludataTest.Repositories
             return EDocumentType.CNPJ;
         }
     }
-    
+
 }
