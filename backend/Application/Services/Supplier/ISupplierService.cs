@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
 using BludataTest.Models;
+using BludataTest.ResponseModels;
 using BludataTest.ValueObject;
 
 namespace BludataTest.Services
 {
-    public interface ISupplierService 
+    public interface ISupplierService
     {
         void Create(Supplier supplier);
-        IEnumerable<Supplier> GetAll();
+        IEnumerable<SupplierResponseModel> GetAll();
         Supplier Read(Guid id);
         IEnumerable<Supplier> FindByName(string name);
         Supplier FindByDocument(Document document);

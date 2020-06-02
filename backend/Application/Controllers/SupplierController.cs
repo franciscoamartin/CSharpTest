@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BludataTest.Enums;
 using BludataTest.Models;
+using BludataTest.ResponseModels;
 using BludataTest.Services;
 using BludataTest.ValueObject;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,7 @@ namespace BludataTest.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Supplier> GetAll()
+        public IEnumerable<SupplierResponseModel> GetAll()
         {
             return _supplierService.GetAll();
         }

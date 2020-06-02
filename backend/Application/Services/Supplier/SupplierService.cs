@@ -27,7 +27,7 @@ namespace BludataTest.Services
             supplier.RegisterTime = DateTime.Now;
             _supplierRepository.Create(supplier);
         }
-        public IEnumerable<Supplier> GetAll()
+        public IEnumerable<SupplierResponseModel> GetAll()
         {
 
             var suppliersFound = _supplierRepository.GetAll();
