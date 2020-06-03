@@ -23,7 +23,7 @@ namespace BludataTest.Controllers
         }
 
         [HttpGet]
-        [Route("id/{id}")]
+        [Route("{id}")]
         public IActionResult GetById(Guid id)
         {
             try
@@ -54,7 +54,7 @@ namespace BludataTest.Controllers
         }
 
         [HttpPut]
-        [Route("id/{id}")]
+        [Route("{id}")]
         public IActionResult Update([FromRoute] Guid id, [FromBody] Company company)
         {
             try
@@ -69,7 +69,7 @@ namespace BludataTest.Controllers
         }
 
         [HttpDelete]
-        [Route("id/{id}")]
+        [Route("{id}")]
         public IActionResult Delete(Guid id)
         {
             try
