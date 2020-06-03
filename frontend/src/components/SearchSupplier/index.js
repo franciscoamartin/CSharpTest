@@ -11,7 +11,7 @@ export default function SearchSupplier(props) {
       await supplierService.getSupplierByName(searchString);
     }
   }
-  
+
   const searchBy = {
     Nome: () => supplierService.getSupplierByName(searchString),
     CPF: () => supplierService.getSupplierByDocument(searchString),
@@ -22,8 +22,9 @@ export default function SearchSupplier(props) {
 
   return (
     <form>
-      <div className="searchSupplier">
+      <div className="search-supplier">
         <select
+          className="search"
           onChange={(e) => {
             setSearchOption(e.target.value);
           }}

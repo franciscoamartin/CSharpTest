@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as companyService from '../../services/companyServices';
-import CompaniesTable from '../../components/CompaniesTable';
+import CompaniesTable from '../../components/Tables/CompaniesTable/index';
 import ReactDOM from 'react-dom';
 import InputMask from 'react-input-mask';
 import ReactLoading from 'react-loading';
@@ -74,45 +74,47 @@ export default function Company() {
     <div className="company-container">
       <div className="content">
         <section>
-          <h1>Cadastro de empresas</h1>
+          <div>
+            <h1>Cadastro de empresas</h1>
 
-          <form onSubmit={handleRegister}>
-            <input
-              placeholder="Nome Fantasia"
-              value={tradingName}
-              onChange={(e) => setTradingName(e.target.value)}
-            />
-
-            <div className="input-group">
+            <form onSubmit={handleRegister}>
               <input
-                className="input-uf"
-                type="text"
-                maxlength="2"
-                placeholder="UF"
-                value={uf}
-                onChange={(e) => setUF(e.target.value)}
+                placeholder="Nome Fantasia"
+                value={tradingName}
+                onChange={(e) => setTradingName(e.target.value)}
               />
-              <InputMask
-                mask="99.999.999/9999-99"
-                value={cnpj}
-                onChange={(e) => setCNPJ(e.target.value)}
-                placeholder="CNPJ"
-              ></InputMask>
-            </div>
 
-            {isLoading ? (
-              <ReactLoading
-                type="spinningBubbles"
-                color="var(--color-red)"
-                height="20px"
-                width="20px"
-              />
-            ) : (
+              <div className="input-group">
+                <input
+                  className="input-uf"
+                  type="text"
+                  maxlength="2"
+                  placeholder="UF"
+                  value={uf}
+                  onChange={(e) => setUF(e.target.value)}
+                />
+                <InputMask
+                  mask="99.999.999/9999-99"
+                  value={cnpj}
+                  onChange={(e) => setCNPJ(e.target.value)}
+                  placeholder="CNPJ"
+                ></InputMask>
+              </div>
+
+              {isLoading ? (
+                <ReactLoading
+                  type="spinningBubbles"
+                  color="var(--color-red)"
+                  height="40px"
+                  width="40px"
+                />
+              ) : (
                 <button className="button" type="submit">
                   Cadastrar
                 </button>
               )}
-          </form>
+            </form>
+          </div>
         </section>
         <section>
           <CompaniesTable

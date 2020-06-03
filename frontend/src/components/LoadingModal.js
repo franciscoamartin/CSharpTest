@@ -9,8 +9,8 @@ export default function showModal() {
     <ReactLoading
       type="spinningBubbles"
       color="var(--color-red)"
-      height="70px"
-      width="70px"
+      height="40px"
+      width="40px"
     />,
     wrapper
   );

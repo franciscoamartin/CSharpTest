@@ -1,6 +1,8 @@
-section {
+.company-table-container,
+company-table-container > * {
   width: 100%;
 }
+
 .swal-modal {
   width: 800px;
 }

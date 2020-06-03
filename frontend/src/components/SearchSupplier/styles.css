@@ -1,4 +1,4 @@
-.searchSupplier select {
+.search-supplier select {
   /*width: 100%;
   max-width: 1120px;
   height: 100vh;
@@ -15,4 +15,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.search {
+  display: flex;
+  align-items: vertical;
+  font: 400 17px Roboto, sans-serif;
 }

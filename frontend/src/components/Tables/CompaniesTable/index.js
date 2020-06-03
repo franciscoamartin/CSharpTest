@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import swal from 'sweetalert';
-import './styles.css';
 import * as companyService from '../../../services/companyServices';
 import showModal from '../../LoadingModal';
+import './styles.css';
 
 export default function CompaniesTable({
   companies,
@@ -33,7 +33,6 @@ export default function CompaniesTable({
         showModal();
         const dataToSend = {
           id: oldData.id,
-          cnpj: oldData.cnpj,
           uf: newData.uf,
           tradingName: newData.tradingName,
         };
@@ -65,7 +64,7 @@ export default function CompaniesTable({
   }
 
   return (
-    <section>
+    <div className="company-table-container">
       <MaterialTable
         title="Empresas"
         columns={columns}
@@ -94,6 +93,6 @@ export default function CompaniesTable({
               ]
         }
       />
-    </section>
+    </div>
   );
 }
