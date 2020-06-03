@@ -27,12 +27,12 @@ namespace UnitTests.ServicesTests
             return company;
         }
 
-        private List<Telephones> GetTelephoneExample()
+        private List<Telephone> GetTelephoneExample()
         {
-            var telephones = new List<Telephones>();
-            telephones.Add(new Telephones("4733375582"));
-            telephones.Add(new Telephones("4733784158"));
-            telephones.Add(new Telephones("47992186559"));
+            var telephones = new List<Telephone>();
+            telephones.Add(new Telephone("4733375582"));
+            telephones.Add(new Telephone("4733784158"));
+            telephones.Add(new Telephone("47992186559"));
             return telephones;
         }
 
@@ -40,7 +40,7 @@ namespace UnitTests.ServicesTests
         {
             var company = GetCompanyExample();
             var telephones = GetTelephoneExample();
-            var supplier = new Supplier(name: "Ronaldo", company: company, companyId: company.Id, document: new Document("086.263.709-03", EDocumentType.CPF), rg: "623267", registerTime: DateTime.Now, birthDate: new DateTime(2001, 12, 7), telephone: new List<Telephones>());
+            var supplier = new Supplier(name: "Ronaldo", company: company, companyId: company.Id, document: new Document("086.263.709-03", EDocumentType.CPF), rg: "623267", registerTime: DateTime.Now, birthDate: new DateTime(2001, 12, 7), telephone: new List<Telephone>());
             return supplier;
         }
 
@@ -56,7 +56,7 @@ namespace UnitTests.ServicesTests
              s.RG == "623267" &&
              s.RegisterTime == DateTime.Now &&
              s.BirthDate == new DateTime(2001, 12, 7) &&
-             s.Telephone.ToString() == "4733375582"));
+             s.Telephones.ToString() == "4733375582"));
         }
 
         [Fact]
@@ -103,10 +103,10 @@ namespace UnitTests.ServicesTests
         public void Should_not_create_supplier_when_telephone_is_wrong()
         {
             var supplier = GetSupplierExample();
-            var telephoneToAdd = new Telephones("3375886");
-            var telephoneList = new List<Telephones>();
+            var telephoneToAdd = new Telephone("3375886");
+            var telephoneList = new List<Telephone>();
             telephoneList.Add(telephoneToAdd);
-            supplier.Telephone = telephoneList;
+            supplier.Telephones = telephoneList;
             Assert.Throws<Exception>(() => _supplierService.Create(supplier));
         }
     }

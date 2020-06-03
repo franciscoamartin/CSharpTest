@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import swal from 'sweetalert';
 import * as companyService from '../../services/companyServices';
 import * as supplierService from '../../services/supplierServices';
 import ReactDOM from 'react-dom';
@@ -9,6 +8,7 @@ import SuppliersTable from '../../components/Tables/SuppliersTable/index';
 import EntityType from '../../components/EntityType/index';
 import SearchSupplier from '../../components/SearchSupplier/index';
 import validateSupplier from '../../services/validators/supplierValidator';
+import swal from 'sweetalert';
 import ReactLoading from 'react-loading';
 
 import './styles.css';
@@ -21,7 +21,7 @@ export default function Supplier() {
   const [name, setName] = useState('');
   const [documentType, setDocumentType] = useState(1);
   const [documentNumber, setDocumentNumber] = useState('');
-  const [rg, setRG] = useState();
+  const [rG, setRG] = useState();
   const [birthDate, setBirthDate] = useState();
   const [telephones, setTelephones] = useState([]);
   const [telephone, setTelephone] = useState('');
@@ -30,6 +30,7 @@ export default function Supplier() {
 
   useEffect(() => {
     getAllCompanies();
+    getAll();
   }, []);
 
   async function getAllCompanies() {
@@ -45,9 +46,9 @@ export default function Supplier() {
       companyId: companySelected.id,
       name,
       document: { number: documentNumber, type: documentType },
-      rg,
+      rG,
       birthDate: birthDate && new Date(birthDate),
-      telephone: telephones,
+      telephones: telephones,
     };
 
     try {
@@ -65,26 +66,19 @@ export default function Supplier() {
       clearInputData();
     } catch (error) {
       setIsLoading(false);
-      swal(`Erro ao cadastrar, tente novamente.`, '', 'error');
+      swal(
+        error.response
+          ? error.response.message
+          : 'Erro ao cadastrar,tente novamente',
+        '',
+        'error'
+      );
     }
   }
-
-  const dataBaseMethods = {
-    getAll: getAll,
-    getById: getById,
-  };
 
   async function getAll() {
     const suppliersFound = await supplierService.getAllSuppliers();
-    setCompanies(suppliersFound);
-  }
-
-  async function getById(id) {
-    try {
-      const suppliers = await supplierService.getSupplier(id);
-    } catch (error) {
-      swal(`trocar mensagem aqui!:)`);
-    }
+    setSuppliers(suppliersFound);
   }
 
   function showModal() {
@@ -107,7 +101,7 @@ export default function Supplier() {
   function addTelephone() {
     const foundTelephone = telephones.find((t) => t.number == telephone);
     if (!foundTelephone) {
-      telephones.push({ number: '+55' + telephone });
+      telephones.push({ number: '+55' + ' ' + telephone });
       setTelephones(Object.assign([], telephones));
       setTelephone('');
     }
@@ -145,11 +139,13 @@ export default function Supplier() {
               >
                 Cadastrar empresa
               </button>
-              <div>
-                <p>{companySelected.tradingName}</p>
-                <p>{companySelected.cnpj}</p>
-                <p>{companySelected.uf}</p>
-              </div>
+              {companySelected.tradingName && (
+                <div className="selected-company">
+                  <p>Nome: {companySelected.tradingName}</p>
+                  <p>CNPJ: {companySelected.cnpj}</p>
+                  <p>UF: {companySelected.uf}</p>
+                </div>
+              )}
               <input
                 placeholder="Nome"
                 value={name}
@@ -158,13 +154,13 @@ export default function Supplier() {
 
               <div className="person-group">
                 <select
+                  className="person-group"
                   onChange={(e) => {
-                    setDocumentType(e.target.value);
+                    const stringValue = e.target.value;
+                    setDocumentType(Number(stringValue));
                   }}
                 >
-                  <option className="person-group" value={1}>
-                    CNPJ
-                  </option>
+                  <option value={1}>CNPJ</option>
                   <option value={2}>CPF</option>
                 </select>
 
@@ -174,7 +170,7 @@ export default function Supplier() {
                     documentType={documentType}
                     documentNumber={documentNumber}
                     setDocumentNumber={setDocumentNumber}
-                    rg={rg}
+                    rg={rG}
                     setRG={setRG}
                     birthDate={birthDate}
                     setBirthDate={setBirthDate}
@@ -197,7 +193,7 @@ export default function Supplier() {
               </div>
               <div className="input-group">
                 {telephones.map((tel) => (
-                  <div key={tel.number}>
+                  <div className="telephone-list" key={tel.number}>
                     <p className="telephone-number">{tel.number}</p>
                     <img
                       className="telephone-delete"
@@ -230,7 +226,7 @@ export default function Supplier() {
           <div>
             <h1>Busca de fornecedores</h1>
             <div className="input-group">
-              <SearchSupplier></SearchSupplier>
+              <SearchSupplier companies={companies}></SearchSupplier>
             </div>
           </div>
         </section>

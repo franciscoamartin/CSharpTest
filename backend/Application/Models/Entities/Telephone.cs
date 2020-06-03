@@ -1,12 +1,12 @@
 namespace BludataTest.Models
 {
-    public class Telephones : BaseEntity
+    public class Telephone : BaseEntity
     {
-        public Telephones(string number)
+        public Telephone(string number)
         {
             Number = number;
         }
-        public Telephones()
+        public Telephone()
         { }
         public string Number { get; set; }
     }
