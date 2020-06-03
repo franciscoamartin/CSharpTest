@@ -14,10 +14,12 @@ namespace UnitTests.ServicesTests
     {
         private ISupplierService _supplierService;
         private ISupplierRepository _supplierRepository;
+        private ICompanyService _companyService;
         public SupplierServicesTests()
         {
             _supplierRepository = Substitute.For<ISupplierRepository>();
-            _supplierService = new SupplierService(_supplierRepository);
+            _companyService = Substitute.For<ICompanyService>();
+            _supplierService = new SupplierService(_supplierRepository, _companyService);
         }
         private Company GetCompanyExample()
         {
@@ -101,7 +103,10 @@ namespace UnitTests.ServicesTests
         public void Should_not_create_supplier_when_telephone_is_wrong()
         {
             var supplier = GetSupplierExample();
-            supplier.Telephone = new List<Telephones>((3375886));
+            var telephoneToAdd = new Telephones("3375886");
+            var telephoneList = new List<Telephones>();
+            telephoneList.Add(telephoneToAdd);
+            supplier.Telephone = telephoneList;
             Assert.Throws<Exception>(() => _supplierService.Create(supplier));
         }
     }

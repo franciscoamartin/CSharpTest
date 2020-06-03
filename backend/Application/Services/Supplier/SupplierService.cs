@@ -13,9 +13,11 @@ namespace BludataTest.Services
         private readonly ISupplierRepository _supplierRepository;
         private readonly DocumentValidator _documentValidator;
         private readonly SupplierValidator _supplierValidator;
+        private readonly ICompanyService _companyService;
 
-        public SupplierService(ISupplierRepository supplierRepo)
+        public SupplierService(ISupplierRepository supplierRepo, ICompanyService companyService)
         {
+            _companyService = companyService;
             _supplierRepository = supplierRepo;
             _documentValidator = new DocumentValidator();
             _supplierValidator = new SupplierValidator();
@@ -23,15 +25,19 @@ namespace BludataTest.Services
 
         public void Create(Supplier supplier)
         {
-            _supplierValidator.Validate(supplier);
+            var companyFound = _companyService.Read(supplier.CompanyId);
+            supplier.Company = companyFound;
+
+
             supplier.RegisterTime = DateTime.Now;
+            _supplierValidator.Validate(supplier);
             _supplierRepository.Create(supplier);
         }
         public IEnumerable<SupplierResponseModel> GetAll()
         {
 
             var suppliersFound = _supplierRepository.GetAll();
-            var suppliersToReturn = suppliersFound.Select((s) => new SupplierResponseModel(name: s.Name, company: s.Company, companyId: s.CompanyId, document: s.Document, rg: s.RG, registerTime: s.RegisterTime, birthDate: s.BirthDate, telephone: s.Telephone));
+            var suppliersToReturn = suppliersFound.Select((s) => new SupplierResponseModel(id: s.Id, name: s.Name, company: s.Company, companyId: s.CompanyId, document: s.Document, rg: s.RG, registerTime: s.RegisterTime, birthDate: s.BirthDate, telephone: s.Telephone));
             return suppliersToReturn;
         }
         public Supplier Read(Guid id)
