@@ -18,10 +18,10 @@ namespace BludataTest.Services
         {
             if (supplier == null)
                 throw new Exception("Fornecedor não informado!");
-            if (supplier.Company == null)
+            if (supplier.CompanyId == Guid.Empty)
                 throw new Exception("Empresa não informada!");
             if (supplier.Document.Type == EDocumentType.CNPJ && !string.IsNullOrWhiteSpace(supplier.RG))
-                throw new Exception("");
+                throw new Exception("Pessoa jurídica não deve possuir RG");
             if (supplier.Company.UF == "PR"
                        && supplier.Document.Type == EDocumentType.CPF
                        && !isLegalAGe(supplier.BirthDate))
@@ -33,7 +33,7 @@ namespace BludataTest.Services
             if (supplier.BirthDate > DateTime.Now || supplier.BirthDate < new DateTime(1910, 1, 1))
                 throw new Exception("Informe uma data de nascimento válida.");
             if (supplier.RegisterTime > DateTime.Now || supplier.RegisterTime < new DateTime(1910, 1, 1))
-                throw new Exception("");
+                throw new Exception("Data de cadastro inválida.");
             if (!isValidTelephones(supplier.Telephone))
                 throw new Exception("Informe um número de telefone válido");
             if (_documentValidator.isValid(supplier.Document))
@@ -45,7 +45,7 @@ namespace BludataTest.Services
         {
             foreach (var telephone in telephones)
             {
-                if (!Regex.IsMatch(@"(\(?\d{2}\)?\s)?(\d{4,5}\-\d{4})", telephone.Number))
+                if (!Regex.IsMatch(@"(\(?\d{2}\)?\s)?(\d{4,5}\-\d{4})", telephone.Number.Replace(" ", "")))
                     return false;
             }
             return true;
