@@ -36,8 +36,8 @@ namespace BludataTest.Services
         public IEnumerable<SupplierResponseModel> GetAll()
         {
 
-            var suppliersFound = _supplierRepository.GetAll();
-            var suppliersToReturn = suppliersFound.Select((s) => new SupplierResponseModel(id: s.Id, name: s.Name, company: s.Company, companyId: s.CompanyId, document: s.Document, rg: s.RG, registerTime: s.RegisterTime, birthDate: s.BirthDate, telephone: s.Telephone));
+            var suppliersFound = _supplierRepository.GetAll().ToList();
+            var suppliersToReturn = suppliersFound.Select(s => new SupplierResponseModel(id: s.Id, name: s.Name, companyTradingName: s.Company.TradingName, document: s.Document, rg: s.RG, registerTime: s.RegisterTime, birthDate: s.BirthDate, telephone: s.Telephones));
             return suppliersToReturn;
         }
         public Supplier Read(Guid id)
@@ -79,26 +79,27 @@ namespace BludataTest.Services
         public void Delete(Guid id)
         {
             if (id == Guid.Empty)
-                throw new Exception();
+                throw new Exception("O fornecedor precisa ser informado.");
             var supplier = _supplierRepository.Read(id);
             if (supplier == null)
                 throw new Exception("Fornecedor não encontrado");
-            _supplierRepository.Delete(id);
+            _supplierRepository.Delete(supplier);
         }
         public void Update(Guid id, Supplier supplier)
         {
             if (supplier.Id != id || id == Guid.Empty)
-                throw new Exception();
-            _supplierValidator.Validate(supplier);
+                throw new Exception("Fornecedor precisa ser informado.");
+            _supplierValidator.ValidateTelephones(supplier.Telephones);
+            _supplierValidator.ValidateName(supplier.Name);
+
             var supplierFound = _supplierRepository.Read(id);
             if (supplierFound == null)
                 throw new Exception("Fornecedor não encontrado.");
 
-            supplierFound.Telephone = supplier.Telephone;
+            supplierFound.Telephones = supplier.Telephones;
             supplierFound.Name = supplier.Name;
 
             _supplierRepository.Update(supplierFound);
-
         }
 
         public List<Supplier> FindSuppliersByCompany(Guid companyId)
