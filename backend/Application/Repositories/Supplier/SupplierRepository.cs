@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BludataTest.Models;
 using BludataTest.ValueObject;
+using Microsoft.EntityFrameworkCore;
 
 namespace BludataTest.Repositories
 {
@@ -32,5 +33,15 @@ namespace BludataTest.Repositories
         {
             return _dbContext.Suppliers.Where(supplier => supplier.CompanyId == companyId).ToList();
         }
+
+        public override Supplier Read(Guid id)
+        {
+            return _dbContext.Suppliers.Include(sup => sup.Company).Include(sup => sup.Telephone).FirstOrDefault(sup => sup.Id == id);
+        }
+        public override List<Supplier> GetAll()
+        {
+            return _dbContext.Suppliers.Include(sup => sup.Company).Include(sup => sup.Telephone).ToList();
+        }
+
     }
 }
