@@ -6,7 +6,7 @@ export default function Validate(data) {
   }
 
   validateName(data.name);
-  validateTelephones(data.telephone);
+  validateTelephones(data.telephones);
 }
 
 function validateCNPJ(cnpj) {
@@ -27,8 +27,8 @@ function validateName(name) {
 function validateBirthDate(birthDate) {
   //birthDate = birthDate.split('/');
   //birthDate.forEach((e) => {
-    //const parsedNumber = Number(e);
-    //if (parsedNumber == NaN) throw new Error('Data inválida');
+  //const parsedNumber = Number(e);
+  //if (parsedNumber == NaN) throw new Error('Data inválida');
   //});
 }
 

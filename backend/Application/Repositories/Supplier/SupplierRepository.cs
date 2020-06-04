@@ -36,11 +36,11 @@ namespace BludataTest.Repositories
 
         public override Supplier Read(Guid id)
         {
-            return _dbContext.Suppliers.Include(sup => sup.Company).Include(sup => sup.Telephone).FirstOrDefault(sup => sup.Id == id);
+            return _dbContext.Suppliers.Include(sup => sup.Company).Include(sup => sup.Telephones).FirstOrDefault(sup => sup.Id == id);
         }
         public override List<Supplier> GetAll()
         {
-            return _dbContext.Suppliers.Include(sup => sup.Company).Include(sup => sup.Telephone).ToList();
+            return _dbContext.Suppliers.Include(sup => sup.Company).Include(sup => sup.Telephones).Where(sup => sup.Active).ToList();
         }
 
     }
