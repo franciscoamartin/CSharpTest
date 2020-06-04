@@ -46,22 +46,9 @@ export default function Company() {
     }
   }
 
-  const dataBaseMethods = {
-    getAll: getAll,
-    getById: getById,
-  };
-
   async function getAll() {
     const companiesFound = await companyService.getAllCompanies();
     setCompanies(companiesFound);
-  }
-
-  async function getById() {
-    try {
-      const companies = await companyService.getCompany();
-    } catch (error) {
-      swal(`trocar mensagem aqui!:)`);
-    }
   }
 
   function clearInputData() {

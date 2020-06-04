@@ -11,11 +11,11 @@ namespace BludataTest.Services
         void Create(Supplier supplier);
         IEnumerable<SupplierResponseModel> GetAll();
         Supplier Read(Guid id);
+        List<Supplier> FindSuppliersByCompany(Guid companyId);
         IEnumerable<Supplier> FindByName(string name);
         Supplier FindByDocument(Document document);
         IEnumerable<Supplier> FindByRegisterTime(DateTime registerTime);
         void Delete(Guid id);
         void Update(Guid id, Supplier supplier);
-        List<Supplier> FindSuppliersByCompany(Guid companyId);
     }
 }

@@ -1,6 +1,4 @@
-using BludataTest.Enums;
 using BludataTest.Models;
-using BludataTest.ValueObject;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
