@@ -21,22 +21,22 @@ namespace BludataTest.Repositories
             _dbContext.SaveChanges();
         }
 
-        public void Delete(Guid id)
+        public void Delete(TEntity entity)
         {
-            var entity = Read(id);
-            _dbContext.Set<TEntity>().Remove(entity);
+            entity.Deactivate();
+            _dbContext.Set<TEntity>().Update(entity);
             _dbContext.SaveChanges();
         }
 
         public virtual List<TEntity> GetAll()
         {
-            return _dbContext.Set<TEntity>().ToList();
+            return _dbContext.Set<TEntity>().Where(e => e.Active).ToList();
         }
 
-        public virtual TEntity Read(Guid id)
+        public virtual TEntity GetById(Guid id)
         {
             return _dbContext.Set<TEntity>()
-              .FirstOrDefault(e => e.Id == id);
+              .FirstOrDefault(e => e.Id == id && e.Active);
         }
 
         public void Update(TEntity entity)
