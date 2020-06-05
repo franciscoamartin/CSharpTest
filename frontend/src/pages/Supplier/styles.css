@@ -38,6 +38,7 @@
 .company-button {
   width: 50%;
   height: 60px;
+  padding: 0 5px;
   background: #e02041;
   border: solid;
   border-radius: 10px;
@@ -48,7 +49,6 @@
   text-align: center;
   text-decoration: none;
   font-size: 18px;
-  line-height: 60px;
   transition: filter 0.2s;
 }
 .supplier-container .content form input {
@@ -56,7 +56,7 @@
 }
 .supplier-container .content form .input-group {
   display: flex;
-  align-items: vertical;
+  align-items: center;
   font: 400 15px Roboto, sans-serif;
 }
 .supplier-container .content form .input-group input + input {
@@ -78,6 +78,7 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
+  margin-left: 4px;
 }
 .telephone-delete {
   width: 25px;
@@ -90,8 +91,17 @@
   font: 400 17px Roboto, sans-serif;
   border-radius: 10px;
 }
+.select-person {
+  font: 400 17px Roboto, sans-serif;
+  border-radius: 10px;
+  margin-right: 8px;
+  margin-top: 8px;
+}
 .selected-company {
   font: 400 16px Roboto, sans-serif;
   margin-top: 7px;
+  width: 100%;
+}
+.entity-type-container {
   width: 100%;
 }

@@ -89,12 +89,14 @@ export default function Company() {
               </div>
 
               {isLoading ? (
-                <ReactLoading
-                  type="spinningBubbles"
-                  color="var(--color-red)"
-                  height="40px"
-                  width="40px"
-                />
+                <div className="loading">
+                  <ReactLoading
+                    type="spinningBubbles"
+                    color="var(--color-red)"
+                    height="40px"
+                    width="40px"
+                  />
+                </div>
               ) : (
                 <button className="button" type="submit">
                   Cadastrar

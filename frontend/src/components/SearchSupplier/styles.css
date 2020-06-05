@@ -21,3 +21,19 @@
   align-items: vertical;
   font: 400 17px Roboto, sans-serif;
 }
+.select-company {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.selected-company-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.remove-company {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-left: 4px;
+}

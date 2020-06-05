@@ -24,7 +24,7 @@ export default function CompaniesTable({
 
   async function handleUpdate(newData, oldData) {
     const accepted = await swal(
-      'Tem que certeza deseja editar essa empresa?',
+      'Tem certeza que deseja editar essa empresa?',
       '',
       'info'
     );
@@ -38,6 +38,7 @@ export default function CompaniesTable({
         };
         await companyService.updateCompany(dataToSend);
         swal('Empresa alterada com sucesso', '', 'success');
+        getAll();
       } catch (error) {
         swal('Empresa não foi alterada', '', 'error');
       }
@@ -46,7 +47,7 @@ export default function CompaniesTable({
 
   async function handleDelete(event, rowData) {
     const accepted = await swal(
-      'Tem que certeza deseja deletar essa empresa?',
+      'Tem certeza que deseja deletar essa empresa?',
       '',
       'info'
     );
@@ -63,9 +64,15 @@ export default function CompaniesTable({
     }
   }
 
+  async function getAll() {
+    const companiesFound = await companyService.getAllCompanies();
+    setCompanies(companiesFound);
+  }
+
   return (
     <div className="company-table-container">
       <MaterialTable
+        options={{ search: false }}
         title="Empresas"
         columns={columns}
         data={companies}

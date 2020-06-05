@@ -16,6 +16,7 @@ import './styles.css';
 export default function Supplier() {
   const [suppliers, setSuppliers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isCompanyLoading, setIsCompanyLoading] = useState(true);
   const [companySelected, setCompanySelected] = useState('');
   const [companies, setCompanies] = useState([]);
   const [name, setName] = useState('');
@@ -36,6 +37,7 @@ export default function Supplier() {
   async function getAllCompanies() {
     const companiesFound = await companyService.getAllCompanies();
     setCompanies(companiesFound);
+    setIsCompanyLoading(false);
   }
 
   async function handleRegister(e) {
@@ -68,7 +70,7 @@ export default function Supplier() {
       setIsLoading(false);
       swal(
         error.response
-          ? error.response.message
+          ? error.response.data
           : 'Erro ao cadastrar,tente novamente',
         '',
         'error'
@@ -93,7 +95,7 @@ export default function Supplier() {
     let el = wrapper.firstChild;
 
     swal({
-      title: 'Selecione uma empresa para ver seus fornecedores',
+      title: 'Selecione uma empresa para se cadastrar como fornecedor',
       content: el,
     });
   }
@@ -125,20 +127,33 @@ export default function Supplier() {
             <h1>Cadastro de fornecedores</h1>
 
             <form onSubmit={handleRegister}>
-              <button
-                className="company-button"
-                onClick={showModal}
-                type="button"
-              >
-                Selecionar empresa
-              </button>
-              <button
-                className="company-button"
-                type="button"
-                onClick={() => history.push('/company')}
-              >
-                Cadastrar empresa
-              </button>
+              <div className="row">
+                {isCompanyLoading ? (
+                  <div className="loading" style={{ width: '50%' }}>
+                    <ReactLoading
+                      type="spinningBubbles"
+                      color="var(--color-red)"
+                      height="40px"
+                      width="40px"
+                    />
+                  </div>
+                ) : (
+                  <button
+                    className="company-button"
+                    onClick={showModal}
+                    type="button"
+                  >
+                    Selecionar empresa
+                  </button>
+                )}
+                <button
+                  className="company-button"
+                  type="button"
+                  onClick={() => history.push('/company')}
+                >
+                  Cadastrar empresa
+                </button>
+              </div>
               {companySelected.tradingName && (
                 <div className="selected-company">
                   <p>Nome: {companySelected.tradingName}</p>
@@ -153,29 +168,16 @@ export default function Supplier() {
               />
 
               <div className="person-group">
-                <select
-                  className="person-group"
-                  onChange={(e) => {
-                    const stringValue = e.target.value;
-                    setDocumentType(Number(stringValue));
-                  }}
-                >
-                  <option value={1}>CNPJ</option>
-                  <option value={2}>CPF</option>
-                </select>
-
-                <form>
-                  <EntityType
-                    className="person-group"
-                    documentType={documentType}
-                    documentNumber={documentNumber}
-                    setDocumentNumber={setDocumentNumber}
-                    rg={rG}
-                    setRG={setRG}
-                    birthDate={birthDate}
-                    setBirthDate={setBirthDate}
-                  ></EntityType>
-                </form>
+                <EntityType
+                  documentType={documentType}
+                  setDocumentType={setDocumentType}
+                  documentNumber={documentNumber}
+                  setDocumentNumber={setDocumentNumber}
+                  rg={rG}
+                  setRG={setRG}
+                  birthDate={birthDate}
+                  setBirthDate={setBirthDate}
+                ></EntityType>
               </div>
               <div className="input-group">
                 <input
@@ -191,7 +193,7 @@ export default function Supplier() {
                   onClick={addTelephone}
                 />
               </div>
-              <div className="input-group">
+              <div className="input-group column">
                 {telephones.map((tel) => (
                   <div className="telephone-list" key={tel.number}>
                     <p className="telephone-number">{tel.number}</p>
@@ -210,12 +212,14 @@ export default function Supplier() {
                 ))}
               </div>
               {isLoading ? (
-                <ReactLoading
-                  type="spinningBubbles"
-                  color="var(--color-red)"
-                  height="40px"
-                  width="40px"
-                />
+                <div className="loading">
+                  <ReactLoading
+                    type="spinningBubbles"
+                    color="var(--color-red)"
+                    height="40px"
+                    width="40px"
+                  />
+                </div>
               ) : (
                 <button className="button" type="submit">
                   Cadastrar
@@ -226,7 +230,11 @@ export default function Supplier() {
           <div>
             <h1>Busca de fornecedores</h1>
             <div className="input-group">
-              <SearchSupplier companies={companies}></SearchSupplier>
+              <SearchSupplier
+                isCompanyLoading={isCompanyLoading}
+                companies={companies}
+                setSuppliers={setSuppliers}
+              ></SearchSupplier>
             </div>
           </div>
         </section>
