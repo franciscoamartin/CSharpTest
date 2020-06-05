@@ -65,7 +65,7 @@ namespace UnitTests.ServicesTests
             var company = GetCompanyExample();
             var companyExampleId = new Guid();
             company.Id = companyExampleId;
-            _companyRepository.Read(companyExampleId).Returns(company);
+            _companyRepository.GetById(companyExampleId).Returns(company);
             var companyReceived = _companyService.Read(companyExampleId);
             Assert.Equal(company.TradingName, companyReceived.TradingName);
         }
