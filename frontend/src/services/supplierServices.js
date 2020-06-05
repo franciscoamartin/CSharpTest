@@ -8,20 +8,37 @@ export async function getSupplier(id) {
   const response = await api.get(`/supplier/${id}`);
   return response.data;
 }
-export async function getSupplierByName(name) {
-  const response = await api.get(`/supplier/${name}`);
+export async function getSupplierByName(name, companyId) {
+  let response;
+  if (companyId) {
+    response = await api.get(`/supplier/name/${name}/${companyId}`);
+  } else {
+    response = await api.get(`/supplier/name/${name}`);
+  }
   return response.data;
 }
-export async function getSupplierByDocument(document) {
-  const response = await api.get(`/supplier/${document}`);
+export async function getSupplierByDocument(document, companyId) {
+  let response;
+  if (companyId) {
+    response = await api.get(`/supplier/document${document}/${companyId}`);
+  } else {
+    response = await api.get(`/supplier/document/${document}`);
+  }
   return response.data;
 }
-export async function getSupplierByRegisterTime(registerTime) {
-  const response = await api.get(`/supplier/${registerTime}`);
+export async function getSupplierByRegisterTime(registerTime, companyId) {
+  let response;
+  if (companyId) {
+    response = await api.get(
+      `/supplier/registerTime/${registerTime}/${companyId}`
+    );
+  } else {
+    response = await api.get(`/supplier/registerTime/${registerTime}`);
+  }
   return response.data;
 }
-export async function getSupplierByCompany(company) {
-  const response = await api.get(`/supplier/${company}`);
+export async function getSupplierByCompany(companyId) {
+  const response = await api.get(`/supplier/company/${companyId}`);
   return response.data;
 }
 export async function getAllSuppliers() {

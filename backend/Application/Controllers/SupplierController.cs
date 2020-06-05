@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using BludataTest.Enums;
 using BludataTest.Models;
 using BludataTest.ResponseModels;
 using BludataTest.Services;
-using BludataTest.ValueObject;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BludataTest.Controllers
@@ -31,88 +29,28 @@ namespace BludataTest.Controllers
         {
             try
             {
-                var supplier = _supplierService.Read(id);
+                var supplier = _supplierService.GetById(id);
                 return new ObjectResult(supplier);
 
             }
-            catch (System.Exception)
+            catch (Exception)
             {
-                return NotFound();
+                return NotFound("Fornecedor não encontrado");
             }
         }
 
         [HttpGet]
-        [Route("name/{name}")]
-        public IActionResult FindByName(string name)
+        [Route("company/{companyId}")]
+        public IActionResult FindSuppliersByCompany(Guid companyId)
         {
             try
             {
-                var supplier = _supplierService.FindByName(name);
-                return new ObjectResult(supplier);
-            }
-            catch (System.Exception)
-            {
-                return NotFound();
-            }
-        }
-
-        [HttpGet]
-        [Route("cpf/{CPF}")]
-        public IActionResult FindByCPF(string cpf)
-        {
-            try
-            {
-                var supplier = _supplierService.FindByDocument(new Document(cpf, EDocumentType.CPF));
-                return new ObjectResult(supplier);
-            }
-            catch (System.Exception)
-            {
-                return NotFound();
-            }
-        }
-
-        [HttpGet]
-        [Route("cnpj/{CNPJ}")]
-        public IActionResult FindByCNPJ(string cnpj)
-        {
-            try
-            {
-                var supplier = _supplierService.FindByDocument(new Document(cnpj, EDocumentType.CNPJ));
-                return new ObjectResult(supplier);
-            }
-            catch (System.Exception)
-            {
-                return NotFound();
-            }
-        }
-
-        [HttpGet]
-        [Route("registerTime/{registerTime}")]
-        public IActionResult FindByRegisterTime(DateTime registerTime)
-        {
-            try
-            {
-                var supplier = _supplierService.FindByRegisterTime(registerTime);
-                return new ObjectResult(supplier);
-            }
-            catch (System.Exception)
-            {
-                return NotFound();
-            }
-        }
-
-        [HttpGet]
-        [Route("company/{companyID}")]
-        public IActionResult FindSuppliersByCompany(Guid id)
-        {
-            try
-            {
-                var suppliers = _supplierService.FindSuppliersByCompany(id);
+                var suppliers = _supplierService.FindSuppliersByCompany(companyId);
                 return new ObjectResult(suppliers);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
-                return NotFound();
+                return NotFound("Fornecedor não encontrado");
             }
         }
 
@@ -124,7 +62,7 @@ namespace BludataTest.Controllers
                 _supplierService.Create(supplier);
                 return Accepted();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -139,9 +77,9 @@ namespace BludataTest.Controllers
                 _supplierService.Update(id, supplier);
                 return new NoContentResult();
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
 
@@ -154,9 +92,97 @@ namespace BludataTest.Controllers
                 _supplierService.Delete(id);
                 return new NoContentResult();
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpGet]
+        [Route("name/{name}")]
+        public IActionResult FindByName(string name)
+        {
+            try
+            {
+                var supplier = _supplierService.FindByName(name);
+                return new ObjectResult(supplier);
+            }
+            catch (Exception)
+            {
+                return NotFound("Fornecedor não foi encontrado");
+            }
+        }
+        [HttpGet]
+        [Route("name/{name}/{companyId}")]
+        public IActionResult FindByNameAndCompany([FromRoute] string name, [FromRoute] Guid companyId)
+        {
+            try
+            {
+                var supplier = _supplierService.FindByNameAndCompany(name, companyId);
+                return new ObjectResult(supplier);
+            }
+            catch (Exception)
+            {
+                return NotFound("Fornecedor não foi encontrado");
+            }
+        }
+
+        [HttpGet]
+        [Route("document/{document}")]
+        public IActionResult FindByDocument(string document)
+        {
+            try
+            {
+                var supplier = _supplierService.FindByDocument(document);
+                return new ObjectResult(supplier);
+            }
+            catch (Exception)
+            {
+                return NotFound("Fornecedor não foi encontrado");
+            }
+        }
+        [HttpGet]
+        [Route("document/{document}/{companyId}")]
+        public IActionResult FindByDocumentAndCompany([FromRoute] string document, [FromRoute] Guid companyId)
+        {
+            try
+            {
+                var supplier = _supplierService.FindByDocumentAndCompany(document, companyId);
+                return new ObjectResult(supplier);
+            }
+            catch (Exception)
+            {
+                return NotFound("Fornecedor não foi encontrado");
+            }
+        }
+
+        [HttpGet]
+        [Route("registerTime/{registerTime}")]
+        public IActionResult FindByRegisterTime(string registerTime)
+        {
+            try
+            {
+                var supplier = _supplierService.FindByRegisterTime(registerTime);
+                return new ObjectResult(supplier);
+            }
+            catch (Exception)
+            {
+                return NotFound("Fornecedor não foi encontrado");
+            }
+        }
+        [HttpGet]
+        [Route("registerTime/{registerTime}/{companyId}")]
+        public IActionResult FindByRegisterTimeAndCompany([FromRoute] string registerTime, [FromRoute] Guid companyId)
+        {
+            try
+            {
+                var supplier = _supplierService.FindByRegisterTimeAndCompany(registerTime, companyId);
+                return new ObjectResult(supplier);
+            }
+            catch (Exception)
+            {
+                return NotFound("Fornecedor não foi encontrado");
             }
         }
     }
