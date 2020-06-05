@@ -41,11 +41,11 @@ namespace BludataTest.Controllers
 
         [HttpGet]
         [Route("company/{companyId}")]
-        public IActionResult FindSuppliersByCompany(Guid companyId)
+        public IActionResult GetSuppliersByCompany(Guid companyId)
         {
             try
             {
-                var suppliers = _supplierService.FindSuppliersByCompany(companyId);
+                var suppliers = _supplierService.GetSuppliersByCompany(companyId);
                 return new ObjectResult(suppliers);
             }
             catch (Exception)
@@ -101,11 +101,11 @@ namespace BludataTest.Controllers
 
         [HttpGet]
         [Route("name/{name}")]
-        public IActionResult FindByName(string name)
+        public IActionResult GetByName(string name)
         {
             try
             {
-                var supplier = _supplierService.FindByName(name);
+                var supplier = _supplierService.GetByName(name);
                 return new ObjectResult(supplier);
             }
             catch (Exception)
@@ -115,11 +115,11 @@ namespace BludataTest.Controllers
         }
         [HttpGet]
         [Route("name/{name}/{companyId}")]
-        public IActionResult FindByNameAndCompany([FromRoute] string name, [FromRoute] Guid companyId)
+        public IActionResult GetByNameAndCompany([FromRoute] string name, [FromRoute] Guid companyId)
         {
             try
             {
-                var supplier = _supplierService.FindByNameAndCompany(name, companyId);
+                var supplier = _supplierService.GetByNameAndCompany(name, companyId);
                 return new ObjectResult(supplier);
             }
             catch (Exception)
@@ -130,11 +130,11 @@ namespace BludataTest.Controllers
 
         [HttpGet]
         [Route("document/{document}")]
-        public IActionResult FindByDocument(string document)
+        public IActionResult GetByDocument(string document)
         {
             try
             {
-                var supplier = _supplierService.FindByDocument(document);
+                var supplier = _supplierService.GetByDocument(document);
                 return new ObjectResult(supplier);
             }
             catch (Exception)
@@ -144,11 +144,11 @@ namespace BludataTest.Controllers
         }
         [HttpGet]
         [Route("document/{document}/{companyId}")]
-        public IActionResult FindByDocumentAndCompany([FromRoute] string document, [FromRoute] Guid companyId)
+        public IActionResult GetByDocumentAndCompany([FromRoute] string document, [FromRoute] Guid companyId)
         {
             try
             {
-                var supplier = _supplierService.FindByDocumentAndCompany(document, companyId);
+                var supplier = _supplierService.GetByDocumentAndCompany(document, companyId);
                 return new ObjectResult(supplier);
             }
             catch (Exception)
@@ -159,11 +159,11 @@ namespace BludataTest.Controllers
 
         [HttpGet]
         [Route("registerTime/{registerTime}")]
-        public IActionResult FindByRegisterTime(string registerTime)
+        public IActionResult GetByRegisterTime(string registerTime)
         {
             try
             {
-                var supplier = _supplierService.FindByRegisterTime(registerTime);
+                var supplier = _supplierService.GetByRegisterTime(registerTime);
                 return new ObjectResult(supplier);
             }
             catch (Exception)
@@ -173,11 +173,11 @@ namespace BludataTest.Controllers
         }
         [HttpGet]
         [Route("registerTime/{registerTime}/{companyId}")]
-        public IActionResult FindByRegisterTimeAndCompany([FromRoute] string registerTime, [FromRoute] Guid companyId)
+        public IActionResult GetByRegisterTimeAndCompany([FromRoute] string registerTime, [FromRoute] Guid companyId)
         {
             try
             {
-                var supplier = _supplierService.FindByRegisterTimeAndCompany(registerTime, companyId);
+                var supplier = _supplierService.GetByRegisterTimeAndCompany(registerTime, companyId);
                 return new ObjectResult(supplier);
             }
             catch (Exception)

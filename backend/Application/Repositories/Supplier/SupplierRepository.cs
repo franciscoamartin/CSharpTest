@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BludataTest.Models;
-using BludataTest.ValueObject;
 using Microsoft.EntityFrameworkCore;
 
 namespace BludataTest.Repositories
@@ -26,47 +25,47 @@ namespace BludataTest.Repositories
             return queryWithIncludes.Where(sup => sup.Active).ToList();
         }
 
-        public List<Supplier> FindByName(string name)
+        public List<Supplier> GetByName(string name)
         {
             var queryWithIncludes = getQueryWithIncludes();
             return queryWithIncludes.Where(supplier => supplier.Name.Contains(name)).ToList();
         }
 
-        public List<Supplier> FindByNameAndCompany(string name, Guid companyId)
+        public List<Supplier> GetByNameAndCompany(string name, Guid companyId)
         {
             var queryWithIncludes = getQueryWithIncludes();
             return queryWithIncludes.Where(supplier => supplier.Name.Contains(name)
                 && supplier.CompanyId == companyId).ToList();
         }
 
-        public List<Supplier> FindByDocument(string document)
+        public List<Supplier> GetByDocument(string document)
         {
             var queryWithIncludes = getQueryWithIncludes();
             return queryWithIncludes.Where(supplier =>
                 supplier.Document.ToString() == document.ToString()).ToList();
         }
 
-        public List<Supplier> FindByDocumentAndCompany(string documentNumber, Guid companyId)
+        public List<Supplier> GetByDocumentAndCompany(string documentNumber, Guid companyId)
         {
             var queryWithIncludes = getQueryWithIncludes();
             return queryWithIncludes.Where(supplier => supplier.Document.ToString() == documentNumber
                  && supplier.CompanyId == companyId).ToList();
         }
 
-        public List<Supplier> FindByRegisterTime(DateTime registerTime)
+        public List<Supplier> GetByRegisterTime(DateTime registerTime)
         {
             var queryWithIncludes = getQueryWithIncludes();
             return queryWithIncludes.Where(supplier => supplier.RegisterTime.Date == registerTime.Date).ToList();
         }
 
-        public List<Supplier> FindByRegisterTimeAndCompany(DateTime registerTime, Guid companyId)
+        public List<Supplier> GetByRegisterTimeAndCompany(DateTime registerTime, Guid companyId)
         {
             var queryWithIncludes = getQueryWithIncludes();
             return queryWithIncludes.Where(supplier => supplier.RegisterTime.Date == registerTime.Date
              && supplier.CompanyId == companyId).ToList();
         }
 
-        public List<Supplier> FindSuppliersByCompany(Guid companyId)
+        public List<Supplier> GetSuppliersByCompany(Guid companyId)
         {
             var queryWithIncludes = getQueryWithIncludes();
             return queryWithIncludes.Where(supplier => supplier.CompanyId == companyId).ToList();

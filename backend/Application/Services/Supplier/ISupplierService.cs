@@ -10,14 +10,14 @@ namespace BludataTest.Services
         void Create(Supplier supplier);
         List<SupplierResponseModel> GetAll();
         Supplier GetById(Guid id);
-        List<SupplierResponseModel> FindSuppliersByCompany(Guid companyId);
-        List<SupplierResponseModel> FindByName(string name);
-        List<SupplierResponseModel> FindByDocument(string document);
-        List<SupplierResponseModel> FindByRegisterTime(string registerTime);
+        List<SupplierResponseModel> GetSuppliersByCompany(Guid companyId);
+        List<SupplierResponseModel> GetByName(string name);
+        List<SupplierResponseModel> GetByDocument(string document);
+        List<SupplierResponseModel> GetByRegisterTime(string registerTime);
         void Delete(Guid id);
         void Update(Guid id, Supplier supplier);
-        List<SupplierResponseModel> FindByNameAndCompany(string name, Guid companyId);
-        List<SupplierResponseModel> FindByDocumentAndCompany(string document, Guid companyId);
-        List<SupplierResponseModel> FindByRegisterTimeAndCompany(string registerTime, Guid companyId);
+        List<SupplierResponseModel> GetByNameAndCompany(string name, Guid companyId);
+        List<SupplierResponseModel> GetByDocumentAndCompany(string document, Guid companyId);
+        List<SupplierResponseModel> GetByRegisterTimeAndCompany(string registerTime, Guid companyId);
     }
 }
