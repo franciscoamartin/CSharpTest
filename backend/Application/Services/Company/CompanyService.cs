@@ -9,6 +9,7 @@ namespace BludataTest.Services
     {
         private readonly ICompanyRepository _companyRepository;
         private CompanyValidator _companyValidator;
+
         public CompanyService(ICompanyRepository companyRepo)
         {
             _companyRepository = companyRepo;
@@ -16,8 +17,7 @@ namespace BludataTest.Services
         }
         public void Create(Company company)
         {
-            if (!_companyValidator.isValid(company))
-                throw new Exception("A empresa precisa conter dados válidos");
+            _companyValidator.ValidateCompany(company);
             _companyRepository.Create(company);
         }
         public IEnumerable<Company> GetAll()
@@ -45,7 +45,7 @@ namespace BludataTest.Services
         }
         public void Update(Guid id, Company company)
         {
-            if (id == Guid.Empty || company.Id != id || !_companyValidator.isValid(company))
+            if (id == Guid.Empty || company.Id != id)
                 throw new Exception("Informe uma empresa");
             var companyFound = _companyRepository.GetById(id);
             if (companyFound == null)

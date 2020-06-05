@@ -15,22 +15,27 @@ namespace BludataTest.Services
         {
             _documentValidator = new DocumentValidator();
         }
-        public void Validate(Supplier supplier)
+        public void ValidateSupplier(Supplier supplier)
         {
             if (supplier == null)
                 throw new Exception("Fornecedor não informado!");
             if (supplier.CompanyId == Guid.Empty)
                 throw new Exception("Empresa não informada!");
-            if (supplier.Document.Type == EDocumentType.CNPJ && !string.IsNullOrWhiteSpace(supplier.RG))
-                throw new Exception("Pessoa jurídica não deve possuir RG");
-
+            ValidateSupplierWithCNPJ(supplier);
             ValidateSupplierWithCPF(supplier);
-            ValidateSupplierFromPR(supplier);
+            ValidateSupplierWithCompanyFromPR(supplier);
             ValidateName(supplier.Name);
             ValidateBirthDate(supplier.BirthDate);
             ValidateRegisterTime(supplier.RegisterTime);
             ValidateTelephones(supplier.Telephones);
             ValidateDocument(supplier.Document);
+        }
+
+        private void ValidateSupplierWithCNPJ(Supplier supplier)
+        {
+            if (supplier.Document.Type == EDocumentType.CNPJ && !string.IsNullOrWhiteSpace(supplier.RG) || supplier.BirthDate != null)
+                throw new Exception("Pessoa jurídica não deve possuir RG nem data de nascimento");
+
         }
 
         private void ValidateSupplierWithCPF(Supplier supplier)
@@ -39,7 +44,7 @@ namespace BludataTest.Services
                 throw new Exception("Data de nascimento e RG precisam ser informados.");
         }
 
-        private void ValidateSupplierFromPR(Supplier supplier)
+        private void ValidateSupplierWithCompanyFromPR(Supplier supplier)
         {
             if (supplier.Company.UF == "PR"
                        && supplier.Document.Type == EDocumentType.CPF

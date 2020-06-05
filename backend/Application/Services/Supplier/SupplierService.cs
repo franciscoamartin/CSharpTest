@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using BludataTest.Repositories;
 using BludataTest.Models;
-using BludataTest.ValueObject;
 using System.Linq;
 using BludataTest.ResponseModels;
 
@@ -48,11 +47,11 @@ namespace BludataTest.Services
             return supplier;
         }
 
-        public List<SupplierResponseModel> FindSuppliersByCompany(Guid companyId)
+        public List<SupplierResponseModel> GetSuppliersByCompany(Guid companyId)
         {
             if (companyId == Guid.Empty)
                 throw new Exception("A empresa precisa ser informada");
-            var suppliersFound = _supplierRepository.FindSuppliersByCompany(companyId);
+            var suppliersFound = _supplierRepository.GetSuppliersByCompany(companyId);
             validateSuppliersSearch(suppliersFound);
             return getSuppliersResponseModels(suppliersFound);
         }
@@ -64,7 +63,7 @@ namespace BludataTest.Services
 
 
             supplier.RegisterTime = DateTime.Now;
-            _supplierValidator.Validate(supplier);
+            _supplierValidator.ValidateSupplier(supplier);
             _supplierRepository.Create(supplier);
         }
 
@@ -95,60 +94,60 @@ namespace BludataTest.Services
             _supplierRepository.Delete(supplier);
         }
 
-        public List<SupplierResponseModel> FindByName(string name)
+        public List<SupplierResponseModel> GetByName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new Exception("O nome precisa ser informado");
-            var suppliersFound = _supplierRepository.FindByName(name);
+            var suppliersFound = _supplierRepository.GetByName(name);
             validateSuppliersSearch(suppliersFound);
             return getSuppliersResponseModels(suppliersFound);
         }
-        public List<SupplierResponseModel> FindByNameAndCompany(string name, Guid companyId)
+        public List<SupplierResponseModel> GetByNameAndCompany(string name, Guid companyId)
         {
             if (string.IsNullOrWhiteSpace(name) || companyId == Guid.Empty)
                 throw new Exception("O nome e a empresa precisam ser informados");
-            var suppliersFound = _supplierRepository.FindByNameAndCompany(name, companyId);
+            var suppliersFound = _supplierRepository.GetByNameAndCompany(name, companyId);
             validateSuppliersSearch(suppliersFound);
             return getSuppliersResponseModels(suppliersFound);
         }
 
-        public List<SupplierResponseModel> FindByDocument(string document)
+        public List<SupplierResponseModel> GetByDocument(string document)
         {
             if (!_documentValidator.isCNPJValid(document) && !_documentValidator.isCPFValid(document))
                 throw new Exception("O documento informado não é válido");
-            var suppliersFound = _supplierRepository.FindByDocument(document);
+            var suppliersFound = _supplierRepository.GetByDocument(document);
             validateSuppliersSearch(suppliersFound);
             return getSuppliersResponseModels(suppliersFound);
 
         }
-        public List<SupplierResponseModel> FindByDocumentAndCompany(string document, Guid companyId)
+        public List<SupplierResponseModel> GetByDocumentAndCompany(string document, Guid companyId)
         {
             if (companyId == Guid.Empty)
                 throw new Exception("A empresa precisa ser informada.");
             if (!_documentValidator.isCNPJValid(document) && !_documentValidator.isCPFValid(document))
                 throw new Exception("O documento informado não é válido");
-            var suppliersFound = _supplierRepository.FindByDocumentAndCompany(document, companyId);
+            var suppliersFound = _supplierRepository.GetByDocumentAndCompany(document, companyId);
             if (suppliersFound == null)
                 throw new Exception("Fornecedor não encontrado");
             return getSuppliersResponseModels(suppliersFound);
 
         }
 
-        public List<SupplierResponseModel> FindByRegisterTime(string registerTime)
+        public List<SupplierResponseModel> GetByRegisterTime(string registerTime)
         {
             if (string.IsNullOrWhiteSpace(registerTime))
                 throw new Exception("Data/Hora de cadastro precisam ser informados");
             var dateToSearch = getFormattedDate(registerTime);
-            var suppliersFound = _supplierRepository.FindByRegisterTime(dateToSearch);
+            var suppliersFound = _supplierRepository.GetByRegisterTime(dateToSearch);
             validateSuppliersSearch(suppliersFound);
             return getSuppliersResponseModels(suppliersFound);
         }
-        public List<SupplierResponseModel> FindByRegisterTimeAndCompany(string registerTime, Guid companyId)
+        public List<SupplierResponseModel> GetByRegisterTimeAndCompany(string registerTime, Guid companyId)
         {
             if (string.IsNullOrWhiteSpace(registerTime) || companyId == Guid.Empty)
                 throw new Exception("Data/Hora de cadastro e empresa precisam ser informados");
             var dateToSearch = getFormattedDate(registerTime);
-            var suppliersFound = _supplierRepository.FindByRegisterTimeAndCompany(dateToSearch, companyId);
+            var suppliersFound = _supplierRepository.GetByRegisterTimeAndCompany(dateToSearch, companyId);
             validateSuppliersSearch(suppliersFound);
             return getSuppliersResponseModels(suppliersFound);
         }
@@ -164,7 +163,6 @@ namespace BludataTest.Services
                 var dateToSearch = new DateTime(year, month, day);
 
                 return dateToSearch;
-
             }
             catch (Exception)
             {

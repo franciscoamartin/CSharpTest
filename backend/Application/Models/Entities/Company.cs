@@ -4,8 +4,7 @@ namespace BludataTest.Models
     {
         public Company(string uF, string tradingName, string cNPJ)
         {
-            Active = true;
-            UF = uF;
+            UF = uF.ToUpper();
             TradingName = tradingName;
             CNPJ = cNPJ;
         }
