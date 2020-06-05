@@ -29,7 +29,7 @@ namespace BludataTest.Services
         {
             if (id == Guid.Empty)
                 throw new Exception("Informe a empresa");
-            var company = _companyRepository.Read(id);
+            var company = _companyRepository.GetById(id);
             if (company == null)
                 throw new Exception("Empresa não encontrada.");
             return company;
@@ -38,16 +38,16 @@ namespace BludataTest.Services
         {
             if (id == Guid.Empty)
                 throw new Exception("Informe a empresa");
-            var company = _companyRepository.Read(id);
+            var company = _companyRepository.GetById(id);
             if (company == null)
                 throw new Exception("Empresa não encontrada.");
-            _companyRepository.Delete(id);
+            _companyRepository.Delete(company);
         }
         public void Update(Guid id, Company company)
         {
             if (id == Guid.Empty || company.Id != id || !_companyValidator.isValid(company))
                 throw new Exception("Informe uma empresa");
-            var companyFound = _companyRepository.Read(id);
+            var companyFound = _companyRepository.GetById(id);
             if (companyFound == null)
                 throw new Exception("Empresa não encontrada.");
 
