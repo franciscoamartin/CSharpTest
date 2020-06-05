@@ -9,14 +9,14 @@ namespace BludataTest.Models
             : base(options)
         { }
 
-       public DbSet<Company> Companies { get; set; }
-       public DbSet<Supplier> Suppliers { get; set; }
-       public DbSet<Telephones> Telephones { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<Telephone> Telephones { get; set; }
 
-       protected override void OnModelCreating(ModelBuilder modelBuilder)
-       {
-          modelBuilder.ApplyConfiguration(new CompanyMapping());
-          modelBuilder.ApplyConfiguration(new SupplierMapping());
-       }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new CompanyMapping());
+            modelBuilder.ApplyConfiguration(new SupplierMapping());
+        }
     }
 }
