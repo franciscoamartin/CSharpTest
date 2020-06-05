@@ -2,20 +2,22 @@ using System;
 using System.Collections.Generic;
 using BludataTest.Models;
 using BludataTest.ResponseModels;
-using BludataTest.ValueObject;
 
 namespace BludataTest.Services
 {
     public interface ISupplierService
     {
         void Create(Supplier supplier);
-        IEnumerable<SupplierResponseModel> GetAll();
-        Supplier Read(Guid id);
-        List<Supplier> FindSuppliersByCompany(Guid companyId);
-        IEnumerable<Supplier> FindByName(string name);
-        Supplier FindByDocument(Document document);
-        IEnumerable<Supplier> FindByRegisterTime(DateTime registerTime);
+        List<SupplierResponseModel> GetAll();
+        Supplier GetById(Guid id);
+        List<SupplierResponseModel> FindSuppliersByCompany(Guid companyId);
+        List<SupplierResponseModel> FindByName(string name);
+        List<SupplierResponseModel> FindByDocument(string document);
+        List<SupplierResponseModel> FindByRegisterTime(string registerTime);
         void Delete(Guid id);
         void Update(Guid id, Supplier supplier);
+        List<SupplierResponseModel> FindByNameAndCompany(string name, Guid companyId);
+        List<SupplierResponseModel> FindByDocumentAndCompany(string document, Guid companyId);
+        List<SupplierResponseModel> FindByRegisterTimeAndCompany(string registerTime, Guid companyId);
     }
 }

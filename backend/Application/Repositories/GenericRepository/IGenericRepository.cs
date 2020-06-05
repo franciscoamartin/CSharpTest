@@ -9,7 +9,7 @@ namespace BludataTest.Repositories
         where TEntity : BaseEntity
     {
         List<TEntity> GetAll();
-        TEntity Read(Guid id);
+        TEntity GetById(Guid id);
         void Create(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);

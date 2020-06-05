@@ -14,34 +14,67 @@ namespace BludataTest.Repositories
         {
         }
 
-        public IEnumerable<Supplier> FindByName(string name)
+        public override Supplier GetById(Guid id)
         {
-            //if(companyId == Guid.Empty)
-            return _dbContext.Suppliers.Where(supplier => supplier.Name == name);
-            //return _dbContext.Suppliers.Where(supplier => supplier.Name == name && supplier.CompanyId == companyId);
+            var queryWithIncludes = getQueryWithIncludes();
+            return queryWithIncludes.FirstOrDefault(sup => sup.Id == id);
         }
-        public Supplier FindByDocument(Document document)
+
+        public override List<Supplier> GetAll()
         {
-            return _dbContext.Suppliers.FirstOrDefault(supplier => supplier.Document.ToString() == document.ToString());
+            var queryWithIncludes = getQueryWithIncludes();
+            return queryWithIncludes.Where(sup => sup.Active).ToList();
         }
-        public IEnumerable<Supplier> FindByRegisterTime(DateTime registerTime)
+
+        public List<Supplier> FindByName(string name)
         {
-            return _dbContext.Suppliers.Where(supplier => supplier.RegisterTime.Date == registerTime.Date);
+            var queryWithIncludes = getQueryWithIncludes();
+            return queryWithIncludes.Where(supplier => supplier.Name.Contains(name)).ToList();
+        }
+
+        public List<Supplier> FindByNameAndCompany(string name, Guid companyId)
+        {
+            var queryWithIncludes = getQueryWithIncludes();
+            return queryWithIncludes.Where(supplier => supplier.Name.Contains(name)
+                && supplier.CompanyId == companyId).ToList();
+        }
+
+        public List<Supplier> FindByDocument(string document)
+        {
+            var queryWithIncludes = getQueryWithIncludes();
+            return queryWithIncludes.Where(supplier =>
+                supplier.Document.ToString() == document.ToString()).ToList();
+        }
+
+        public List<Supplier> FindByDocumentAndCompany(string documentNumber, Guid companyId)
+        {
+            var queryWithIncludes = getQueryWithIncludes();
+            return queryWithIncludes.Where(supplier => supplier.Document.ToString() == documentNumber
+                 && supplier.CompanyId == companyId).ToList();
+        }
+
+        public List<Supplier> FindByRegisterTime(DateTime registerTime)
+        {
+            var queryWithIncludes = getQueryWithIncludes();
+            return queryWithIncludes.Where(supplier => supplier.RegisterTime.Date == registerTime.Date).ToList();
+        }
+
+        public List<Supplier> FindByRegisterTimeAndCompany(DateTime registerTime, Guid companyId)
+        {
+            var queryWithIncludes = getQueryWithIncludes();
+            return queryWithIncludes.Where(supplier => supplier.RegisterTime.Date == registerTime.Date
+             && supplier.CompanyId == companyId).ToList();
         }
 
         public List<Supplier> FindSuppliersByCompany(Guid companyId)
         {
-            return _dbContext.Suppliers.Where(supplier => supplier.CompanyId == companyId).ToList();
+            var queryWithIncludes = getQueryWithIncludes();
+            return queryWithIncludes.Where(supplier => supplier.CompanyId == companyId).ToList();
         }
 
-        public override Supplier Read(Guid id)
+        private IQueryable<Supplier> getQueryWithIncludes()
         {
-            return _dbContext.Suppliers.Include(sup => sup.Company).Include(sup => sup.Telephones).FirstOrDefault(sup => sup.Id == id);
+            return _dbContext.Suppliers.Include(sup => sup.Company).Include(sup => sup.Telephones).Where(sup => sup.Active && sup.Company.Active);
         }
-        public override List<Supplier> GetAll()
-        {
-            return _dbContext.Suppliers.Include(sup => sup.Company).Include(sup => sup.Telephones).Where(sup => sup.Active).ToList();
-        }
-
     }
 }

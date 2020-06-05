@@ -7,10 +7,13 @@ using BludataTest.ValueObject;
 namespace BludataTest.Repositories
 {
     public interface ISupplierRepository : IGenericRepository<Supplier>
-    {  
-        IEnumerable<Supplier> FindByName(string name);
-        Supplier FindByDocument(Document document);
-        IEnumerable<Supplier> FindByRegisterTime(DateTime registerTime);
+    {
         List<Supplier> FindSuppliersByCompany(Guid companyId);
+        List<Supplier> FindByName(string name);
+        List<Supplier> FindByNameAndCompany(string name, Guid companyId);
+        List<Supplier> FindByDocument(string document);
+        List<Supplier> FindByDocumentAndCompany(string document, Guid companyId);
+        List<Supplier> FindByRegisterTime(DateTime registerTime);
+        List<Supplier> FindByRegisterTimeAndCompany(DateTime registerTime, Guid companyId);
     }
 }
