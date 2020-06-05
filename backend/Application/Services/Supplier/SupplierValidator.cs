@@ -84,12 +84,12 @@ namespace BludataTest.Services
 
         private bool isLegalAGe(DateTime? birthDate)
         {
-            var days = 365;
+            var fullYearDays = 365;
             var leapYear = 4;
             var legalAge = 18;
 
             TimeSpan? age = DateTime.Now - birthDate;
-            return age?.Days / days + leapYear >= legalAge;
+            return age?.Days / (fullYearDays + leapYear) >= legalAge;
         }
     }
 }
