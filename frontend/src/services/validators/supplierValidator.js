@@ -1,3 +1,5 @@
+import Supplier from '../../pages/Supplier';
+
 export default function Validate(data) {
   if (data.document.type == 1) validateCNPJ(data.document.number);
   else {
@@ -25,15 +27,18 @@ function validateName(name) {
 }
 
 function validateBirthDate(birthDate) {
-  //birthDate = birthDate.split('/');
-  //birthDate.forEach((e) => {
-  //const parsedNumber = Number(e);
-  //if (parsedNumber == NaN) throw new Error('Data inválida');
-  //});
+  if (!birthDate) {
+    throw new Error('Data inválida');
+  }
 }
 
 function validateTelephones(telephones) {
   telephones.forEach((telephone) => {
-    if (telephone.length < 9) throw new Error('Telefone inválido');
+    if (
+      !telephone.number.match(
+        /(\+\d{2})(\s)?(\()?\d{2}(\)?)(\s)?\d{4,5}(\-)?\d{4}/g
+      )
+    )
+      throw new Error('Telefone inválido');
   });
 }

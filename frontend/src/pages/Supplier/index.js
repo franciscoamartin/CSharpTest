@@ -24,6 +24,7 @@ export default function Supplier() {
   const [documentNumber, setDocumentNumber] = useState('');
   const [rG, setRG] = useState();
   const [birthDate, setBirthDate] = useState();
+  const [ddi, setDdi] = useState('+55');
   const [telephones, setTelephones] = useState([]);
   const [telephone, setTelephone] = useState('');
 
@@ -49,7 +50,7 @@ export default function Supplier() {
       name,
       document: { number: documentNumber, type: documentType },
       rG,
-      birthDate: birthDate && new Date(birthDate),
+      birthDate: getFormattedDate(birthDate),
       telephones: telephones,
     };
 
@@ -103,10 +104,15 @@ export default function Supplier() {
   function addTelephone() {
     const foundTelephone = telephones.find((t) => t.number == telephone);
     if (!foundTelephone) {
-      telephones.push({ number: '+55' + ' ' + telephone });
+      telephones.push({ number: ddi + ' ' + telephone });
       setTelephones(Object.assign([], telephones));
       setTelephone('');
     }
+  }
+
+  function getFormattedDate(birthDate) {
+    if (birthDate === '') return undefined;
+    if (birthDate) return new Date(birthDate);
   }
 
   function clearInputData() {
@@ -180,6 +186,13 @@ export default function Supplier() {
                 ></EntityType>
               </div>
               <div className="input-group">
+                <input
+                  className="input-ddi"
+                  type="text"
+                  placeholder="DDI"
+                  value={ddi}
+                  onChange={(e) => setDdi(e.target.value)}
+                />
                 <input
                   type="number"
                   placeholder="Telefone"

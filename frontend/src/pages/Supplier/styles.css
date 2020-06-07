@@ -102,6 +102,13 @@
   margin-top: 7px;
   width: 100%;
 }
+.input-ddi {
+  width: 20%;
+  font: 400 17px Roboto, sans-serif;
+  border-radius: 10px;
+  margin-right: 8px;
+  margin-top: 8px;
+}
 .entity-type-container {
   width: 100%;
 }
