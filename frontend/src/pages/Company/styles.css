@@ -48,3 +48,9 @@
 .company-container .content form .input-group input + input {
   margin-left: 8px;
 }
+.input-uf {
+  font: 400 17px Roboto, sans-serif;
+  border-radius: 10px;
+  margin-right: 8px;
+  margin-top: 8px;
+}

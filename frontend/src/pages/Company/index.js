@@ -5,6 +5,7 @@ import CompaniesTable from '../../components/Tables/CompaniesTable/index';
 import ReactDOM from 'react-dom';
 import InputMask from 'react-input-mask';
 import ReactLoading from 'react-loading';
+import SelectBrasilState from '../../components/SelectBrasilState';
 import swal from 'sweetalert';
 
 import './styles.css';
@@ -72,14 +73,7 @@ export default function Company() {
               />
 
               <div className="input-group">
-                <input
-                  className="input-uf"
-                  type="text"
-                  maxlength="2"
-                  placeholder="UF"
-                  value={uf}
-                  onChange={(e) => setUF(e.target.value)}
-                />
+                <SelectBrasilState setUF={setUF}></SelectBrasilState>
                 <InputMask
                   mask="99.999.999/9999-99"
                   value={cnpj}
