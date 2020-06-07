@@ -14,5 +14,11 @@ namespace BludataTest.Models
         public string UF { get; set; }
         public string TradingName { get; set; }
         public string CNPJ { get; set; }
+
+        public void Update(Company company)
+        {
+            UF = company.UF;
+            TradingName = company.TradingName;
+        }
     }
 }

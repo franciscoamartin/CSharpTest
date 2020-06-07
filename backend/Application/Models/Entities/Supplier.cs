@@ -29,5 +29,11 @@ namespace BludataTest.Models
         public DateTime RegisterTime { get; set; }
         public DateTime? BirthDate { get; set; }
         public List<Telephone> Telephones { get; set; }
+
+        public void Update(Supplier supplier)
+        {
+            Telephones = supplier.Telephones;
+            Name = supplier.Name;
+        }
     }
 }
