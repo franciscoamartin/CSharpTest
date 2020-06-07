@@ -63,7 +63,7 @@ namespace UnitTests.ServicesTests
         public void Should_get_company_by_id()
         {
             var company = GetCompanyExample();
-            var companyExampleId = new Guid();
+            var companyExampleId = Guid.NewGuid();
             company.Id = companyExampleId;
             _companyRepository.GetById(companyExampleId).Returns(company);
             var companyReceived = _companyService.Read(companyExampleId);

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using BludataTest.Models;
 
 namespace BludataTest.Services
@@ -12,8 +13,6 @@ namespace BludataTest.Services
         }
         public void ValidateCompany(Company company)
         {
-            if (company == null)
-                throw new Exception("Empresa não informada!");
             ValidateTradingName(company.TradingName);
             ValidateUF(company.UF);
             ValidateCNPJ(company.CNPJ);
@@ -34,6 +33,11 @@ namespace BludataTest.Services
         {
             if (!_documentValidator.isCNPJValid(cnpj))
                 throw new Exception("Informe um CNPJ válido");
+        }
+
+        private bool ufContainsNumber(string uf)
+        {
+            return uf.Any(c => char.IsDigit(c));
         }
 
     }

@@ -58,6 +58,8 @@ namespace BludataTest.Services
 
         public void Create(Supplier supplier)
         {
+            if (supplier == null)
+                throw new Exception("Dados informados não estão corretos!");
             var companyFound = _companyService.Read(supplier.CompanyId);
             supplier.Company = companyFound;
 
@@ -69,19 +71,19 @@ namespace BludataTest.Services
 
         public void Update(Guid id, Supplier supplier)
         {
-            if (supplier.Id != id || id == Guid.Empty)
+            if (supplier == null)
+                throw new Exception("Dados informados não estão corretos!");
+            if (id == Guid.Empty)
                 throw new Exception("Fornecedor precisa ser informado.");
             _supplierValidator.ValidateTelephones(supplier.Telephones);
             _supplierValidator.ValidateName(supplier.Name);
 
-            var supplierFound = _supplierRepository.GetById(id);
-            if (supplierFound == null)
+            var supplierToUpdate = _supplierRepository.GetById(id);
+            if (supplierToUpdate == null)
                 throw new Exception("Fornecedor não encontrado.");
 
-            supplierFound.Telephones = supplier.Telephones;
-            supplierFound.Name = supplier.Name;
-
-            _supplierRepository.Update(supplierFound);
+            supplierToUpdate.Update(supplier);
+            _supplierRepository.Update(supplierToUpdate);
         }
 
         public void Delete(Guid id)
@@ -172,7 +174,7 @@ namespace BludataTest.Services
 
         private void validateSuppliersSearch(List<Supplier> suppliers)
         {
-            if (suppliers.Count <= 0)
+            if (suppliers == null || suppliers.Count <= 0)
                 throw new Exception("Fornecedor não encontrado");
         }
 

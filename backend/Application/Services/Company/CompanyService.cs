@@ -17,6 +17,8 @@ namespace BludataTest.Services
         }
         public void Create(Company company)
         {
+            if (company == null)
+                throw new Exception("Empresa não informada!");
             _companyValidator.ValidateCompany(company);
             _companyRepository.Create(company);
         }
@@ -45,16 +47,17 @@ namespace BludataTest.Services
         }
         public void Update(Guid id, Company company)
         {
-            if (id == Guid.Empty || company.Id != id)
+            if (company == null)
+                throw new Exception("Empresa não informada!");
+            if (id == Guid.Empty)
                 throw new Exception("Informe uma empresa");
-            var companyFound = _companyRepository.GetById(id);
-            if (companyFound == null)
+            var companyToUpdate = _companyRepository.GetById(id);
+            if (companyToUpdate == null)
                 throw new Exception("Empresa não encontrada.");
 
-            companyFound.UF = company.UF;
-            companyFound.TradingName = company.TradingName;
+            companyToUpdate.Update(company);
 
-            _companyRepository.Update(companyFound);
+            _companyRepository.Update(companyToUpdate);
         }
     }
 }
