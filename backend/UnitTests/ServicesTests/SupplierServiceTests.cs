@@ -154,8 +154,8 @@ namespace UnitTests.ServicesTests
             suppliersToDb.Add(supplierExample);
             _supplierRepository.GetByName(supplierExample.Name).Returns(suppliersToDb);
 
-            var suppliersFound = _supplierService.GetByName(supplierExample.Name);
-            var supResponseModel = suppliersFound[0];
+            var foundSuppliers = _supplierService.GetByName(supplierExample.Name);
+            var supResponseModel = foundSuppliers[0];
 
             var formattedTelephones = supplierExample.Telephones.ConvertAll(tel => tel.Number);
 
@@ -173,8 +173,8 @@ namespace UnitTests.ServicesTests
             var supplierExample = GetSupplierExample();
             _supplierRepository.GetByDocument(supplierExample.Document.ToString()).Returns(_suppliersExample);
 
-            var suppliersFound = _supplierService.GetByDocument(supplierExample.Document.ToString());
-            var supResponseModel = suppliersFound[0];
+            var foundSuppliers = _supplierService.GetByDocument(supplierExample.Document.ToString());
+            var supResponseModel = foundSuppliers[0];
 
             Assert.True(supResponseModel.CpfCnpj == supplierExample.Document.ToString()
             && supResponseModel.Name == supplierExample.Name);
@@ -197,8 +197,8 @@ namespace UnitTests.ServicesTests
             var supplierExample = GetSupplierExample();
             _supplierRepository.GetByRegisterTime(supplierExample.RegisterTime.Date).Returns(_suppliersExample);
 
-            var suppliersFound = _supplierService.GetByRegisterTime(supplierExample.RegisterTime.Date.ToString("yyyy-MM-dd"));
-            var supResponseModel = suppliersFound[0];
+            var foundSuppliers = _supplierService.GetByRegisterTime(supplierExample.RegisterTime.Date.ToString("yyyy-MM-dd"));
+            var supResponseModel = foundSuppliers[0];
 
             Assert.True(supResponseModel.GetType() == typeof(SupplierResponseModel) && supResponseModel != null);
         }

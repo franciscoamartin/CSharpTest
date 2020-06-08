@@ -25,14 +25,14 @@ namespace BludataTest.Services
         public List<SupplierResponseModel> GetAll()
         {
 
-            var suppliersFound = _supplierRepository.GetAll();
-            var suppliersToReturn = getSuppliersResponseModels(suppliersFound);
+            var foundSuppliers = _supplierRepository.GetAll();
+            var suppliersToReturn = getSuppliersResponseModels(foundSuppliers);
             return suppliersToReturn;
         }
 
-        private List<SupplierResponseModel> getSuppliersResponseModels(List<Supplier> suppliersFound)
+        private List<SupplierResponseModel> getSuppliersResponseModels(List<Supplier> foundSuppliers)
         {
-            return suppliersFound.Select(s => new SupplierResponseModel(id: s.Id,
+            return foundSuppliers.Select(s => new SupplierResponseModel(id: s.Id,
             name: s.Name, companyTradingName: s.Company.TradingName, document: s.Document,
             rg: s.RG, registerTime: s.RegisterTime, birthDate: s.BirthDate, telephone: s.Telephones)).ToList();
         }
@@ -51,9 +51,9 @@ namespace BludataTest.Services
         {
             if (companyId == Guid.Empty)
                 throw new Exception("A empresa precisa ser informada");
-            var suppliersFound = _supplierRepository.GetSuppliersByCompany(companyId);
-            validateSuppliersSearch(suppliersFound);
-            return getSuppliersResponseModels(suppliersFound);
+            var foundSuppliers = _supplierRepository.GetSuppliersByCompany(companyId);
+            validateSuppliersSearch(foundSuppliers);
+            return getSuppliersResponseModels(foundSuppliers);
         }
 
         public void Create(Supplier supplier)
@@ -100,27 +100,26 @@ namespace BludataTest.Services
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new Exception("O nome precisa ser informado");
-            var suppliersFound = _supplierRepository.GetByName(name);
-            validateSuppliersSearch(suppliersFound);
-            return getSuppliersResponseModels(suppliersFound);
+            var foundSuppliers = _supplierRepository.GetByName(name);
+            validateSuppliersSearch(foundSuppliers);
+            return getSuppliersResponseModels(foundSuppliers);
         }
         public List<SupplierResponseModel> GetByNameAndCompany(string name, Guid companyId)
         {
             if (string.IsNullOrWhiteSpace(name) || companyId == Guid.Empty)
                 throw new Exception("O nome e a empresa precisam ser informados");
-            var suppliersFound = _supplierRepository.GetByNameAndCompany(name, companyId);
-            validateSuppliersSearch(suppliersFound);
-            return getSuppliersResponseModels(suppliersFound);
+            var foundSuppliers = _supplierRepository.GetByNameAndCompany(name, companyId);
+            validateSuppliersSearch(foundSuppliers);
+            return getSuppliersResponseModels(foundSuppliers);
         }
 
         public List<SupplierResponseModel> GetByDocument(string document)
         {
             if (!_documentValidator.isCNPJValid(document) && !_documentValidator.isCPFValid(document))
                 throw new Exception("O documento informado não é válido");
-            var suppliersFound = _supplierRepository.GetByDocument(document);
-            validateSuppliersSearch(suppliersFound);
-            return getSuppliersResponseModels(suppliersFound);
-
+            var foundSuppliers = _supplierRepository.GetByDocument(document).ToList();
+            validateSuppliersSearch(foundSuppliers);
+            return getSuppliersResponseModels(foundSuppliers);
         }
         public List<SupplierResponseModel> GetByDocumentAndCompany(string document, Guid companyId)
         {
@@ -128,10 +127,10 @@ namespace BludataTest.Services
                 throw new Exception("A empresa precisa ser informada.");
             if (!_documentValidator.isCNPJValid(document) && !_documentValidator.isCPFValid(document))
                 throw new Exception("O documento informado não é válido");
-            var suppliersFound = _supplierRepository.GetByDocumentAndCompany(document, companyId);
-            if (suppliersFound == null)
+            var foundSuppliers = _supplierRepository.GetByDocumentAndCompany(document, companyId);
+            if (foundSuppliers == null)
                 throw new Exception("Fornecedor não encontrado");
-            return getSuppliersResponseModels(suppliersFound);
+            return getSuppliersResponseModels(foundSuppliers);
 
         }
 
@@ -140,18 +139,18 @@ namespace BludataTest.Services
             if (string.IsNullOrWhiteSpace(registerTime))
                 throw new Exception("Data/Hora de cadastro precisam ser informados");
             var dateToSearch = getFormattedDate(registerTime);
-            var suppliersFound = _supplierRepository.GetByRegisterTime(dateToSearch);
-            validateSuppliersSearch(suppliersFound);
-            return getSuppliersResponseModels(suppliersFound);
+            var foundSuppliers = _supplierRepository.GetByRegisterTime(dateToSearch);
+            validateSuppliersSearch(foundSuppliers);
+            return getSuppliersResponseModels(foundSuppliers);
         }
         public List<SupplierResponseModel> GetByRegisterTimeAndCompany(string registerTime, Guid companyId)
         {
             if (string.IsNullOrWhiteSpace(registerTime) || companyId == Guid.Empty)
                 throw new Exception("Data/Hora de cadastro e empresa precisam ser informados");
             var dateToSearch = getFormattedDate(registerTime);
-            var suppliersFound = _supplierRepository.GetByRegisterTimeAndCompany(dateToSearch, companyId);
-            validateSuppliersSearch(suppliersFound);
-            return getSuppliersResponseModels(suppliersFound);
+            var foundSuppliers = _supplierRepository.GetByRegisterTimeAndCompany(dateToSearch, companyId);
+            validateSuppliersSearch(foundSuppliers);
+            return getSuppliersResponseModels(foundSuppliers);
         }
 
         private DateTime getFormattedDate(string registerTime)
