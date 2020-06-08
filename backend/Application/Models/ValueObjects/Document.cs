@@ -2,7 +2,7 @@ using BludataTest.Enums;
 
 namespace BludataTest.ValueObject
 {
-    public struct Document 
+    public struct Document
     {
         public Document(string number, EDocumentType type)
         {
@@ -10,7 +10,7 @@ namespace BludataTest.ValueObject
             Type = type;
         }
 
-        public string Number { private get; set; }
+        public string Number { get; set; }
         public EDocumentType Type { get; set; }
 
         public override string ToString()
