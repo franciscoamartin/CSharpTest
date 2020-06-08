@@ -133,7 +133,7 @@ export default function Supplier() {
             <h1>Cadastro de fornecedores</h1>
 
             <form onSubmit={handleRegister}>
-              <div className="row">
+              <div className="company-actions">
                 {isCompanyLoading ? (
                   <div className="loading" style={{ width: '50%' }}>
                     <ReactLoading
@@ -162,7 +162,7 @@ export default function Supplier() {
               </div>
               {companySelected.tradingName && (
                 <div className="selected-company">
-                  <p>Nome: {companySelected.tradingName}</p>
+                  <p>Empresa: {companySelected.tradingName}</p>
                   <p>CNPJ: {companySelected.cnpj}</p>
                   <p>UF: {companySelected.uf}</p>
                 </div>
@@ -247,6 +247,7 @@ export default function Supplier() {
                 isCompanyLoading={isCompanyLoading}
                 companies={companies}
                 setSuppliers={setSuppliers}
+                getAll={getAll}
               ></SearchSupplier>
             </div>
           </div>

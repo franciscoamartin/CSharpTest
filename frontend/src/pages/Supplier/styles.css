@@ -36,20 +36,23 @@
   max-width: 450px;
 }
 .company-button {
-  width: 50%;
+  width: 49%;
   height: 60px;
   padding: 0 5px;
   background: #e02041;
-  border: solid;
+  border: none;
   border-radius: 10px;
   color: #f0f5f1;
   font-weight: 700;
-  margin-top: 3px;
   display: inline-block;
   text-align: center;
   text-decoration: none;
   font-size: 18px;
   transition: filter 0.2s;
+}
+.company-actions {
+  display: flex;
+  justify-content: space-between;
 }
 .supplier-container .content form input {
   margin-top: 8px;
