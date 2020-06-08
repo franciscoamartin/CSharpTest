@@ -1,3 +1,4 @@
+using BludataTest.Filter;
 using BludataTest.Models;
 using BludataTest.Repositories;
 using BludataTest.Services;
@@ -22,6 +23,8 @@ namespace BludataTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc(options =>
+                options.Filters.Add(typeof(JsonExceptionFilter)));
             services.AddDbContext<BludataTestDbContext>(options =>
                options.UseSqlServer("Server=localhost\\SQLEXPRESS;User Id=sa;Password=sa;Database=BludataTest;MultipleActiveResultSets=true"));
             services.AddTransient<ICompanyRepository, CompanyRepository>();
