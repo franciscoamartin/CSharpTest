@@ -20,7 +20,7 @@ export async function getSupplierByName(name, companyId) {
 export async function getSupplierByDocument(document, companyId) {
   let response;
   if (companyId) {
-    response = await api.get(`/supplier/document${document}/${companyId}`);
+    response = await api.get(`/supplier/document/${document}/${companyId}`);
   } else {
     response = await api.get(`/supplier/document/${document}`);
   }
