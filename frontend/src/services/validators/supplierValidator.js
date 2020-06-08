@@ -1,5 +1,3 @@
-import Supplier from '../../pages/Supplier';
-
 export default function Validate(data) {
   if (data.document.type == 1) validateCNPJ(data.document.number);
   else {
@@ -23,7 +21,7 @@ function validateCPF(cpf) {
 }
 
 function validateName(name) {
-  if (name.length < 3) throw new Error('atabom');
+  if (name.length < 3) throw new Error('Nome é inválido');
 }
 
 function validateBirthDate(birthDate) {

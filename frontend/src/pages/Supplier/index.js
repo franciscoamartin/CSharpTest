@@ -10,6 +10,7 @@ import SearchSupplier from '../../components/SearchSupplier/index';
 import validateSupplier from '../../services/validators/supplierValidator';
 import swal from 'sweetalert';
 import ReactLoading from 'react-loading';
+import showModalError from '../../services/showModalError';
 
 import './styles.css';
 
@@ -58,7 +59,7 @@ export default function Supplier() {
       validateSupplier(dataToSend);
     } catch (error) {
       setIsLoading(false);
-      return swal(error.message);
+      return swal(error.message, '', 'error');
     }
 
     try {
@@ -69,19 +70,17 @@ export default function Supplier() {
       clearInputData();
     } catch (error) {
       setIsLoading(false);
-      swal(
-        error.response
-          ? error.response.data
-          : 'Erro ao cadastrar,tente novamente',
-        '',
-        'error'
-      );
+      showModalError(error, 'Erro ao cadastrar,tente novamente');
     }
   }
 
   async function getAll() {
-    const suppliersFound = await supplierService.getAllSuppliers();
-    setSuppliers(suppliersFound);
+    try {
+      const suppliersFound = await supplierService.getAllSuppliers();
+      setSuppliers(suppliersFound);
+    } catch (error) {
+      showModalError(error, 'Não foi possível realizar a busca');
+    }
   }
 
   function showModal() {

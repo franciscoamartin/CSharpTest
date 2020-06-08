@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import * as companyService from '../../services/companyServices';
 import CompaniesTable from '../../components/Tables/CompaniesTable/index';
-import ReactDOM from 'react-dom';
 import InputMask from 'react-input-mask';
 import ReactLoading from 'react-loading';
 import SelectBrasilState from '../../components/SelectBrasilState';
 import swal from 'sweetalert';
+import validateCompany from '../../services/validators/companyValidator';
+import showModalError from '../../services/showModalError';
 
 import './styles.css';
 
@@ -14,7 +14,7 @@ export default function Company() {
   const [isLoading, setIsLoading] = useState(false);
   const [companies, setCompanies] = useState([]);
   const [tradingName, setTradingName] = useState('');
-  const [uf, setUF] = useState('');
+  const [uf, setUF] = useState('SC');
   const [cnpj, setCNPJ] = useState('');
 
   useEffect(() => {
@@ -36,6 +36,13 @@ export default function Company() {
     };
 
     try {
+      validateCompany(data);
+    } catch (error) {
+      setIsLoading(false);
+      return swal(error.message, '', 'error');
+    }
+
+    try {
       const response = await companyService.createCompany(data);
       swal(`Empresa cadastrada com sucesso!`, '', 'success');
       setIsLoading(false);
@@ -43,13 +50,17 @@ export default function Company() {
       clearInputData();
     } catch (error) {
       setIsLoading(false);
-      swal(`Erro ao cadastrar, tente novamente.`, '', 'error');
+      showModalError(error, 'Erro ao cadastrar, tente novamente.');
     }
   }
 
   async function getAll() {
-    const companiesFound = await companyService.getAllCompanies();
-    setCompanies(companiesFound);
+    try {
+      const companiesFound = await companyService.getAllCompanies();
+      setCompanies(companiesFound);
+    } catch (error) {
+      showModalError(error, 'Não foi possível realizar a busca');
+    }
   }
 
   function clearInputData() {

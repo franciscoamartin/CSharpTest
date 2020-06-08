@@ -4,6 +4,7 @@ import swal from 'sweetalert';
 import * as supplierService from '../../../services/supplierServices';
 import ReactDOM from 'react-dom';
 import './styles.css';
+import showModalError from '../../../services/showModalError';
 
 export default function SuppliersTable({ suppliers, setSuppliers }) {
   const [columns, setColumns] = React.useState([
@@ -44,7 +45,7 @@ export default function SuppliersTable({ suppliers, setSuppliers }) {
       swal('Fornecedor alterado com sucesso', '', 'success');
       getAll();
     } catch (error) {
-      swal('Fornecedor não foi alterado', '', 'error');
+      showModalError(error, 'Fornecedor não foi alterado');
     }
   }
 
@@ -62,14 +63,18 @@ export default function SuppliersTable({ suppliers, setSuppliers }) {
         setSuppliers(filteredSuppliers);
         swal('Fornecedor deletado com sucesso', '', 'success');
       } catch (error) {
-        swal('Fornecedor não foi deletado', '', 'error');
+        showModalError(error, 'Fornecedor não foi deletado');
       }
     }
   }
 
   async function getAll() {
-    const suppliersFound = await supplierService.getAllSuppliers();
-    setSuppliers(suppliersFound);
+    try {
+      const suppliersFound = await supplierService.getAllSuppliers();
+      setSuppliers(suppliersFound);
+    } catch (error) {
+      showModalError(error, 'Não foi possível realizar a busca');
+    }
   }
 
   function formattedTelephones(telephones) {

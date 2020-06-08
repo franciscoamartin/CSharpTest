@@ -4,6 +4,7 @@ import swal from 'sweetalert';
 import * as companyService from '../../../services/companyServices';
 import showModal from '../../LoadingModal';
 import './styles.css';
+import showModalError from '../../../services/showModalError';
 
 export default function CompaniesTable({
   companies,
@@ -23,25 +24,18 @@ export default function CompaniesTable({
   ]);
 
   async function handleUpdate(newData, oldData) {
-    const accepted = await swal(
-      'Tem certeza que deseja editar essa empresa?',
-      '',
-      'info'
-    );
-    if (accepted) {
-      try {
-        showModal();
-        const dataToSend = {
-          id: oldData.id,
-          uf: newData.uf,
-          tradingName: newData.tradingName,
-        };
-        await companyService.updateCompany(dataToSend);
-        swal('Empresa alterada com sucesso', '', 'success');
-        getAll();
-      } catch (error) {
-        swal('Empresa não foi alterada', '', 'error');
-      }
+    try {
+      showModal();
+      const dataToSend = {
+        id: oldData.id,
+        uf: newData.uf,
+        tradingName: newData.tradingName,
+      };
+      await companyService.updateCompany(dataToSend);
+      swal('Empresa alterada com sucesso', '', 'success');
+      getAll();
+    } catch (error) {
+      showModalError(error, 'Empresa não foi alterada');
     }
   }
 
@@ -59,14 +53,18 @@ export default function CompaniesTable({
         setCompanies(filteredCompanies);
         swal('Empresa deletada com sucesso', '', 'success');
       } catch (error) {
-        swal('Empresa não foi deletada', '', 'error');
+        showModalError(error, 'Empresa não foi deletada');
       }
     }
   }
 
   async function getAll() {
-    const companiesFound = await companyService.getAllCompanies();
-    setCompanies(companiesFound);
+    try {
+      const companiesFound = await companyService.getAllCompanies();
+      setCompanies(companiesFound);
+    } catch (error) {
+      showModalError(error, 'não foi possível realizar a busca');
+    }
   }
 
   return (

@@ -5,6 +5,7 @@ import CompaniesTable from '../../components/Tables/CompaniesTable/index';
 import * as supplierService from '../../services/supplierServices';
 import ReactLoading from 'react-loading';
 import InputMask from 'react-input-mask';
+import showModalError from '../../services/showModalError';
 
 import './styles.css';
 
@@ -49,13 +50,7 @@ export default function SearchSupplier({
       if (!showClearSearchBtn) setShowClearSearchBtn(true);
     } catch (error) {
       setIsLoading(false);
-      swal(
-        error.response
-          ? error.response.data
-          : 'Não foi possível efetuar a busca',
-        '',
-        'error'
-      );
+      showModalError(error, 'Erro ao realizar a busca');
     }
   }
 
