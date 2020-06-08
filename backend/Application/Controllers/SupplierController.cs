@@ -108,9 +108,9 @@ namespace BludataTest.Controllers
                 var supplier = _supplierService.GetByName(name);
                 return new ObjectResult(supplier);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return NotFound("Fornecedor não foi encontrado");
+                return NotFound(ex.Message);
             }
         }
         [HttpGet]
@@ -122,9 +122,9 @@ namespace BludataTest.Controllers
                 var supplier = _supplierService.GetByNameAndCompany(name, companyId);
                 return new ObjectResult(supplier);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return NotFound("Fornecedor não foi encontrado");
+                return NotFound(ex.Message);
             }
         }
 
@@ -132,15 +132,15 @@ namespace BludataTest.Controllers
         [Route("document/{document}")]
         public IActionResult GetByDocument(string document)
         {
-            try
-            {
-                var supplier = _supplierService.GetByDocument(document);
-                return new ObjectResult(supplier);
-            }
-            catch (Exception)
-            {
-                return NotFound("Fornecedor não foi encontrado");
-            }
+            //try
+            //{
+            var supplier = _supplierService.GetByDocument(document);
+            return new ObjectResult(supplier);
+            //}
+            // catch (Exception ex)
+            // {
+            //     return NotFound(ex.Message);
+            // }
         }
         [HttpGet]
         [Route("document/{document}/{companyId}")]
@@ -151,9 +151,9 @@ namespace BludataTest.Controllers
                 var supplier = _supplierService.GetByDocumentAndCompany(document, companyId);
                 return new ObjectResult(supplier);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return NotFound("Fornecedor não foi encontrado");
+                return NotFound(ex.Message);
             }
         }
 
@@ -166,9 +166,9 @@ namespace BludataTest.Controllers
                 var supplier = _supplierService.GetByRegisterTime(registerTime);
                 return new ObjectResult(supplier);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return NotFound("Fornecedor não foi encontrado");
+                return NotFound(ex.Message);
             }
         }
         [HttpGet]
@@ -180,9 +180,9 @@ namespace BludataTest.Controllers
                 var supplier = _supplierService.GetByRegisterTimeAndCompany(registerTime, companyId);
                 return new ObjectResult(supplier);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return NotFound("Fornecedor não foi encontrado");
+                return NotFound(ex.Message);
             }
         }
     }
