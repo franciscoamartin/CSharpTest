@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BludataTest.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace BludataTest.Repositories
@@ -38,18 +39,23 @@ namespace BludataTest.Repositories
                 && supplier.CompanyId == companyId).ToList();
         }
 
-        public List<Supplier> GetByDocument(string document)
+        public IEnumerable<Supplier> GetByDocument(string documentToSearch)
         {
-            var queryWithIncludes = getQueryWithIncludes();
-            return queryWithIncludes.Where(supplier =>
-                supplier.Document.ToString() == document.ToString()).ToList();
+            var documentParameter = new SqlParameter("document", documentToSearch);
+            return _dbContext.Suppliers
+            .FromSqlRaw("SELECT * FROM SUPPLIERS WHERE DOCUMENT = @document", documentParameter)
+                .Include(sup => sup.Company)
+                .Include(sup => sup.Telephones);
         }
 
-        public List<Supplier> GetByDocumentAndCompany(string documentNumber, Guid companyId)
+        public List<Supplier> GetByDocumentAndCompany(string documentToSearch, Guid companyId)
         {
-            var queryWithIncludes = getQueryWithIncludes();
-            return queryWithIncludes.Where(supplier => supplier.Document.ToString() == documentNumber
-                 && supplier.CompanyId == companyId).ToList();
+            var documentParameter = new SqlParameter("document", documentToSearch);
+            return _dbContext.Suppliers
+                .FromSqlRaw("SELECT * FROM SUPPLIERS WHERE DOCUMENT = @document", documentParameter)
+                .Include(sup => sup.Company)
+                .Include(sup => sup.Telephones)
+                .Where(sup => sup.CompanyId == companyId && sup.Active && sup.Company.Active).ToList();
         }
 
         public List<Supplier> GetByRegisterTime(DateTime registerTime)
@@ -73,7 +79,8 @@ namespace BludataTest.Repositories
 
         private IQueryable<Supplier> getQueryWithIncludes()
         {
-            return _dbContext.Suppliers.Include(sup => sup.Company).Include(sup => sup.Telephones).Where(sup => sup.Active && sup.Company.Active);
+            return _dbContext.Suppliers.Include(sup => sup.Company)
+                .Include(sup => sup.Telephones).Where(sup => sup.Active && sup.Company.Active);
         }
     }
 }
