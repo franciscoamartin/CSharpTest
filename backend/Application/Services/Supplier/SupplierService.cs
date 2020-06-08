@@ -25,7 +25,6 @@ namespace BludataTest.Services
 
         public List<SupplierResponseModel> GetAll()
         {
-
             var foundSuppliers = _supplierRepository.GetAll();
             var suppliersToReturn = getSuppliersResponseModels(foundSuppliers);
             return suppliersToReturn;
@@ -166,7 +165,7 @@ namespace BludataTest.Services
 
                 return dateToSearch;
             }
-            catch (ValidationException)
+            catch (Exception)
             {
                 throw new ValidationException("Data de cadastro inválida");
             }
@@ -177,6 +176,5 @@ namespace BludataTest.Services
             if (suppliers == null || suppliers.Count <= 0)
                 throw new ValidationException("Fornecedor não encontrado");
         }
-
     }
 }
