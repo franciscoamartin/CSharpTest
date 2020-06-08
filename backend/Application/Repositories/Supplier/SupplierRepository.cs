@@ -39,13 +39,13 @@ namespace BludataTest.Repositories
                 && supplier.CompanyId == companyId).ToList();
         }
 
-        public IEnumerable<Supplier> GetByDocument(string documentToSearch)
+        public List<Supplier> GetByDocument(string documentToSearch)
         {
             var documentParameter = new SqlParameter("document", documentToSearch);
             return _dbContext.Suppliers
             .FromSqlRaw("SELECT * FROM SUPPLIERS WHERE DOCUMENT = @document", documentParameter)
                 .Include(sup => sup.Company)
-                .Include(sup => sup.Telephones);
+                .Include(sup => sup.Telephones).ToList();
         }
 
         public List<Supplier> GetByDocumentAndCompany(string documentToSearch, Guid companyId)
