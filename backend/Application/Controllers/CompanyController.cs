@@ -26,61 +26,31 @@ namespace BludataTest.Controllers
         [Route("{id}")]
         public IActionResult GetById(Guid id)
         {
-            try
-            {
-                var company = _companyService.Read(id);
-                return new ObjectResult(company);
-
-            }
-            catch (System.Exception)
-            {
-                return NotFound();
-            }
+            var company = _companyService.Read(id);
+            return new ObjectResult(company);
         }
 
         [HttpPost]
         public IActionResult Create([FromBody] Company company)
         {
-            try
-            {
-                _companyService.Create(company);
-                return Accepted();
-
-            }
-            catch (System.Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            _companyService.Create(company);
+            return Accepted();
         }
 
         [HttpPut]
         [Route("{id}")]
         public IActionResult Update([FromRoute] Guid id, [FromBody] Company company)
         {
-            try
-            {
-                _companyService.Update(id, company);
-                return new NoContentResult();
-            }
-            catch (System.Exception)
-            {
-                return BadRequest();
-            }
+            _companyService.Update(id, company);
+            return new NoContentResult();
         }
 
         [HttpDelete]
         [Route("{id}")]
         public IActionResult Delete(Guid id)
         {
-            try
-            {
-                _companyService.Delete(id);
-                return new NoContentResult();
-            }
-            catch (System.Exception)
-            {
-                return BadRequest();
-            }
+            _companyService.Delete(id);
+            return new NoContentResult();
         }
     }
 }

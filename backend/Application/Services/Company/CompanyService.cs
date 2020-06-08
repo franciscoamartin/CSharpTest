@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BludataTest.Repositories;
 using BludataTest.Models;
+using BludataTest.CustomExceptions;
 
 namespace BludataTest.Services
 {
@@ -17,8 +18,6 @@ namespace BludataTest.Services
         }
         public void Create(Company company)
         {
-            if (company == null)
-                throw new Exception("Empresa não informada!");
             _companyValidator.ValidateCompany(company);
             _companyRepository.Create(company);
         }
@@ -30,30 +29,30 @@ namespace BludataTest.Services
         public Company Read(Guid id)
         {
             if (id == Guid.Empty)
-                throw new Exception("Informe a empresa");
+                throw new ValidationException("Informe a empresa");
             var company = _companyRepository.GetById(id);
             if (company == null)
-                throw new Exception("Empresa não encontrada.");
+                throw new ValidationException("Empresa não encontrada.");
             return company;
         }
         public void Delete(Guid id)
         {
             if (id == Guid.Empty)
-                throw new Exception("Informe a empresa");
+                throw new ValidationException("Informe a empresa");
             var company = _companyRepository.GetById(id);
             if (company == null)
-                throw new Exception("Empresa não encontrada.");
+                throw new ValidationException("Empresa não encontrada.");
             _companyRepository.Delete(company);
         }
         public void Update(Guid id, Company company)
         {
-            if (company == null)
-                throw new Exception("Empresa não informada!");
             if (id == Guid.Empty)
-                throw new Exception("Informe uma empresa");
+                throw new ValidationException("Informe uma empresa");
+            _companyValidator.ValidateUF(company.UF);
+            _companyValidator.ValidateTradingName(company.TradingName);
             var companyToUpdate = _companyRepository.GetById(id);
             if (companyToUpdate == null)
-                throw new Exception("Empresa não encontrada.");
+                throw new ValidationException("Empresa não encontrada.");
 
             companyToUpdate.Update(company);
 

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using BludataTest.CustomExceptions;
 using BludataTest.Models;
 
 namespace BludataTest.Services
@@ -13,26 +14,28 @@ namespace BludataTest.Services
         }
         public void ValidateCompany(Company company)
         {
+            if (company == null)
+                throw new ValidationException("Empresa não informada!");
             ValidateTradingName(company.TradingName);
             ValidateUF(company.UF);
             ValidateCNPJ(company.CNPJ);
         }
-        private void ValidateTradingName(string tradingName)
+        public void ValidateTradingName(string tradingName)
         {
             if (string.IsNullOrWhiteSpace(tradingName) || tradingName.Length < 3)
-                throw new Exception("Informe o nome fantasia corretamente"); ;
+                throw new ValidationException("Informe o nome fantasia corretamente"); ;
         }
 
-        private void ValidateUF(string uf)
+        public void ValidateUF(string uf)
         {
             if (string.IsNullOrWhiteSpace(uf) || uf.Length != 2)
-                throw new Exception("O estado não é válido.");
+                throw new ValidationException("O estado não é válido.");
         }
 
         private void ValidateCNPJ(string cnpj)
         {
             if (!_documentValidator.isCNPJValid(cnpj))
-                throw new Exception("Informe um CNPJ válido");
+                throw new ValidationException("Informe um CNPJ válido");
         }
 
         private bool ufContainsNumber(string uf)

@@ -4,6 +4,7 @@ using BludataTest.Repositories;
 using BludataTest.Models;
 using System.Linq;
 using BludataTest.ResponseModels;
+using BludataTest.CustomExceptions;
 
 namespace BludataTest.Services
 {
@@ -72,15 +73,15 @@ namespace BludataTest.Services
         public void Update(Guid id, Supplier supplier)
         {
             if (supplier == null)
-                throw new Exception("Dados informados não estão corretos!");
+                throw new ValidationException("Dados informados não estão corretos!");
             if (id == Guid.Empty)
-                throw new Exception("Fornecedor precisa ser informado.");
+                throw new ValidationException("Fornecedor precisa ser informado.");
             _supplierValidator.ValidateTelephones(supplier.Telephones);
             _supplierValidator.ValidateName(supplier.Name);
 
             var supplierToUpdate = _supplierRepository.GetById(id);
             if (supplierToUpdate == null)
-                throw new Exception("Fornecedor não encontrado.");
+                throw new ValidationException("Fornecedor não encontrado.");
 
             supplierToUpdate.Update(supplier);
             _supplierRepository.Update(supplierToUpdate);
@@ -89,17 +90,17 @@ namespace BludataTest.Services
         public void Delete(Guid id)
         {
             if (id == Guid.Empty)
-                throw new Exception("O fornecedor precisa ser informado.");
+                throw new ValidationException("O fornecedor precisa ser informado.");
             var supplier = _supplierRepository.GetById(id);
             if (supplier == null)
-                throw new Exception("Fornecedor não encontrado");
+                throw new ValidationException("Fornecedor não encontrado");
             _supplierRepository.Delete(supplier);
         }
 
         public List<SupplierResponseModel> GetByName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
-                throw new Exception("O nome precisa ser informado");
+                throw new ValidationException("O nome precisa ser informado");
             var foundSuppliers = _supplierRepository.GetByName(name);
             validateSuppliersSearch(foundSuppliers);
             return getSuppliersResponseModels(foundSuppliers);
@@ -107,7 +108,7 @@ namespace BludataTest.Services
         public List<SupplierResponseModel> GetByNameAndCompany(string name, Guid companyId)
         {
             if (string.IsNullOrWhiteSpace(name) || companyId == Guid.Empty)
-                throw new Exception("O nome e a empresa precisam ser informados");
+                throw new ValidationException("O nome e a empresa precisam ser informados");
             var foundSuppliers = _supplierRepository.GetByNameAndCompany(name, companyId);
             validateSuppliersSearch(foundSuppliers);
             return getSuppliersResponseModels(foundSuppliers);
@@ -116,20 +117,20 @@ namespace BludataTest.Services
         public List<SupplierResponseModel> GetByDocument(string document)
         {
             if (!_documentValidator.isCNPJValid(document) && !_documentValidator.isCPFValid(document))
-                throw new Exception("O documento informado não é válido");
-            var foundSuppliers = _supplierRepository.GetByDocument(document).ToList();
+                throw new ValidationException("O documento informado não é válido");
+            var foundSuppliers = _supplierRepository.GetByDocument(document);
             validateSuppliersSearch(foundSuppliers);
             return getSuppliersResponseModels(foundSuppliers);
         }
         public List<SupplierResponseModel> GetByDocumentAndCompany(string document, Guid companyId)
         {
             if (companyId == Guid.Empty)
-                throw new Exception("A empresa precisa ser informada.");
+                throw new ValidationException("A empresa precisa ser informada.");
             if (!_documentValidator.isCNPJValid(document) && !_documentValidator.isCPFValid(document))
-                throw new Exception("O documento informado não é válido");
+                throw new ValidationException("O documento informado não é válido");
             var foundSuppliers = _supplierRepository.GetByDocumentAndCompany(document, companyId);
             if (foundSuppliers == null)
-                throw new Exception("Fornecedor não encontrado");
+                throw new ValidationException("Fornecedor não encontrado");
             return getSuppliersResponseModels(foundSuppliers);
 
         }
@@ -137,7 +138,7 @@ namespace BludataTest.Services
         public List<SupplierResponseModel> GetByRegisterTime(string registerTime)
         {
             if (string.IsNullOrWhiteSpace(registerTime))
-                throw new Exception("Data/Hora de cadastro precisam ser informados");
+                throw new ValidationException("Data/Hora de cadastro precisam ser informados");
             var dateToSearch = getFormattedDate(registerTime);
             var foundSuppliers = _supplierRepository.GetByRegisterTime(dateToSearch);
             validateSuppliersSearch(foundSuppliers);
@@ -146,7 +147,7 @@ namespace BludataTest.Services
         public List<SupplierResponseModel> GetByRegisterTimeAndCompany(string registerTime, Guid companyId)
         {
             if (string.IsNullOrWhiteSpace(registerTime) || companyId == Guid.Empty)
-                throw new Exception("Data/Hora de cadastro e empresa precisam ser informados");
+                throw new ValidationException("Data/Hora de cadastro e empresa precisam ser informados");
             var dateToSearch = getFormattedDate(registerTime);
             var foundSuppliers = _supplierRepository.GetByRegisterTimeAndCompany(dateToSearch, companyId);
             validateSuppliersSearch(foundSuppliers);
@@ -165,16 +166,16 @@ namespace BludataTest.Services
 
                 return dateToSearch;
             }
-            catch (Exception)
+            catch (ValidationException)
             {
-                throw new Exception("Data de cadastro inválida");
+                throw new ValidationException("Data de cadastro inválida");
             }
         }
 
         private void validateSuppliersSearch(List<Supplier> suppliers)
         {
             if (suppliers == null || suppliers.Count <= 0)
-                throw new Exception("Fornecedor não encontrado");
+                throw new ValidationException("Fornecedor não encontrado");
         }
 
     }

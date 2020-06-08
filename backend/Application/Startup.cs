@@ -24,7 +24,7 @@ namespace BludataTest
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(options =>
-                options.Filters.Add(typeof(JsonExceptionFilter)));
+                options.Filters.Add(typeof(ExceptionFilter)));
             services.AddDbContext<BludataTestDbContext>(options =>
                options.UseSqlServer("Server=localhost\\SQLEXPRESS;User Id=sa;Password=sa;Database=BludataTest;MultipleActiveResultSets=true"));
             services.AddTransient<ICompanyRepository, CompanyRepository>();

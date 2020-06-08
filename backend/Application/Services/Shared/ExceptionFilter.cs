@@ -4,29 +4,28 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace BludataTest.Filter
 {
-    public class JsonExceptionFilter : IExceptionFilter
+    public class ExceptionFilter : IExceptionFilter
     {
         public void OnException(ExceptionContext context)
         {
-            ObjectResult result;
+            JsonResult result;
             if (context.Exception.GetType() == typeof(ValidationException))
             {
-                result = new ObjectResult(new
+                result = new JsonResult(new
                 {
-                    code = 500,
                     message = context.Exception.Message,
                 });
+                result.StatusCode = 400;
             }
             else
             {
-                result = new ObjectResult(new
+                result = new JsonResult(new
                 {
-                    code = 500,
                     message = "Ocorreu um erro no servidor. Contate administradores",
                 });
+                result.StatusCode = 500;
             }
 
-            result.StatusCode = 500;
             context.Result = result;
         }
     }
