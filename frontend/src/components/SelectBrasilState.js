@@ -26,7 +26,9 @@ export default function SelectBrasilState({ setUF }) {
       <option value="RS">RS</option>
       <option value="RO">RO</option>
       <option value="RR">RR</option>
-      <option value="SC">SC</option>
+      <option selected value="SC">
+        SC
+      </option>
       <option value="SP">SP</option>
       <option value="SE">SE</option>
       <option value="TO">TO</option>
