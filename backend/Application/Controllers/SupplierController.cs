@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using BludataTest.Models;
 using BludataTest.ResponseModels;
 using BludataTest.Services;
@@ -85,6 +86,7 @@ namespace BludataTest.Controllers
         [Route("document/{document}")]
         public IActionResult GetByDocument(string document)
         {
+            document = WebUtility.UrlDecode(document);
             var supplier = _supplierService.GetByDocument(document);
             return new ObjectResult(supplier);
         }

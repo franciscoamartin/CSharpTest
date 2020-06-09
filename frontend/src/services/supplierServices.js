@@ -19,6 +19,7 @@ export async function getSupplierByName(name, companyId) {
 }
 export async function getSupplierByDocument(document, companyId) {
   let response;
+  document = encodeURIComponent(document);
   if (companyId) {
     response = await api.get(`/supplier/document/${document}/${companyId}`);
   } else {
