@@ -11,7 +11,7 @@
                 <li>A listagem de fornecedores deverá conter filtros por Nome, CPF/CNPJ e data de cadastro.</li>
 </p>
 
-<p> O Projeto consiste de back-end, feito em C#, utilizando uma WEBAPI com APIRest, enquanto o front-end é feito em React, consumindo a API através do axios.</p>
+<p> O Projeto consiste de back-end, feito em C#, utilizando uma Web API com APIRest, enquanto o front-end é feito em React, consumindo a API através do axios.</p>
 <p>O <b>back-end</b> é construído em 3 camadas, a camada de interface de comunicação (Controllers), lógica e validações (Service) e acesso a dados (Repository).    Na solução, há também testes unitários que estão na pasta "UnitTets".</p>
 <p> As exceções estão sendo filtradas através do Middleware IExceptionFilter: filtrando entre as validações e as exceções. Caso seja uma exceção (inesperada), retorna-se uma resposta genérica, e os detalhes serão registrados no logs.txt, através da classe Logger.</p>
 <p>Nos models, temos as Entidades (tabelas no banco), Enums (DocumentType que é mapeado para string através do SupplierMapping, no repositório), ResponseModels (responsável por traduzir o supplier em objeto (JSon) esperado pelo front-end) e ValueObject (Document, pois é necessário o tipo de documento (CPF/CNPJ) e não somente o valor).</p>
