@@ -1,4 +1,4 @@
-<h1 align="center"><b>TESTE DE CONHECIMENTO EM C#</b></h1>
+<h1 align="center"><b>Teste de conhecimento em C#</b></h1>
 <p align="center">
   <img src="https://user-images.githubusercontent.com/51340552/83945112-cbae5680-a7de-11ea-9038-fe0680845f34.png"
 </p>
@@ -25,7 +25,7 @@
 <p><b>Testes Unitários</b>: Para os testes unitários, utilizei o XUnit e NSubstitute(para mockar classes que não deveriam ser testadas).</p>
 
 <p>No <b>front-end</b> está dividido em: pages,que contém duas páginas que se utilizam de componentes que estão na pasta components, e services que possui as validações, configura a API com axios e tem as funções responsáveis pelas requisições ao backend.
-<p>Para subir o React, é necessário executar o comando "npm install" ou "yarn install" parav baixaras dependências; e em seguida, rodar com "npm run start" ou "yarn start".</p> 
+<p>Para subir o React, é necessário executar o comando "npm install" ou "yarn install" parav baixar as dependências; e em seguida, rodar com "npm run start" ou "yarn start".</p> 
   
 <ul>Tecnologias utilizadas no back-end
    <li>.NetCore</li>
