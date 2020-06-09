@@ -28,14 +28,14 @@
 <p>Para subir o React, é necessário executar o comando "npm install" ou "yarn install" para baixar as dependências, e em seguida, rodar com "npm run start" ou "yarn start".</p> 
 
   <p></p>
-Tecnologias utilizadas no back-end
+Tecnologias utilizadas no back-end:
    <li>.NetCore</li>
    <li>EntityFrameworkCore</li>
    <li>SQLServer</li>
    <li>WebAPI</li>
   
   <p></p>
-Tecnologias utilizadas no front-end
+Tecnologias utilizadas no front-end:
    <li>React</li>
    <li>javascript, CSS e HTML
    <li>React Router DOM</li>
