@@ -4,11 +4,10 @@
 </p>
 
 <p>Criar uma listagem de fornecedores relacionado a uma empresa.
-    <ul>Requisitos: <li>O campo ‘Empresa’ será um cadastro a parte;</li>
+    Requisitos: <li>O campo ‘Empresa’ será um cadastro a parte;</li>
                 <li>Caso a empresa seja do Paraná, não permitir cadastrar um fornecedor pessoa física menor de idade;</li>
                 <li>Caso o fornecedor seja pessoa física, também é necessário cadastrar o RG e a data de nascimento;</li>
                 <li>A listagem de fornecedores deverá conter filtros por Nome, CPF/CNPJ e data de cadastro.</li>
-      </ul>
 </p>
 
 <p> O Projeto consiste de back-end, feito em C#, utilizando uma WEBAPI com APIRest, enquanto o front-end é feito em React, consumindo a API através do axios.</p>
@@ -26,12 +25,14 @@
 
 <p>No <b>front-end</b> está dividido em: pages,que contém duas páginas que se utilizam de componentes que estão na pasta components, e services que possui as validações, configura a API com axios e tem as funções responsáveis pelas requisições ao backend.
 <p>Para subir o React, é necessário executar o comando "npm install" ou "yarn install" para baixar as dependências, e em seguida, rodar com "npm run start" ou "yarn start".</p> 
+
   
 Tecnologias utilizadas no back-end
    <li>.NetCore</li>
    <li>EntityFrameworkCore</li>
    <li>SQLServer</li>
    <li>WebAPI2</li>
+  
   
 Tecnologias utilizadas no front-end
    <li>React</li>
