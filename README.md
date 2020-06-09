@@ -1,4 +1,4 @@
-<h1 align="center">BludataTest</h1>
+<h1 align="center">Teste Bludata</h1>
 <p align="center">
   <img src="https://user-images.githubusercontent.com/51340552/83945112-cbae5680-a7de-11ea-9038-fe0680845f34.png"
 </p>
