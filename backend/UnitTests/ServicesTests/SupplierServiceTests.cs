@@ -113,6 +113,18 @@ namespace UnitTests.ServicesTests
         }
 
         [Fact]
+        public void Should_not_create_supplier_when_rg_is_wrong()
+        {
+            var supplier = GetSupplierExample();
+            _companyService.Read(supplier.CompanyId).Returns(GetCompanyExample());
+            supplier.RG = "623";
+
+            var ex = Assert.Throws<ValidationException>(() => _supplierService.Create(supplier));
+
+            Assert.True(ex.Message == "Informe um RG válido.");
+        }
+
+        [Fact]
         public void Should_not_create_supplier_when_CPF_is_wrong()
         {
             var supplier = GetSupplierExample();
