@@ -41,9 +41,10 @@ export default function SearchSupplier({
   async function handleSearch(e) {
     e.preventDefault();
     try {
-      setIsLoading(true);
-      if (searchString.trim().length == 0)
+      if (searchString.trim().length == 0) {
         return swal('Insira um dado para realizar a busca', '', 'error');
+      }
+      setIsLoading(true);
       const suppliersFound = await searchBy[searchOption]();
       setSuppliers(suppliersFound);
       setIsLoading(false);

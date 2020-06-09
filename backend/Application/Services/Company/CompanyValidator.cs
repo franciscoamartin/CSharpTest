@@ -38,7 +38,7 @@ namespace BludataTest.Services
                 throw new ValidationException("Informe um CNPJ válido");
         }
 
-        private bool ufContainsNumber(string uf)
+        private bool UfContainsNumber(string uf)
         {
             return uf.Any(c => char.IsDigit(c));
         }

@@ -39,7 +39,7 @@ export default function SuppliersTable({ suppliers, setSuppliers }) {
       const dataToSend = {
         id: oldData.id,
         name: newData.name,
-        telephones: formattedTelephones(newData.telephones),
+        telephones: formattedTelephones([newData.telephones]),
       };
       await supplierService.updateSupplier(dataToSend);
       swal('Fornecedor alterado com sucesso', '', 'success');

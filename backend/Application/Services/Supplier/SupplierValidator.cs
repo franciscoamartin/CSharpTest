@@ -20,11 +20,16 @@ namespace BludataTest.Services
         {
             if (supplier.CompanyId == Guid.Empty)
                 throw new ValidationException("Empresa não informada!");
-            ValidateSupplierWithCNPJ(supplier);
-            ValidateSupplierWithCPF(supplier);
+            if (supplier.Document.Type == Enums.EDocumentType.CNPJ)
+                ValidateSupplierWithCNPJ(supplier);
+            else
+            {
+                ValidateSupplierWithCPF(supplier);
+                ValidateRG(supplier.RG);
+                ValidateBirthDate(supplier.BirthDate);
+            }
             ValidateSupplierWithCompanyFromPR(supplier);
             ValidateName(supplier.Name);
-            ValidateBirthDate(supplier.BirthDate);
             ValidateRegisterTime(supplier.RegisterTime);
             ValidateTelephones(supplier.Telephones);
             ValidateDocument(supplier.Document);
@@ -60,6 +65,12 @@ namespace BludataTest.Services
         {
             if (birthDate == null || birthDate > DateTime.Now || birthDate < new DateTime(1910, 1, 1))
                 throw new ValidationException("Informe uma data de nascimento válida.");
+        }
+
+        private void ValidateRG(string rg)
+        {
+            if (rg == null || rg.Length < 4)
+                throw new ValidationException("Informe um RG válido.");
         }
 
         private void ValidateRegisterTime(DateTime registerTime)
