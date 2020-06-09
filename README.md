@@ -20,7 +20,7 @@
 
 <p>O <b>Banco de dados</b> é construído por Migrations. Antes de rodar as migrations é necessário inserir o caminho do seu banco de dados na connection string no arquivo appsetings.json do Projeto Application.</p>
 
-<p><b>Injeção de dependência</b>: Utilizei a injeção de dependência para as 3 camadas conhecerem apenas as interfaces umas das outras, pois assim a classe conhece somente a interface e não a implementação e também para a comunicação entre camadas(controllers, service, repository), foi implementada por construtores registrando-as no Startup pelo meio do 'services.AddTransient', que instancia a classe quando a interface é chamada, e em seguida, desaloca essa instância.</p> 
+<p><b>Injeção de dependência</b>: Utilizei a injeção de dependência para desacoplar a comunicação entre as camadas(controllers, service, repository), ou seja, elasconhecem apenas as inbterfaces umas das outras. Essa injeção foi implementada por construtores registrando-as no Startup pelo meio do 'services.AddTransient', que instancia a classe quando a interface é chamada, e em seguida, desaloca essa instância.</p> 
 
 <p><b>Testes Unitários</b>: Para os testes unitários, utilizei o XUnit e NSubstitute(para mockar classes que não deveriam ser testadas).</p>
 
