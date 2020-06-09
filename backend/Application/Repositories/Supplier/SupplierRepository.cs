@@ -23,7 +23,7 @@ namespace BludataTest.Repositories
         public override List<Supplier> GetAll()
         {
             var queryWithIncludes = getQueryWithIncludes();
-            return queryWithIncludes.Where(sup => sup.Active).ToList();
+            return queryWithIncludes.ToList();
         }
 
         public List<Supplier> GetByName(string name)
@@ -55,7 +55,7 @@ namespace BludataTest.Repositories
                 .FromSqlRaw("SELECT * FROM SUPPLIERS WHERE DOCUMENT = @document", documentParameter)
                 .Include(sup => sup.Company)
                 .Include(sup => sup.Telephones)
-                .Where(sup => sup.CompanyId == companyId && sup.Active && sup.Company.Active).ToList();
+                .Where(sup => sup.CompanyId == companyId).ToList();
         }
 
         public List<Supplier> GetByRegisterTime(DateTime registerTime)
