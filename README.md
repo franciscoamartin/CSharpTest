@@ -1,9 +1,8 @@
-<h1 align="center">Teste Bludata</h1>
+<h1 align="center"><b>TESTE DE CONHECIMENTO EM C#</b></h1>
 <p align="center">
   <img src="https://user-images.githubusercontent.com/51340552/83945112-cbae5680-a7de-11ea-9038-fe0680845f34.png"
 </p>
 
-**TESTE DE CONHECIMENTO EM C#**
 <p>Criar uma listagem de fornecedores relacionado a uma empresa.
     <ul>Requisitos: <li>O campo ‘Empresa’ será um cadastro a parte;</li>
                 <li>Caso a empresa seja do Paraná, não permitir cadastrar um fornecedor pessoa física menor de idade;</li>
