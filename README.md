@@ -37,7 +37,8 @@ Tecnologias utilizadas no back-end
   <p></p>
 Tecnologias utilizadas no front-end
    <li>React</li>
+   <li>javascript, CSS e HTML
    <li>React Router DOM</li>
-   <li>Material-UI(para a tabela)</li>
+   <li>Material-ui-table(para a tabela)</li>
    <li>SweetAlert</li>
    <li>ReactLoading</li>
