@@ -29,7 +29,7 @@
 
   <p></p>
 Tecnologias utilizadas no back-end
-  > <li>.NetCore</li>
+   <li>.NetCore</li>
    <li>EntityFrameworkCore</li>
    <li>SQLServer</li>
    <li>WebAPI2</li>
