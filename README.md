@@ -26,21 +26,18 @@
 
 <p>No <b>front-end</b> está dividido em: pages,que contém duas páginas que se utilizam de componentes que estão na pasta components, e services que possui as validações, configura a API com axios e tem as funções responsáveis pelas requisições ao backend.
 <p>Para subir o React, é necessário executar o comando "npm install" ou "yarn install" para baixar as dependências, e em seguida, rodar com "npm run start" ou "yarn start".</p> 
-  <p></p>
 
-  
+  <p></p>
 Tecnologias utilizadas no back-end
-   <li>.NetCore</li>
-   <li>EntityFrameworkCore</li>
-   <li>SQLServer</li>
-   <li>WebAPI2</li>
+  > <li>.NetCore</li>
+  > <li>EntityFrameworkCore</li>
+  > <li>SQLServer</li>
+  > <li>WebAPI2</li>
   
   <p></p>
-  
 Tecnologias utilizadas no front-end
-   <li>React</li>
-   <li>React Router DOM</li>
-   <li>Material-UI(para a tabela)</li>
-   <li>SweetAlert</li>
-    <li>ReactLoading</li>
-
+  > <li>React</li>
+  > <li>React Router DOM</li>
+  > <li>Material-UI(para a tabela)</li>
+  > <li>SweetAlert</li>
+  > <li>ReactLoading</li>
