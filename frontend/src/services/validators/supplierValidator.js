@@ -32,11 +32,26 @@ function validateBirthDate(birthDate) {
 
 function validateTelephones(telephones) {
   telephones.forEach((telephone) => {
-    if (
-      !telephone.number.match(
-        /(\+\d{2})(\s)?(\()?\d{2}(\)?)(\s)?\d{4,5}(\-)?\d{4}/g
-      )
-    )
-      throw new Error('Telefone inválido');
+    if (!isTelephoneValid(telephone.number))
+      throw new Error('Telefone inválido.');
   });
+}
+
+export function isTelephoneValid(telephone) {
+  const formattedTelephone = telephone
+    .replace('(', '')
+    .replace(')', '')
+    .replace('-', '')
+    .replace(' ', '')
+    .replace(' ', '');
+  return (
+    (formattedTelephone.length == 13 || formattedTelephone.length == 14) &&
+    telephoneMatchesRegex(telephone)
+  );
+}
+
+function telephoneMatchesRegex(telephone) {
+  return telephone.match(
+    /(\+\d{2})(\s)?(\()?\d{2}(\)?)(\s)?\d{4,5}(\-)?\d{4}/g
+  );
 }

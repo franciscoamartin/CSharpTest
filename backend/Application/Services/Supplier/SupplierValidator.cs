@@ -81,13 +81,28 @@ namespace BludataTest.Services
 
         public void ValidateTelephones(List<Telephone> telephones)
         {
-            string pattern = @"(\+\d{2})(\s)?(\()?\d{2}(\)?)(\s)?\d{4,5}(\-)?\d{4}";
-            var regex = new Regex(pattern);
             foreach (var telephone in telephones)
             {
-                if (!regex.IsMatch(telephone.Number))
+                if (!isTelephoneValid(telephone.Number))
                     throw new ValidationException("Informe um número de telefone válido");
             }
+        }
+        private bool isTelephoneValid(string telephone)
+        {
+            var formattedTelephone = telephone.Replace("(", "")
+            .Replace(")", "")
+            .Replace("-", "")
+            .Replace(" ", "")
+            .Replace(" ", "");
+            return (formattedTelephone.Length == 13 || formattedTelephone.Length == 14)
+                    && telephoneMatchesRegex(telephone);
+        }
+        private bool telephoneMatchesRegex(string telephone)
+        {
+            string pattern = @"(\+\d{2})(\s)?(\()?\d{2}(\)?)(\s)?\d{4,5}(\-)?\d{4}";
+            var regex = new Regex(pattern);
+            return regex.IsMatch(telephone);
+
         }
 
         private void ValidateDocument(Document document)

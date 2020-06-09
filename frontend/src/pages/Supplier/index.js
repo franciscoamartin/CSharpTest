@@ -7,7 +7,9 @@ import CompaniesTable from '../../components/Tables/CompaniesTable/index';
 import SuppliersTable from '../../components/Tables/SuppliersTable/index';
 import EntityType from '../../components/EntityType/index';
 import SearchSupplier from '../../components/SearchSupplier/index';
-import validateSupplier from '../../services/validators/supplierValidator';
+import validateSupplier, {
+  isTelephoneValid,
+} from '../../services/validators/supplierValidator';
 import swal from 'sweetalert';
 import ReactLoading from 'react-loading';
 import showModalError from '../../services/showModalError';
@@ -101,6 +103,8 @@ export default function Supplier() {
   }
 
   function addTelephone() {
+    if (!isTelephoneValid(ddi + ' ' + telephone))
+      return swal('Telefone inválido.', '', 'error');
     const foundTelephone = telephones.find((t) => t.number == telephone);
     if (!foundTelephone) {
       telephones.push({ number: ddi + ' ' + telephone });
@@ -193,7 +197,7 @@ export default function Supplier() {
                   onChange={(e) => setDdi(e.target.value)}
                 />
                 <input
-                  type="number"
+                  type="text"
                   placeholder="Telefone"
                   value={telephone}
                   onChange={(e) => setTelephone(e.target.value)}
