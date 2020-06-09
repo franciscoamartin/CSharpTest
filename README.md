@@ -30,14 +30,14 @@
   <p></p>
 Tecnologias utilizadas no back-end
   > <li>.NetCore</li>
-  > <li>EntityFrameworkCore</li>
-  > <li>SQLServer</li>
-  > <li>WebAPI2</li>
+   <li>EntityFrameworkCore</li>
+   <li>SQLServer</li>
+   <li>WebAPI2</li>
   
   <p></p>
 Tecnologias utilizadas no front-end
-  > <li>React</li>
-  > <li>React Router DOM</li>
-  > <li>Material-UI(para a tabela)</li>
-  > <li>SweetAlert</li>
-  > <li>ReactLoading</li>
+   <li>React</li>
+   <li>React Router DOM</li>
+   <li>Material-UI(para a tabela)</li>
+   <li>SweetAlert</li>
+   <li>ReactLoading</li>
