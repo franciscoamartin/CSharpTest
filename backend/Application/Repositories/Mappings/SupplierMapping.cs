@@ -13,7 +13,8 @@ namespace BludataTest.Repositories
         {
             builder.HasOne(x => x.Company).WithMany().HasForeignKey(x => x.CompanyId).IsRequired();
             builder.HasMany(x => x.Telephones);
-            builder.Property(x => x.Document).HasConversion(y => y.ToString(), v => new Document(v, GetDocumentType(v)));
+            builder.Property(x => x.Document)
+                .HasConversion(y => y.ToString(), v => new Document(v, GetDocumentType(v)));
             builder.Property(x => x.BirthDate).IsRequired(false);
             builder.Property(x => x.RG).IsRequired(false);
             builder.Property(x => x.RegisterTime).IsRequired();
