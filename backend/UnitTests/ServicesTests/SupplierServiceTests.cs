@@ -6,6 +6,7 @@ using BludataTest.Repositories;
 using BludataTest.ResponseModels;
 using BludataTest.Services;
 using BludataTest.ValueObject;
+using BludataTest.CustomExceptions;
 using NSubstitute;
 using Xunit;
 
@@ -47,7 +48,8 @@ namespace UnitTests.ServicesTests
         {
             var company = GetCompanyExample();
             var telephones = GetTelephonesExample();
-            var supplier = new Supplier(name: "Ronaldo", company: company, companyId: company.Id, document: new Document("086.263.709-03", EDocumentType.CPF), rg: "623267", registerTime: DateTime.Now, birthDate: new DateTime(2001, 12, 7), telephone: GetTelephonesExample());
+            var supplier = new Supplier(name: "Ronaldo", company: company, companyId: company.Id, document: new Document("086.263.709-03", EDocumentType.CPF), rg: "623267", registerTime: DateTime.Now, birthDate: new DateTime(2001, 12, 7), telephone: telephones);
+            supplier.Id = Guid.NewGuid();
             return supplier;
         }
 
@@ -81,7 +83,7 @@ namespace UnitTests.ServicesTests
             _companyService.Read(supplier.CompanyId).Returns(GetCompanyExample());
             supplier.Name = "L";
 
-            var ex = Assert.Throws<Exception>(() => _supplierService.Create(supplier));
+            var ex = Assert.Throws<ValidationException>(() => _supplierService.Create(supplier));
 
             Assert.True(ex.Message == "Informe o nome corretamente.");
         }
@@ -93,7 +95,7 @@ namespace UnitTests.ServicesTests
             _companyService.Read(supplier.CompanyId).Returns(GetCompanyExample());
             supplier.BirthDate = DateTime.Now.AddDays(1);
 
-            var ex = Assert.Throws<Exception>(() => _supplierService.Create(supplier));
+            var ex = Assert.Throws<ValidationException>(() => _supplierService.Create(supplier));
 
             Assert.True(ex.Message == "Informe uma data de nascimento válida.");
         }
@@ -105,7 +107,7 @@ namespace UnitTests.ServicesTests
             _companyService.Read(supplier.CompanyId).Returns(GetCompanyExample());
             supplier.BirthDate = new DateTime(1899, 12, 31);
 
-            var ex = Assert.Throws<Exception>(() => _supplierService.Create(supplier));
+            var ex = Assert.Throws<ValidationException>(() => _supplierService.Create(supplier));
 
             Assert.True(ex.Message == "Informe uma data de nascimento válida.");
         }
@@ -117,7 +119,7 @@ namespace UnitTests.ServicesTests
             _companyService.Read(supplier.CompanyId).Returns(GetCompanyExample());
             supplier.Document = new Document("083.27.709-03", EDocumentType.CPF);
 
-            var ex = Assert.Throws<Exception>(() => _supplierService.Create(supplier));
+            var ex = Assert.Throws<ValidationException>(() => _supplierService.Create(supplier));
 
             Assert.True(ex.Message == "Informe o documento corretamente.");
         }
@@ -127,7 +129,7 @@ namespace UnitTests.ServicesTests
         {
             var supplier = GetSupplierExample();
             supplier.Document = new Document("18.321.410/001-42", EDocumentType.CNPJ);
-            Assert.Throws<Exception>(() => _supplierService.Create(supplier));
+            Assert.Throws<ValidationException>(() => _supplierService.Create(supplier));
         }
 
         [Fact]
@@ -140,7 +142,7 @@ namespace UnitTests.ServicesTests
             telephoneList.Add(telephoneToAdd);
             supplier.Telephones = telephoneList;
 
-            var ex = Assert.Throws<Exception>(() => _supplierService.Create(supplier));
+            var ex = Assert.Throws<ValidationException>(() => _supplierService.Create(supplier));
 
             Assert.True(ex.Message == "Informe um número de telefone válido");
         }
@@ -186,7 +188,7 @@ namespace UnitTests.ServicesTests
             var supplierExample = GetSupplierExample();
             _supplierRepository.GetByDocument(supplierExample.Document.ToString()).Returns(_suppliersExample);
 
-            var ex = Assert.Throws<Exception>(() => _supplierService.GetByDocument("052.36.180-360"));
+            var ex = Assert.Throws<ValidationException>(() => _supplierService.GetByDocument("052.36.180-360"));
 
             Assert.Equal("O documento informado não é válido", ex.Message);
         }
@@ -209,9 +211,79 @@ namespace UnitTests.ServicesTests
             var supplierExample = GetSupplierExample();
             _supplierRepository.GetByRegisterTime(supplierExample.RegisterTime).Returns(_suppliersExample);
 
-            var ex = Assert.Throws<Exception>(() => _supplierService.GetByRegisterTime(supplierExample.RegisterTime.Date.ToString()));
+            var ex = Assert.Throws<ValidationException>(() => _supplierService.GetByRegisterTime(supplierExample.RegisterTime.Date.ToString()));
 
             Assert.Equal("Data de cadastro inválida", ex.Message);
+        }
+
+        [Fact]
+        public void Should_update_supplier()
+        {
+            var supplierDb = GetSupplierExample();
+            _supplierRepository.GetById(supplierDb.Id).Returns(supplierDb);
+            var supplierToUpdate = GetSupplierExample();
+            supplierToUpdate.Name = "João da Silva";
+            supplierToUpdate.Telephones[0] = new Telephone("+554733784158");
+
+            _supplierService.Update(supplierDb.Id, supplierToUpdate);
+
+            _supplierRepository.Received(1).Update(Arg.Is<Supplier>(s =>
+             s.Name == "João da Silva" &&
+             s.Company.TradingName == "Mercado Chicão" &&
+             s.Document.ToString() == "086.263.709-03" &&
+             s.RG == "623267" &&
+             s.RegisterTime.Date == DateTime.Now.Date &&
+             s.BirthDate == new DateTime(2001, 12, 7) &&
+             s.Telephones[0].Number == supplierToUpdate.Telephones[0].Number));
+        }
+
+        [Fact]
+        public void Should_not_update_supplier_when_telephone_is_wrong()
+        {
+            var supplierDb = GetSupplierExample();
+            _supplierRepository.GetById(supplierDb.Id).Returns(supplierDb);
+            var supplierToUpdate = GetSupplierExample();
+            supplierToUpdate.Telephones[0] = new Telephone("4733784158");
+
+            var ex = Assert.Throws<ValidationException>(() => _supplierService.Update(supplierDb.Id, supplierToUpdate));
+            Assert.Equal("Informe um número de telefone válido", ex.Message);
+        }
+
+        [Fact]
+        public void Should_not_update_supplier_when_name_is_wrong()
+        {
+            var supplierDb = GetSupplierExample();
+            _supplierRepository.GetById(supplierDb.Id).Returns(supplierDb);
+            var supplierToUpdate = GetSupplierExample();
+            supplierToUpdate.Name = "Jô";
+
+            var ex = Assert.Throws<ValidationException>(() => _supplierService.Update(supplierDb.Id, supplierToUpdate));
+            Assert.Equal("Informe o nome corretamente.", ex.Message);
+        }
+
+        [Fact]
+        public void Should_delete_supplier()
+        {
+            var supplierDb = GetSupplierExample();
+            _supplierRepository.GetById(supplierDb.Id).Returns(supplierDb);
+
+            _supplierService.Delete(supplierDb.Id);
+
+            _supplierRepository.Received(1).Delete(Arg.Is<Supplier>(s =>
+             s.Name == "Ronaldo" &&
+             s.Company.TradingName == "Mercado Chicão" &&
+             s.Document.ToString() == "086.263.709-03" &&
+             s.RG == "623267" &&
+             s.RegisterTime.Date == DateTime.Now.Date &&
+             s.BirthDate == new DateTime(2001, 12, 7) &&
+             s.Telephones[0] == supplierDb.Telephones[0]));
+        }
+
+        [Fact]
+        public void Should_not_delete_supplier_when_id_is_empty()
+        {
+            var ex = Assert.Throws<ValidationException>(() => _supplierService.Delete(new Guid()));
+            Assert.Equal("O fornecedor precisa ser informado.", ex.Message);
         }
     }
 }
