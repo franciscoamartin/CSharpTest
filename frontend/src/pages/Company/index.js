@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as companyService from '../../services/companyServices';
+import { useHistory } from 'react-router-dom';
 import CompaniesTable from '../../components/Tables/CompaniesTable/index';
 import InputMask from 'react-input-mask';
 import ReactLoading from 'react-loading';
@@ -16,6 +17,8 @@ export default function Company() {
   const [tradingName, setTradingName] = useState('');
   const [uf, setUF] = useState('SC');
   const [cnpj, setCNPJ] = useState('');
+
+  const history = useHistory();
 
   useEffect(() => {
     getAll();
@@ -108,6 +111,13 @@ export default function Company() {
                 </button>
               )}
             </form>
+
+            <img
+              className="supplier-button"
+              src="left-arrow.svg"
+              alt="Voltar"
+              onClick={() => history.push('/')}
+            />
           </div>
         </section>
         <section>

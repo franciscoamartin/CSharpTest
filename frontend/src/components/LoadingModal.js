@@ -14,6 +14,7 @@ export default function showModal() {
     />,
     wrapper
   );
+
   let el = wrapper.firstChild;
 
   swal({
