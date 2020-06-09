@@ -4,6 +4,7 @@
 </p>
 
 <p>Criar uma listagem de fornecedores relacionado a uma empresa.
+  <p></p>
     Requisitos: <li>O campo ‘Empresa’ será um cadastro a parte;</li>
                 <li>Caso a empresa seja do Paraná, não permitir cadastrar um fornecedor pessoa física menor de idade;</li>
                 <li>Caso o fornecedor seja pessoa física, também é necessário cadastrar o RG e a data de nascimento;</li>
@@ -25,6 +26,7 @@
 
 <p>No <b>front-end</b> está dividido em: pages,que contém duas páginas que se utilizam de componentes que estão na pasta components, e services que possui as validações, configura a API com axios e tem as funções responsáveis pelas requisições ao backend.
 <p>Para subir o React, é necessário executar o comando "npm install" ou "yarn install" para baixar as dependências, e em seguida, rodar com "npm run start" ou "yarn start".</p> 
+  <p></p>
 
   
 Tecnologias utilizadas no back-end
@@ -33,6 +35,7 @@ Tecnologias utilizadas no back-end
    <li>SQLServer</li>
    <li>WebAPI2</li>
   
+  <p></p>
   
 Tecnologias utilizadas no front-end
    <li>React</li>
