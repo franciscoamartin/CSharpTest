@@ -18,7 +18,7 @@
 <p>Tanto o repositório de fornecedor,quanto o de empresa, herdam do repositório genérico, implementado para evitar a repetição de código e facilitar na manutenção.</p>
 <p>O Shared guarda as classes utilitárias.</p>
 
-<p>O <b>Banco de dados</b> é construído por Migrations. Antes de criar as migrations é necessário inserir o caminho do seu banco de dados na connection string no arquivo AppSetings.Json do Projeto Application.</p>
+<p>O <b>Banco de dados</b> é construído por Migrations. Antes de rodar as migrations é necessário inserir o caminho do seu banco de dados na connection string no arquivo appsetings.json do Projeto Application.</p>
 
 <p><b>Injeção de dependência</b>: Utilizei a injeção de dependência para depender da interface e não das classes, pois assim a classe conhece somente a interface e não a implementação e também para a comunicação entre camadas(controllers, service, repository), foi implementada por construtores registrando-as no Startup pelo meio do 'services.AddTransient', que instancia a classe quando a interface é chamada e em seguida, desaloca essa instância.</p> 
 
