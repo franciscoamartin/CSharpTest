@@ -41,7 +41,7 @@ export default function SearchSupplier({
   async function handleSearch(e) {
     e.preventDefault();
     try {
-      if (searchString.trim().length == 0) {
+      if (searchString.trim().length === 0) {
         return swal('Insira um dado para realizar a busca', '', 'error');
       }
       setIsLoading(true);
@@ -120,10 +120,10 @@ export default function SearchSupplier({
           </div>
         )}
 
-        {searchOption == 'CPF' || searchOption == 'CNPJ' ? (
+        {searchOption === 'CPF' || searchOption === 'CNPJ' ? (
           <InputMask
             mask={
-              searchOption == 'CPF' ? '999.999.999-99' : '99.999.999/9999-99'
+              searchOption === 'CPF' ? '999.999.999-99' : '99.999.999/9999-99'
             }
             value={searchString}
             onChange={(e) => setSearchString(e.target.value)}
@@ -135,7 +135,7 @@ export default function SearchSupplier({
         ) : (
           <input
             placeholder={searchOption}
-            type={searchOption == 'DataDeCadastro' ? 'date' : 'text'}
+            type={searchOption === 'DataDeCadastro' ? 'date' : 'text'}
             value={searchString}
             onChange={(e) => setSearchString(e.target.value)}
           />

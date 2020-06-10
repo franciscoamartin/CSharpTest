@@ -65,7 +65,7 @@ export default function Supplier() {
     }
 
     try {
-      const response = await supplierService.createSupplier(dataToSend);
+      await supplierService.createSupplier(dataToSend);
       swal(`Fornecedor cadastrado com sucesso!`, '', 'success');
       setIsLoading(false);
       getAll();
@@ -105,7 +105,7 @@ export default function Supplier() {
   function addTelephone() {
     if (!isTelephoneValid(ddi + ' ' + telephone))
       return swal('Telefone inválido.', '', 'error');
-    const foundTelephone = telephones.find((t) => t.number == telephone);
+    const foundTelephone = telephones.find((t) => t.number === telephone);
     if (!foundTelephone) {
       telephones.push({ number: ddi + ' ' + telephone });
       setTelephones(Object.assign([], telephones));
@@ -219,7 +219,7 @@ export default function Supplier() {
                       alt="Deletar telefone"
                       onClick={() => {
                         const filteredTelephones = telephones.filter(
-                          (t) => t.number != tel.number
+                          (t) => t.number !== tel.number
                         );
                         setTelephones(filteredTelephones);
                       }}

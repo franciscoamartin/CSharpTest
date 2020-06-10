@@ -46,7 +46,7 @@ export default function Company() {
     }
 
     try {
-      const response = await companyService.createCompany(data);
+      await companyService.createCompany(data);
       swal(`Empresa cadastrada com sucesso!`, '', 'success');
       setIsLoading(false);
       getAll();

@@ -1,5 +1,5 @@
 export default function Validate(data) {
-  if (data.document.type == 1) validateCNPJ(data.document.number);
+  if (data.document.type === 1) validateCNPJ(data.document.number);
   else {
     validateBirthDate(data.birthDate);
     validateCPF(data.document.number);
@@ -12,12 +12,12 @@ export default function Validate(data) {
 function validateCNPJ(cnpj) {
   cnpj = cnpj.replace(/[^\d]+/g, '');
 
-  if (cnpj.length != 14) throw new Error('CNPJ é inválido.');
+  if (cnpj.length !== 14) throw new Error('CNPJ é inválido.');
 }
 
 function validateCPF(cpf) {
   cpf = cpf.replace('.', '').replace('.', '').replace('-', '');
-  if (cpf.length != 11) throw new Error('CPF é inválido.');
+  if (cpf.length !== 11) throw new Error('CPF é inválido.');
 }
 
 function validateName(name) {
@@ -45,13 +45,12 @@ export function isTelephoneValid(telephone) {
     .replace(' ', '')
     .replace(' ', '');
   return (
-    (formattedTelephone.length == 13 || formattedTelephone.length == 14) &&
+    (formattedTelephone.length === 13 || formattedTelephone.length === 14) &&
     telephoneMatchesRegex(telephone)
   );
 }
 
 function telephoneMatchesRegex(telephone) {
-  return telephone.match(
-    /(\+\d{2})(\s)?(\()?\d{2}(\)?)(\s)?\d{4,5}(\-)?\d{4}/g
-  );
+  debugger;
+  return telephone.match(/(\+\d{2})(\s)?(\()?\d{2}(\)?)(\s)?\d{4,5}(-)?\d{4}/g);
 }

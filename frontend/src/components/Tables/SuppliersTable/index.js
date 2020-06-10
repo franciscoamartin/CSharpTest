@@ -2,12 +2,11 @@ import React from 'react';
 import MaterialTable from 'material-table';
 import swal from 'sweetalert';
 import * as supplierService from '../../../services/supplierServices';
-import ReactDOM from 'react-dom';
 import './styles.css';
 import showModalError from '../../../services/showModalError';
 
 export default function SuppliersTable({ suppliers, setSuppliers }) {
-  const [columns, setColumns] = React.useState([
+  const [columns] = React.useState([
     { title: 'Empresa', field: 'companyTradingName', editable: 'never' },
     {
       title: 'Nome',
@@ -59,7 +58,7 @@ export default function SuppliersTable({ suppliers, setSuppliers }) {
     if (accepted) {
       try {
         await supplierService.deleteSupplier(rowData.id);
-        const filteredSuppliers = suppliers.filter((s) => s.id != rowData.id);
+        const filteredSuppliers = suppliers.filter((s) => s.id !== rowData.id);
         setSuppliers(filteredSuppliers);
         swal('Fornecedor deletado com sucesso', '', 'success');
       } catch (error) {

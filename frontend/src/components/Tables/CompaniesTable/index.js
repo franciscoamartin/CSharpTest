@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import MaterialTable from 'material-table';
 import swal from 'sweetalert';
 import * as companyService from '../../../services/companyServices';
@@ -11,7 +11,7 @@ export default function CompaniesTable({
   setCompanies,
   setCompanySelected,
 }) {
-  const [columns, setColumns] = React.useState([
+  const [columns] = React.useState([
     {
       title: 'Nome Fantasia',
       field: 'tradingName',
@@ -49,7 +49,7 @@ export default function CompaniesTable({
       try {
         showModal();
         await companyService.deleteCompany(rowData.id);
-        const filteredCompanies = companies.filter((c) => c.id != rowData.id);
+        const filteredCompanies = companies.filter((c) => c.id !== rowData.id);
         setCompanies(filteredCompanies);
         swal('Empresa deletada com sucesso', '', 'success');
       } catch (error) {

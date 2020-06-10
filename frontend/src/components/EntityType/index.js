@@ -1,5 +1,5 @@
 import InputMask from 'react-input-mask';
-import React, { Fragment, useState } from 'react';
+import React from 'react';
 
 export default function EntityType(props) {
   function clearCPFInput() {
@@ -22,7 +22,7 @@ export default function EntityType(props) {
         <option value={2}>CPF</option>
       </select>
       <div className="column entity-type-container">
-        {props.documentType == 1 ? (
+        {props.documentType === 1 ? (
           <InputMask
             mask="99.999.999/9999-99"
             value={props.documentNumber}
