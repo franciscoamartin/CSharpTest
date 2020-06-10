@@ -1,8 +1,8 @@
+using BludataTest.CustomExceptions;
+using BludataTest.Models;
+using BludataTest.Repositories;
 using System;
 using System.Collections.Generic;
-using BludataTest.Repositories;
-using BludataTest.Models;
-using BludataTest.CustomExceptions;
 
 namespace BludataTest.Services
 {

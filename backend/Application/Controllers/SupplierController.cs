@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Net;
 using BludataTest.Models;
 using BludataTest.ResponseModels;
 using BludataTest.Services;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Net;
 
 namespace BludataTest.Controllers
 {
@@ -32,22 +32,12 @@ namespace BludataTest.Controllers
             return new ObjectResult(supplier);
         }
 
-        [HttpGet]
-        [Route("company/{companyId}")]
-        public IActionResult GetSuppliersByCompany(Guid companyId)
-        {
-            var suppliers = _supplierService.GetSuppliersByCompany(companyId);
-            return new ObjectResult(suppliers);
-        }
-
-
         [HttpPost]
         public IActionResult Create([FromBody] Supplier supplier)
         {
             _supplierService.Create(supplier);
             return Accepted();
         }
-
 
         [HttpPut]
         [Route("{id}")]
@@ -65,7 +55,13 @@ namespace BludataTest.Controllers
             return new NoContentResult();
         }
 
-
+        [HttpGet]
+        [Route("company/{companyId}")]
+        public IActionResult GetSuppliersByCompany(Guid companyId)
+        {
+            var suppliers = _supplierService.GetSuppliersByCompany(companyId);
+            return new ObjectResult(suppliers);
+        }
 
         [HttpGet]
         [Route("name/{name}")]

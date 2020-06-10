@@ -5,15 +5,15 @@ namespace BludataTest.Services
 {
     public class DocumentValidator
     {
-        public bool isValid(Document document)
+        public bool IsValid(Document document)
         {
             if (document.Type == EDocumentType.CNPJ)
-                return isCNPJValid(document.ToString());
+                return IsCNPJValid(document.ToString());
             if (document.Type == EDocumentType.CPF)
-                return isCPFValid(document.ToString());
+                return IsCPFValid(document.ToString());
             return true;
         }
-        public bool isCNPJValid(string cnpj)
+        public bool IsCNPJValid(string cnpj)
         {
             //ValidadorCNPJ - Macoratti
             int[] multiplicador1 = new int[12] { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -49,7 +49,7 @@ namespace BludataTest.Services
             return cnpj.EndsWith(digito);
         }
 
-        public bool isCPFValid(string cpf)
+        public bool IsCPFValid(string cpf)
         {
             //ValidadorCPF - Macoratti
             int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };

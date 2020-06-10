@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using BludataTest.Models;
 using BludataTest.ValueObject;
+using System;
+using System.Collections.Generic;
 
 namespace BludataTest.ResponseModels
 {

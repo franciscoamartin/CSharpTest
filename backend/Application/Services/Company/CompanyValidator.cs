@@ -1,7 +1,6 @@
-using System;
-using System.Linq;
 using BludataTest.CustomExceptions;
 using BludataTest.Models;
+using System.Linq;
 
 namespace BludataTest.Services
 {
@@ -34,7 +33,7 @@ namespace BludataTest.Services
 
         private void ValidateCNPJ(string cnpj)
         {
-            if (!_documentValidator.isCNPJValid(cnpj))
+            if (!_documentValidator.IsCNPJValid(cnpj))
                 throw new ValidationException("Informe um CNPJ válido");
         }
 
