@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using BludataTest.CustomExceptions;
 using BludataTest.Enums;
 using BludataTest.Models;
 using BludataTest.ValueObject;
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace BludataTest.Services
 {
@@ -51,7 +51,7 @@ namespace BludataTest.Services
         {
             if (supplier.Company.UF == "PR"
                        && supplier.Document.Type == EDocumentType.CPF
-                       && !isLegalAGe(supplier.BirthDate))
+                       && !IsLegalAge(supplier.BirthDate))
                 throw new ValidationException("O fornecedor, sendo do Paraná, precisa ser maior de idade.");
         }
 
@@ -83,11 +83,11 @@ namespace BludataTest.Services
         {
             foreach (var telephone in telephones)
             {
-                if (!isTelephoneValid(telephone.Number))
+                if (!IsTelephoneValid(telephone.Number))
                     throw new ValidationException("Informe um número de telefone válido");
             }
         }
-        private bool isTelephoneValid(string telephone)
+        private bool IsTelephoneValid(string telephone)
         {
             var formattedTelephone = telephone.Replace("(", "")
             .Replace(")", "")
@@ -95,9 +95,9 @@ namespace BludataTest.Services
             .Replace(" ", "")
             .Replace(" ", "");
             return (formattedTelephone.Length == 13 || formattedTelephone.Length == 14)
-                    && telephoneMatchesRegex(telephone);
+                    && TelephoneMatchesRegex(telephone);
         }
-        private bool telephoneMatchesRegex(string telephone)
+        private bool TelephoneMatchesRegex(string telephone)
         {
             string pattern = @"(\+\d{2})(\s)?(\()?\d{2}(\)?)(\s)?\d{4,5}(\-)?\d{4}";
             var regex = new Regex(pattern);
@@ -107,18 +107,16 @@ namespace BludataTest.Services
 
         private void ValidateDocument(Document document)
         {
-            if (!_documentValidator.isValid(document))
+            if (!_documentValidator.IsValid(document))
                 throw new ValidationException("Informe o documento corretamente.");
         }
 
-        private bool isLegalAGe(DateTime? birthDate)
+        private bool IsLegalAge(DateTime? birthDate)
         {
-            var fullYearDays = 365;
-            var leapYear = 4;
-            var legalAge = 18;
+            var legalAgeYears = 18;
+            var legalAgeDate = birthDate?.AddYears(legalAgeYears);
 
-            TimeSpan? age = DateTime.Now - birthDate;
-            return age?.Days / (fullYearDays + leapYear) >= legalAge;
+            return DateTime.Now.Date >= legalAgeDate?.Date;
         }
     }
 }
