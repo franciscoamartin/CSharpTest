@@ -1,10 +1,10 @@
 <h1 align="center"><b>Teste de conhecimento em C#</b></h1>
 <p align="center">
   <a href="https://www.linkedin.com/in/larissa-tauana/">
-    <img src="https://img.shields.io/badge/LinkedIn-blue.svg" alt="Linkedin">
+    <img src="https://img.shields.io/badge/LinkedIn-red.svg" alt="Linkedin">
   </a>
   <a href="https://github.com/LariTauana">
-     img src="https://img.shields.io/badge/autora-LariTauana-red.svg" alt="LariTauana">
+     <img src="https://img.shields.io/badge/autora-LariTauana-red.svg" alt="LariTauana">
     </a>
 </p>
 
@@ -34,7 +34,7 @@
 
   <p></p>
 Tecnologias utilizadas no back-end:
-   <li>.NetCore</li>
+   <li>.NetCore</li>      
    <li>EntityFrameworkCore</li>
    <li>SQLServer</li>
    <li>WebAPI</li>
