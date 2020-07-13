@@ -1,7 +1,10 @@
 <h1 align="center"><b>Teste de conhecimento em C#</b></h1>
-<p align="center">
+<p align="left">
   <a href="https://github.com/LariTauana">
      <img src="https://img.shields.io/badge/autora-LariTauana-red.svg" alt="LariTauana">
+  </a>
+  <a href="https://github.com/LariTauana/CSharpTest">
+     <img src="https://img.shields.io/badge/linguagens-4.svg" alt="LariTauana">
     </a>
 </p>
 
