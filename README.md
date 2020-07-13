@@ -5,7 +5,10 @@
   </a>
   <a href="https://github.com/LariTauana/CSharpTest">
      <img src="https://img.shields.io/badge/linguagens-4-red.svg" alt="Linguagens">
-    </a>
+  </a>
+  <a href="https://github.com/LariTauana/CSharpTest/graphs/contributors">
+     <img src="https://img.shields.io/badge/colaboradores-2-red.svg" alt="Colaboradores">
+  </a>
 </p>
 
 <p>Criar uma listagem de fornecedores relacionado a uma empresa.
