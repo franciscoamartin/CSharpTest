@@ -3,6 +3,8 @@
   <a href="https://www.linkedin.com/in/larissa-tauana/">
     <img src="https://img.shields.io/badge/LinkedIn-blue.svg" alt="Linkedin">
   </a>
+  <a href="https://github.com/LariTauana">
+     img src="https://img.shields.io/badge/autora-LariTauana-red.svg" alt="LariTauana">
 </p>
 
 <p>Criar uma listagem de fornecedores relacionado a uma empresa.
