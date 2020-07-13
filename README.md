@@ -4,10 +4,10 @@
      <img src="https://img.shields.io/badge/autora-LariTauana-red.svg" alt="LariTauana">
   </a>
   <a href="https://github.com/LariTauana/CSharpTest">
-     <img src="https://img.shields.io/badge/linguagens-4-red.svg" alt="Linguagens">
+     <img src="https://img.shields.io/badge/linguagens-4-blue.svg" alt="Linguagens">
   </a>
   <a href="https://github.com/LariTauana/CSharpTest/graphs/contributors">
-     <img src="https://img.shields.io/badge/colaboradores-1-red.svg" alt="Colaboradores">
+     <img src="https://img.shields.io/badge/colaboradores-1-blue.svg" alt="Colaboradores">
   </a>
 </p>
 
