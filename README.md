@@ -1,13 +1,13 @@
 <h1 align="center"><b>Teste de conhecimento em C#</b></h1>
 <p align="left">
   <a href="https://github.com/LariTauana">
-     <img src="https://img.shields.io/badge/autora-LariTauana-purple.svg" alt="LariTauana">
+     <img src="https://img.shields.io/badge/autora-LariTauana-pink.svg" alt="LariTauana">
   </a>
   <a href="https://github.com/LariTauana/CSharpTest">
-     <img src="https://img.shields.io/badge/linguagens-4-purple.svg" alt="Linguagens">
+     <img src="https://img.shields.io/badge/linguagens-4-pink.svg" alt="Linguagens">
   </a>
   <a href="https://github.com/LariTauana/CSharpTest/graphs/contributors">
-     <img src="https://img.shields.io/badge/colaboradores-1-purple.svg" alt="Colaboradores">
+     <img src="https://img.shields.io/badge/colaboradores-1-pink.svg" alt="Colaboradores">
   </a>
 </p>
 
