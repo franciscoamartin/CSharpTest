@@ -5,6 +5,7 @@
   </a>
   <a href="https://github.com/LariTauana">
      img src="https://img.shields.io/badge/autora-LariTauana-red.svg" alt="LariTauana">
+    </a>
 </p>
 
 <p>Criar uma listagem de fornecedores relacionado a uma empresa.
