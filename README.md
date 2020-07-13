@@ -1,8 +1,5 @@
 <h1 align="center"><b>Teste de conhecimento em C#</b></h1>
 <p align="center">
-  <a href="https://www.linkedin.com/in/larissa-tauana/">
-    <img src="https://img.shields.io/badge/LinkedIn-red.svg" alt="Linkedin">
-  </a>
   <a href="https://github.com/LariTauana">
      <img src="https://img.shields.io/badge/autora-LariTauana-red.svg" alt="LariTauana">
     </a>
