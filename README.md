@@ -1,4 +1,9 @@
 <h1 align="center"><b>Teste de conhecimento em C#</b></h1>
+<p align="center">
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License MIT">
+  </a>
+</p>
 
 <p>Criar uma listagem de fornecedores relacionado a uma empresa.
   <p></p>
