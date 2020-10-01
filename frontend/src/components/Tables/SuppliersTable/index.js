@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MaterialTable from 'material-table';
 import swal from 'sweetalert';
 import * as supplierService from '../../../services/supplierServices';
@@ -6,7 +6,7 @@ import './styles.css';
 import showModalError from '../../../services/showModalError';
 
 export default function SuppliersTable({ suppliers, setSuppliers }) {
-  const [columns] = React.useState([
+  const [columns] = useState([
     { title: 'Empresa', field: 'companyTradingName', editable: 'never' },
     {
       title: 'Nome',

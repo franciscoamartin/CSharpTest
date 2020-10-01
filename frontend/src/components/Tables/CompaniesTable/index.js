@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MaterialTable from 'material-table';
 import swal from 'sweetalert';
 import * as companyService from '../../../services/companyServices';
@@ -11,7 +11,7 @@ export default function CompaniesTable({
   setCompanies,
   setCompanySelected,
 }) {
-  const [columns] = React.useState([
+  const [columns] = useState([
     {
       title: 'Nome Fantasia',
       field: 'tradingName',
@@ -80,22 +80,22 @@ export default function CompaniesTable({
         actions={
           setCompanySelected
             ? [
-                {
-                  icon: 'check_circle_outline',
-                  tooltip: 'Selecionar empresa para ver seus fornecedores',
-                  onClick: (event, rowData) => {
-                    setCompanySelected(rowData);
-                    swal.close();
-                  },
+              {
+                icon: 'check_circle_outline',
+                tooltip: 'Selecionar empresa para ver seus fornecedores',
+                onClick: (event, rowData) => {
+                  setCompanySelected(rowData);
+                  swal.close();
                 },
-              ]
+              },
+            ]
             : [
-                {
-                  icon: 'delete',
-                  tooltip: 'Deletar',
-                  onClick: handleDelete,
-                },
-              ]
+              {
+                icon: 'delete',
+                tooltip: 'Deletar',
+                onClick: handleDelete,
+              },
+            ]
         }
       />
     </div>
