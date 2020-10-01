@@ -147,14 +147,14 @@ export default function Supplier() {
                     />
                   </div>
                 ) : (
-                  <button
-                    className="company-button"
-                    onClick={showModal}
-                    type="button"
-                  >
-                    Selecionar empresa
-                  </button>
-                )}
+                    <button
+                      className="company-button"
+                      onClick={showModal}
+                      type="button"
+                    >
+                      Selecionar empresa
+                    </button>
+                  )}
                 <button
                   className="company-button"
                   type="button"
@@ -237,10 +237,10 @@ export default function Supplier() {
                   />
                 </div>
               ) : (
-                <button className="button" type="submit">
-                  Cadastrar
-                </button>
-              )}
+                  <button className="button" type="submit">
+                    Cadastrar
+                  </button>
+                )}
             </form>
           </div>
           <div>

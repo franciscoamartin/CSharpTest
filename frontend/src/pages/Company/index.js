@@ -106,10 +106,10 @@ export default function Company() {
                   />
                 </div>
               ) : (
-                <button className="button" type="submit">
-                  Cadastrar
-                </button>
-              )}
+                  <button className="button" type="submit">
+                    Cadastrar
+                  </button>
+                )}
             </form>
 
             <img

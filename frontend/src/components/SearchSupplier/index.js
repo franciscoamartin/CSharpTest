@@ -95,14 +95,14 @@ export default function SearchSupplier({
               />
             </div>
           ) : (
-            <button
-              className="company-button"
-              onClick={showCompaniesModal}
-              type="button"
-            >
-              Selecionar empresa
-            </button>
-          )}
+              <button
+                className="company-button"
+                onClick={showCompaniesModal}
+                type="button"
+              >
+                Selecionar empresa
+              </button>
+            )}
         </div>
         {companySelected.tradingName && (
           <div className="selected-company-container">
@@ -133,13 +133,13 @@ export default function SearchSupplier({
             )}
           </InputMask>
         ) : (
-          <input
-            placeholder={searchOption}
-            type={searchOption === 'DataDeCadastro' ? 'date' : 'text'}
-            value={searchString}
-            onChange={(e) => setSearchString(e.target.value)}
-          />
-        )}
+            <input
+              placeholder={searchOption}
+              type={searchOption === 'DataDeCadastro' ? 'date' : 'text'}
+              value={searchString}
+              onChange={(e) => setSearchString(e.target.value)}
+            />
+          )}
         {isLoading ? (
           <div className="loading">
             <ReactLoading
@@ -150,17 +150,17 @@ export default function SearchSupplier({
             />
           </div>
         ) : (
-          <>
-            <button className="button" type="submit">
-              Pesquisar
+            <>
+              <button className="button" type="submit">
+                Pesquisar
             </button>
-            {showClearSearchBtn && (
-              <button className="button" type="button" onClick={getAll}>
-                Limpar busca
-              </button>
-            )}
-          </>
-        )}
+              {showClearSearchBtn && (
+                <button className="button" type="button" onClick={getAll}>
+                  Limpar busca
+                </button>
+              )}
+            </>
+          )}
       </div>
     </form>
   );

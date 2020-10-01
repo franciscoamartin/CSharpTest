@@ -32,28 +32,28 @@ export default function EntityType(props) {
             {(inputProps) => <input {...inputProps} />}
           </InputMask>
         ) : (
-          <>
-            <InputMask
-              mask="999.999.999-99"
-              value={props.documentNumber}
-              onChange={(e) => props.setDocumentNumber(e.target.value)}
-              placeholder="CPF"
-            >
-              {(inputProps) => <input {...inputProps} />}
-            </InputMask>
-            <input
-              placeholder="RG"
-              value={props.rg}
-              onChange={(e) => props.setRG(e.target.value)}
-            />
-            <input
-              placeholder="Data de nascimento"
-              type="date"
-              value={props.birthDate}
-              onChange={(e) => props.setBirthDate(e.target.value)}
-            />
-          </>
-        )}
+            <>
+              <InputMask
+                mask="999.999.999-99"
+                value={props.documentNumber}
+                onChange={(e) => props.setDocumentNumber(e.target.value)}
+                placeholder="CPF"
+              >
+                {(inputProps) => <input {...inputProps} />}
+              </InputMask>
+              <input
+                placeholder="RG"
+                value={props.rg}
+                onChange={(e) => props.setRG(e.target.value)}
+              />
+              <input
+                placeholder="Data de nascimento"
+                type="date"
+                value={props.birthDate}
+                onChange={(e) => props.setBirthDate(e.target.value)}
+              />
+            </>
+          )}
       </div>
     </>
   );
