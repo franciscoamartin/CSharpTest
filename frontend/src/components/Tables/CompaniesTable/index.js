@@ -39,7 +39,7 @@ export default function CompaniesTable({
     }
   }
 
-  async function handleDelete(event, rowData) {
+  async function handleDelete(rowData) {
     const accepted = await swal(
       'Tem certeza que deseja deletar essa empresa?',
       '',
@@ -83,7 +83,7 @@ export default function CompaniesTable({
               {
                 icon: 'check_circle_outline',
                 tooltip: 'Selecionar empresa para ver seus fornecedores',
-                onClick: (event, rowData) => {
+                onClick: (rowData) => {
                   setCompanySelected(rowData);
                   swal.close();
                 },

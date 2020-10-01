@@ -48,7 +48,7 @@ export default function SuppliersTable({ suppliers, setSuppliers }) {
     }
   }
 
-  async function handleDelete(event, rowData) {
+  async function handleDelete(rowData) {
     const accepted = await swal(
       'Tem certeza que deseja deletar esse fornecedor?',
       '',
